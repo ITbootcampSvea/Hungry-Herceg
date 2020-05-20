@@ -5,6 +5,7 @@ let loged = false;
 export const authService = {
 
     LogIn : (user,pass)=>{
+        //provera usera
 
         appStorage.setUser(user);
         loged = true;
@@ -17,6 +18,6 @@ export const authService = {
         return loged;
     },
     
-    isLoged : ()=>loged||appStorage.getAdmin(),
+    isLoged : ()=>loged||appStorage.getUser(),
 
 }
