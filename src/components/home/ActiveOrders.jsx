@@ -24,7 +24,17 @@ const ActiveOrders = () => {
     }
     
     return(
-        <div style={{display: "flex"}}>
+        <div>
+            <h2>ACTIVE ORDERS</h2>
+            <table>                 
+                    <tr>
+                        <th>Name</th>
+                        <th>Restaurant</th>
+                        <th>Author</th>
+                        <th>Duration</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
             {activeOrders.map(order => {
                 let poll = polls.find(poll => poll.pollId === order.pollId);
                 let restaurant = restaurants.find(restaurant => restaurant.restaurantId === order.restaurantId);
@@ -32,28 +42,31 @@ const ActiveOrders = () => {
                 let userOrders = user.history.filter(el => el.orderId === order.orderId);
 
                 return(
-                    <div>
-                        <p>Poll: {poll.name}</p>
-                        <p>Author: {poll.author}</p>
-                        <p>Duration: {order.duration}</p>
-                        {/* vreme trajanja je potrebno izmeniti (odluciti da li ce biti odbrojavanje ili sat i minut do kad traje order) */}
-                        <p>Winning restaurant: {restaurant.name}</p>
-                        {userOrders.length === 0 ? <p>You didn't order yet</p> : 
-                            <p>You ordered: {userOrders.map(orderItem => {
+                    <tr>
+                        <td>{poll.name}</td>
+                        <td>{restaurant.name}</td>
+                        <td>{poll.author}</td>
+                        <td>{order.duration}</td>
+                        {/* prevesti u odbrojavanje posle dogovora */}
+                        {userOrders.length === 0 ? <td>You didn't order yet</td> : 
+                            <td>You ordered: {userOrders.map(orderItem => {
                                 return(
                                     <li>{orderItem.quantity} x {meals.find(meal => meal.mealId === orderItem.mealId).name}</li>
                                 )
-                            })} </p>
+                            })} </td>
                         }
-                        <Link to={`/order/${order.orderId}`}>Go to Order</Link>
-                        {/* ukoliko zelimo dugme umesto linka, koristicemo history.push */}
-                        {user.username === poll.author ? 
-                        <div><button onClick={() => endOrder(order.orderId)}>End Order</button>
-                        <button onClick={() => deleteOrder(order.orderId)}>Delete Order</button></div> 
-                        : <div></div>}
-                    </div>
+                        <td>
+                            <Link to={`/order/${order.orderId}`}>Go to Order</Link>
+                            {/* ukoliko zelimo dugme umesto linka, koristicemo history.push */}
+                            {user.username === poll.author ? 
+                            <div><button onClick={() => endOrder(order.orderId)}>End Order</button>
+                            <button onClick={() => deleteOrder(order.orderId)}>Delete Order</button></div> 
+                            : <div></div>}
+                        </td> 
+                    </tr>
                 )
             })}
+            </table>
         </div>
     )
 
