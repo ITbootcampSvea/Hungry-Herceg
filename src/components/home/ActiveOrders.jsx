@@ -11,7 +11,9 @@ const ActiveOrders = () => {
         setActiveOrders(orders.filter(el => el.status === 'active'));
     },[])
 
+    console.log(users)
     let user = users.find(user => user.username === appStorage.getUser());
+    debugger
     //u slucaju da u appStorage cuvamo samo username, ako cuvamo ceo user objekat onda ovaj find 
     //nije potreban
 

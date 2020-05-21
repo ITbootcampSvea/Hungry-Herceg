@@ -3,7 +3,7 @@ const storage = window.localStorage;
 export const appStorage = {
 
     setUser: user => storage.setItem('user',user),
-    getUser: () => storage.getItem('user'),
+    getUser: () => {return 'Admin'},//storage.getItem('user'),
     removeUser: () => storage.removeItem('user'),
 
     setPollId: (user, id) => storage.setItem(user + id + "",id),
