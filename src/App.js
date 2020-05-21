@@ -7,6 +7,7 @@ import Home from './components/home/Home';
 import LogIn from './components/LogIn/LogIn';
 import CreateOrderItem from './components/Order/CreateOrderItem';
 import CreatePoll from './components/CreatePoll/CreatePoll';
+import Vote from './components/Vote/Vote';
 
 
 
@@ -21,6 +22,7 @@ function App() {
       <PrivateRoute component={Home} path="/home" />
       <PrivateRoute component={CreateOrderItem} path='/order/:id' />
       <PrivateRoute component={CreatePoll} path="/createpoll" />
+      <PrivateRoute component={Vote} path="/vote/:id" />
       {/* <PrivateRoute component={Statistics} path="/stats" />
       <PrivateRoute component={Settings} path="/settings" /> */}
 

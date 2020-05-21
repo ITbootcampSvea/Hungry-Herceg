@@ -1,7 +1,34 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+
 // dodati servise za get poll i setVotes
 
 let votedList=[];
+
+// const testRest = [
+//     {
+//         restaurantId:0,
+//         name:"Karadjordje"
+//     },
+//     {
+//         restaurantId:1,
+//         name:"Pera"
+//     },
+//     {
+//         restaurantId:2,
+//         name:"Pizerija"
+//     },
+//     {
+//         restaurantId:3,
+//         name:"Pizdarija"
+//     },
+//     {
+//         restaurantId:4,
+//         name:"Dunja"
+//     }
+    
+    
+    
+//     ]
 
 export default function Vote({history, match}){
 
@@ -15,19 +42,19 @@ export default function Vote({history, match}){
 
         const {id} = match.params // uzimanje prosledjenog id poll-a preko linka
 
-        getPOll(id).then(({data})=>{
-            if(data.state){
-                setPollName(data.name);
-                setEndTime(data.ends);
-                setRestaurants(data.restaurants);
-                setPollAuthor(data.author);
-            }
-            else{
-                alert("Poll je zavrsen"); // usaglasiti sa dizajnom kako prikazati poruku
+        // getPOll(id).then(({data})=>{
+        //     if(data.state){
+        //         setPollName(data.name);
+        //         setEndTime(data.ends);
+        //         setRestaurants(data.restaurants);
+        //         setPollAuthor(data.author);
+        //     }
+        //     else{
+        //         alert("Poll je zavrsen"); // usaglasiti sa dizajnom kako prikazati poruku
                 
-            }
-        }).catch(err=>{alert("Doslo je do greske");   // Usaglasiti se sa backendom oko odgovora ako poll ne postoji i slicno
-        })
+        //     }
+        // }).catch(err=>{alert("Doslo je do greske");   // Usaglasiti se sa backendom oko odgovora ako poll ne postoji i slicno
+        // })
 
     }, [])
 
@@ -65,10 +92,10 @@ export default function Vote({history, match}){
 
             //Usaglasiti sa beckendom kako se prosledjuju glasovi votedList 
 
-            setVotes(id,votedList).then(res=>{
+            // setVotes(id,votedList).then(res=>{
                 
 
-            }).catch(err=>{})
+            // }).catch(err=>{})
         }
         else{
             alert("Morate odabrati makar jedan restoran");  // Usaglasiti sa dizajnom
