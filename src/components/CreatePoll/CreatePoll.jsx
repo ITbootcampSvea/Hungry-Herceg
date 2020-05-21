@@ -5,7 +5,7 @@ export const CreatePoll = () => {
     const [restaurants, setRestaurants] = useState([]);
     const [time, setTime] = useState([]);
 
-    // useEffect(() => {
+    // useEffect(() => {                               //getAllRestaurants - fja za podatke sa apija
     //     getAllRestaurants.then(res => {
     //         setRestaurants(res.data)
     //     })
