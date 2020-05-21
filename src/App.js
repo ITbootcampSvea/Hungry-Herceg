@@ -9,6 +9,7 @@ import {
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
 import Home from './components/home/Home';
+import CreateOrderItem from './components/Order/CreateOrderItem';
 
 
 
@@ -21,6 +22,7 @@ function App() {
       {/* <PublicRoute component={LogIn} path="/login" /> */}
 
       <PrivateRoute component={Home} path="/home" />
+      <PrivateRoute component={CreateOrderItem} path='/order/:id' />
       {/* <PrivateRoute component={CreatePoll} path="/createpoll" />
       <PrivateRoute component={Statistics} path="/stats" />
       <PrivateRoute component={Settings} path="/settings" />

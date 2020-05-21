@@ -1,5 +1,6 @@
 import React from 'react';
 import ActivePolls from './ActivePolls';
+import ActiveOrders from './ActiveOrders';
 
 
 class Home extends React.Component {
@@ -12,7 +13,7 @@ class Home extends React.Component {
             <div>
                 {/* <Navbar /> */}
                 <ActivePolls />
-                {/* <ActiveOrders /> */}
+                <ActiveOrders />
             </div>
         )
     }  
