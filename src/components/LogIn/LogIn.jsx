@@ -4,7 +4,7 @@ import {authService} from '../../services/auth.service'
 let username = '';
 let password = '';
 
-export const LogIn = ({history}) => {
+export default function LogIn({history}){
 
     if (authService.isLoged()) history.push('/home');
 
