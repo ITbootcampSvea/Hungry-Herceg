@@ -1,15 +1,15 @@
 const storage = window.localStorage;
 
-export const appStorage={
+export const appStorage = {
 
-    setUser: user =>storage.setItem('user',user),
-    getUser: () =>storage.getItem('user'),
-    removeUser: ()=>storage.removeItem('user'),
+    setUser: user => storage.setItem('user',user),
+    getUser: () => {return 'Admin'},//storage.getItem('user'),
+    removeUser: () => storage.removeItem('user'),
 
-    setPollId: (user, id)=>storage.setItem(user+id+"",id),
-    getPollId: (user, id)=>storage.getItem(user+id+""),
+    setPollId: (user, id) => storage.setItem(user + id + "",id),
+    getPollId: (user, id) => storage.getItem(user + id + ""),
 
-    setOrderId: (user, id)=>storage.setItem("order"+user+id+"",id),
-    getOrderId: (user, id)=>storage.getItem("order"+user+id+""),
+    setOrderId: (user, id) => storage.setItem("order" + user + id + "",id),
+    getOrderId: (user, id) => storage.getItem("order" + user + id + ""),
 
 }
