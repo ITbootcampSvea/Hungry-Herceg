@@ -1,22 +1,34 @@
 import React from 'react';
 import { authService } from './services/auth.service';
+import {
+  BrowserRouter,
+  Switch,
+  Redirect,
+  Link
+} from "react-router-dom";
+import PrivateRoute from './routes/PrivateRoute';
+import PublicRoute from './routes/PublicRoute';
+import Home from './components/home/Home';
+
+
+
 
 function App() {
   
   return (
     <BrowserRouter>
     <Switch>      
-      <PublicRoute component={LogIn} path="/login" />
+      {/* <PublicRoute component={LogIn} path="/login" /> */}
 
       <PrivateRoute component={Home} path="/home" />
-      <PrivateRoute component={CreatePoll} path="/createpoll" />
+      {/* <PrivateRoute component={CreatePoll} path="/createpoll" />
       <PrivateRoute component={Statistics} path="/stats" />
       <PrivateRoute component={Settings} path="/settings" />
 
       <PrivateRoute component={Poll} path="/poll/:id" />
-      <PrivateRoute component={Order} path="/order/:id" />
+      <PrivateRoute component={Order} path="/order/:id" /> */}
 
-      <Redirect to={authService.isLoged()?"/home":"/login"} />
+      {/* <Redirect to={authService.isLoged()?"/home":"/login"} /> */}
 
       </Switch>
   </BrowserRouter>

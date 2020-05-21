@@ -1,6 +1,6 @@
 import { appStorage } from "./storage.service";
 
-let loged = false;
+let loged = true;
 
 export const authService = {
 

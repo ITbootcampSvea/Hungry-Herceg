@@ -1,4 +1,6 @@
 import React from 'react';
+import ActivePolls from './ActivePolls';
+
 
 class Home extends React.Component {
     constructor(props){
@@ -8,13 +10,12 @@ class Home extends React.Component {
     render(){
         return(
             <div>
-                {/* <Navbar />
+                {/* <Navbar /> */}
                 <ActivePolls />
-                <ActiveOrders /> */}
+                {/* <ActiveOrders /> */}
             </div>
         )
-    }
-    
+    }  
 }
 
 export default Home
