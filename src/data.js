@@ -100,13 +100,45 @@ let restaurants = [
     restaurantId: 0,
     name: "Prvi restoran",
     address: "Adresa restorana",
-    meals: [0, 1, 2],
+    meals: [
+      {
+        mealId: 0,
+        name: "Pljeskavica",
+        price: 100,
+        tags: ['#slano','#rostilj']
+      },
+      {
+        mealId: 1,
+        name: "Lapacinka",
+        price: 200,
+        tags: ['#slatko']
+      },
+      {
+        mealId: 2,
+        name: "Masan burek",
+        price: 1000,
+        tags: ['#slano']
+      }
+    ],
   },
   {
     restaurantId: 1,
     name: "Drugi restoran",
     address: "Adresa restorana",
-    meals: [3],
+    meals: [
+      {
+        mealId: 3,
+        name: "Krofna",
+        price: 250,
+        tags: ['#slatko']
+      },
+      {
+        mealId: 3,
+        name: "Pasta",
+        price: 350,
+        tags: ['#slano']
+      }
+    ],
   },
 ];
 
