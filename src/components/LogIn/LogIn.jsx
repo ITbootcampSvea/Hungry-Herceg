@@ -13,6 +13,7 @@ export default function LogIn({ history }) {
         e.preventDefault();
         console.log(username, password)
         authService.LogIn(username,password);
+        history.push("/home");
         // checkUser(username, password).then(res => {      // Proveriti sa backend-om sta se dobija kao odgovor
         //     if (res.validated) {                         // checkUser - fja za vezu sa serverom
 
