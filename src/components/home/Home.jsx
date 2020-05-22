@@ -5,12 +5,8 @@ import './home.css'
 import NavBar from '../NavBar/NavBar'
 
 
-class Home extends React.Component {
-    constructor(props){
-        super(props);
-    }
+const Home = ({history}) => {
 
-    render(){
         return(
             <div className='wrapper'>
                <NavBar />
@@ -23,8 +19,7 @@ class Home extends React.Component {
                </div>
               
             </div>
-        )
-    }  
+        )   
 }
 
 export default Home

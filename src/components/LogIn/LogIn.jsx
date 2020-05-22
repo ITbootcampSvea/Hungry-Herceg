@@ -14,13 +14,15 @@ export default function LogIn({ history }) {
     const handleLogin = (e) => {
         e.preventDefault();
         console.log(username, password)
+        authService.LogIn(username,password);
+        history.push("/home");
         // checkUser(username, password).then(res => {      // Proveriti sa backend-om sta se dobija kao odgovor
         //     if (res.validated) {                         // checkUser - fja za vezu sa serverom
 
         //         authService.LogIn(username, password);
 
         //         if (username === 'Admin') {
-        //             history.push("/setting");
+        //             history.push("/settings");
         //         }
         //         else {
         //             history.push("/home");

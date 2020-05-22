@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { GetUser } from "../../services/api.service";
 import { Doughnut } from "react-chartjs-2";
 import { user, meals } from "../../data";
-const Profile = () => {
+import NavBar from "../NavBar/NavBar";
+const Profile = ({history}) => {
   const [userInfo, setUserInfo] = useState({});
   const [userHistory, setUserHistory] = useState({});
   //let meals = [];
@@ -44,7 +45,7 @@ const Profile = () => {
 
   return (
     <div>
-      {/* dodati navbar\\ */}
+      <NavBar history={history} />
       <div>
         {/* dodati avatar */}
         <p>

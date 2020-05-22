@@ -12,7 +12,7 @@ const ActiveOrders = () => {
     },[])
 
     console.log(users)
-    appStorage.setUser('Pera');
+    
     //ovo treba da se desava prilikom logovanja, obrisati kada komponenta LogIn bude gotova
     let user = users.find(user => user.username === appStorage.getUser());
     // debugger
