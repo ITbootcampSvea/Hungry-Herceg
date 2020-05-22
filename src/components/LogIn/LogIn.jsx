@@ -18,7 +18,7 @@ export default function LogIn({ history }) {
         //         authService.LogIn(username, password);
 
         //         if (username === 'Admin') {
-        //             history.push("/setting");
+        //             history.push("/settings");
         //         }
         //         else {
         //             history.push("/home");
