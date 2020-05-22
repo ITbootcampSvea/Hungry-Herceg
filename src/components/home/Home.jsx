@@ -1,6 +1,8 @@
 import React from 'react';
 import ActivePolls from './ActivePolls';
 import ActiveOrders from './ActiveOrders';
+import './home.css'
+import NavBar from '../NavBar/NavBar'
 
 
 class Home extends React.Component {
@@ -11,7 +13,7 @@ class Home extends React.Component {
     render(){
         return(
             <div>
-                {/* <Navbar /> */}
+               <NavBar />
                 <ActivePolls />
                 <ActiveOrders />
             </div>

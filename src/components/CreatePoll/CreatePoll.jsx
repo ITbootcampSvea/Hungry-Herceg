@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { appStorage } from '../../services/storage.service';
+import NavBar from '../NavBar/NavBar'
 //importovati createPoll iz API servisa
 
 let hours = 0;
@@ -175,6 +176,7 @@ export default function CreatePoll({history}){
 
     return (
         <div>
+            <NavBar history={history}/>
             <h3>Create New Poll</h3>
             <div>
                 <label>Poll Name:</label>
