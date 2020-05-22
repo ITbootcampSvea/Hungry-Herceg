@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { polls } from '../../../src/data';
 
+
 class ActivePolls extends React.Component {
     constructor(props){
         super(props);
@@ -11,6 +12,9 @@ class ActivePolls extends React.Component {
             allPolls: polls                      
         }
     }
+
+
+    
 
     componentDidMount() {
         this.setAllPolls();
@@ -41,45 +45,85 @@ class ActivePolls extends React.Component {
         let pollsRow = [];
         if(allPolls.length>0) {
             allPolls.map((poll, index)=>{
-                if(poll.author==this.state.userName){
+                if(poll.author===this.state.userName){
                     pollsRow.push(
-                        <tr>
-                            <td>{poll.name}</td>
-                            <td>{poll.author}</td>
-                            <td>{poll.ends}</td>
-                            <td><button><Link to={`/poll/${poll.pollId}`}>Vote</Link></button>
-                                <button>End</button>
-                                <button onClick={()=>this.deletePoll(index)}>Delete</button>
-                            </td>               
-                        </tr>);
+                        <div className="active-info">
+                        <div>
+                            <label className='pollLblInfo'> {poll.name}</label>
+                        </div>
+                        <div>
+                            <label className='pollLblInfo'>{poll.author}</label>
+                        </div>
+                        <div>
+                            <label className='pollLblInfo'>{poll.ends}</label>
+                        </div>
+                        <div className="btn-icons">
+                            <div>
+                                <img src="./img/del.png" alt="icon" title="Delete" onClick={()=>this.deletePoll(index)}/>
+                            </div>
+                            <div>
+                                <img src="./img/end1.png" alt="icon" title="End Poll"/>
+                            </div>
+                            <div>
+                              <Link to={`/poll/${poll.pollId}`} className='voteBtnLink'><img src="./img/vote1.png" alt="icon" title="Vote" /></Link>  
+                            </div>
+                        </div>
+                    </div>);
                 } else {
                     pollsRow.push(
-                        <tr>
-                            <td>{poll.name}</td>
-                            <td>{poll.author}</td>
-                            <td>{poll.ends}</td>
-                            <td><button><Link to={`/poll/${poll.pollId}`}>Vote</Link></button></td>                
-                        </tr>);
+                        <div className="active-info">
+                        <div>
+                            <label className='pollLblInfo'>{poll.name}</label>
+                        </div>
+                        <div>
+                            <label  className='pollLblInfo'>{poll.author}</label>
+                        </div>
+                        <div>
+                            <label  className='pollLblInfo'>{poll.ends}</label>
+                        </div>
+                        <div className="className='pollGuest'">
+                            <div >
+                              <Link to={`/poll/${poll.pollId}`} className='voteBtnLink'><img src="./img/vote1.png" alt="icon" title="Vote" className='pollGuestIcon'/></Link>  
+                            </div>
+                        </div>
+                    </div>);
                 }              
             })
         } else {
-            pollsRow = <tr><td>No active polls</td></tr>;
+            pollsRow =   <div className="active-info"><label >No Active Polls</label></div>;
         }
                 
         return (
-            <div>
-                <h2>ACTIVE POLLS</h2>
-                <table>                 
-                    <tr>
-                        <th>Name</th>
-                        <th>Author</th>
-                        <th>End time</th>
-                        <th>Actions</th>
-                    </tr>
-                    {pollsRow}
-                </table>
-                <button><Link to={'/createpoll'}>Create new poll</Link></button>      
+            <div className="active-polls">
+            <div className="poll-order-card">
+                <img className="pollCardicon" src="./img/pollcard4.png" alt='pollicon' />
+                <div className="card-heading">
+                    <h1>Active Polls</h1>
+                </div>
+
+                <div className="active-info header">
+                    <div>
+                        <label  >Name</label>
+                    </div>
+                    <div>
+                        <label>Author</label>
+                    </div>
+                    <div>
+                        <label>Remaining Time</label>
+                    </div>
+                    <div>
+                        <label>Action</label>
+                    </div>
+                </div>
+{pollsRow}
+              
+                <div className="card-btn-wrapper">
+                    <button className="btn-green"><Link to={'/createpoll'} className='creBtnLink'>Create New Poll</Link></button>
+                </div>
+
             </div>
+
+        </div>
         )
     }
 }

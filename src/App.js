@@ -14,7 +14,7 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <PublicRoute component={LogIn} path="/login" />
+        <PublicRoute component={LogIn } path="/login" />
 
         <PrivateRoute component={Home} path="/home" />
         <PrivateRoute component={CreateOrderItem} path="/order/:id" />

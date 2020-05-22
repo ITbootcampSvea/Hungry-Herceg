@@ -12,10 +12,16 @@ class Home extends React.Component {
 
     render(){
         return(
-            <div>
+            <div className='wrapper'>
                <NavBar />
-                <ActivePolls />
+               <div >
+                   <div className='active'>
+                   <ActivePolls />
                 <ActiveOrders />
+                   </div>
+              
+               </div>
+              
             </div>
         )
     }  

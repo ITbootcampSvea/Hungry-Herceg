@@ -2,10 +2,12 @@ import React from 'react'
 import { authService } from '../../services/auth.service'
 import './Login.css'
 
+
 let username = '';
 let password = '';
 
 export default function LogIn({ history }) {
+   
 
     if (authService.isLoged()) history.push('/home');
 
@@ -43,7 +45,7 @@ export default function LogIn({ history }) {
     return (
         <div class="Wrappeer">
             <div class="loginCard">
-                <img src="hh.png" alt="logo" class='logoPhoto' />
+                <img src="./img/hh.png" alt="logo" class='logoPhoto' />
                 <div class="loginContent">
                     <h1>Log In</h1>
                     <form onSubmit={handleLogin}>
