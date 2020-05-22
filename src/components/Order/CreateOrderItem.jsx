@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import NavBar from '../NavBar/NavBar';
+import { orders, restaurants } from "../../data";
+import BasicOrderList from "./BasicOrderList";
 
-const CreateOrderItem = () => {
+const CreateOrderItem = ({history}) => {
 
     let { id } = useParams();
 
+    //povlacenje podataka o order-u preko id-ja
+    let order = orders.find(order => order.orderId.toString() === id);
+    //povlacenje podataka o restoranu preko id-ja
+    let restaurant = restaurants.find(restaurant => restaurant.restaurantId === order.restaurantId);
+    const [orderedMeals,setOrderedMeals] = useState([]);
+    
     
 
     return(
         <div>
-            <p>Order, orderId: {id}</p>
+            <NavBar history={history} />
+                <h2>{restaurant.name}</h2>
+            
+            <BasicOrderList meals={restaurant.meals} orderedMeals={orderedMeals} setOrderedMeals={setOrderedMeals} orderId={id} />
         </div>
     )
 }
