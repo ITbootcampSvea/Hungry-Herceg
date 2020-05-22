@@ -1,10 +1,11 @@
 import React from 'react'
-import {authService} from '../../services/auth.service'
+import { authService } from '../../services/auth.service'
+import './Login.css'
 
 let username = '';
 let password = '';
 
-export default function LogIn({history}){
+export default function LogIn({ history }) {
 
     if (authService.isLoged()) history.push('/home');
 
@@ -40,10 +41,18 @@ export default function LogIn({history}){
 
 
     return (
-        <form onSubmit={handleLogin}>      
-            <input type="username" placeholder="Enter username" onInput={(e) => handleUsername(e)} required></input>
-            <input type="password" placeholder="Enter password" onInput={(e) => handlePassword(e)} required></input>
-            <button type="submit">Submit</button>
-        </form>
+        <div class="Wrappeer">
+            <div class="loginCard">
+                <img src="hh.png" alt="logo" class='logoPhoto' />
+                <div class="loginContent">
+                    <h1>Log In</h1>
+                    <form onSubmit={handleLogin}>
+                        <input type="username" placeholder="Enter username" class="loginIntput" onInput={(e) => handleUsername(e)} required></input>
+                        <input type="password" placeholder="Enter password" class="loginIntput" onInput={(e) => handlePassword(e)} required></input>
+                        <button type="submit" class="loginBtn"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
     )
 }

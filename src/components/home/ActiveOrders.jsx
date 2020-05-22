@@ -15,7 +15,7 @@ const ActiveOrders = () => {
     appStorage.setUser('Pera');
     //ovo treba da se desava prilikom logovanja, obrisati kada komponenta LogIn bude gotova
     let user = users.find(user => user.username === appStorage.getUser());
-    debugger
+    // debugger
     //u slucaju da u appStorage cuvamo samo username, ako cuvamo ceo user objekat onda ovaj find 
     //nije potreban
 
