@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { GetUser } from "../../services/api.service";
-import { Doughnut } from "react-chartjs-2";
+import { Polar } from "react-chartjs-2";
 import { user, meals } from "../../data";
 import NavBar from "../NavBar/NavBar";
-const Profile = ({history}) => {
+import './Profile.css'
+const Profile = ({ history }) => {
   const [userInfo, setUserInfo] = useState({});
   const [userHistory, setUserHistory] = useState({});
   //let meals = [];
@@ -44,43 +45,50 @@ const Profile = ({history}) => {
   });
 
   return (
-    <div>
+    <div className='wrapper'>
       <NavBar history={history} />
-      <div>
-        {/* dodati avatar */}
-        <p>
-          {`Welcome,`} <b> {user.username}</b>
-        </p>
-      </div>
-      <div>
-        <Doughnut
-          data={{
-            labels: labels,
-            datasets: [
-              {
-                label: "# of Votes",
-                data: Object.values(counts),
-                backgroundColor: [
-                  "rgba(255, 99, 132, 0.2)",
-                  "rgba(54, 162, 235, 0.2)",
-                  "rgba(255, 206, 86, 0.2)",
-                  "rgba(75, 192, 192, 0.2)",
-                  "rgba(153, 102, 255, 0.2)",
-                  "rgba(255, 159, 64, 0.2)",
-                ],
-                borderColor: [
-                  "rgba(255, 99, 132, 1)",
-                  "rgba(54, 162, 235, 1)",
-                  "rgba(255, 206, 86, 1)",
-                  "rgba(75, 192, 192, 1)",
-                  "rgba(153, 102, 255, 1)",
-                  "rgba(255, 159, 64, 1)",
-                ],
-                borderWidth: 1,
-              },
-            ],
-          }}
-        />
+      <div className='activeProfile'>
+        <div className='profileWrapper'>
+        <div className='avatarCard'>
+          <img className='userAvatar' src='/img/user.png' alt='avatar'/>
+          <div></div>
+        <div className='avatarInfoWrapp'>
+          <div className='welcomeWrap'><label className='welLbl'>Welcome</label></div>
+          <div className='welcomeWrapÙsername'><label className='userNmaeAvatarCardLbl'>{user.username}</label></div>
+        </div>
+        </div>
+        <div className='chartWrapper'>
+          <div className='polarDiv'>
+          <Polar
+            width={20}
+            height={20}
+            options={{ maintainAspectRatio: false }}
+            data={{
+              labels: labels,
+              datasets: [
+                {
+                 
+                  label: "# of Votes",
+                  data: Object.values(counts),
+                  backgroundColor: [
+                    "rgb(153,58,52)",
+                    "rgb(204,77,67)",
+                    "#61892F",
+                    "white",
+                    "rgb(204,77,67)",
+                    "rgba(153, 102, 255, 0.2)",
+                    "rgba(255, 159, 64, 0.2)",
+                  ],
+
+                 
+                  borderWidth: 1,
+                },
+              ],
+            }}
+          />
+          </div>
+        </div>
+        </div>  
       </div>
     </div>
   );
