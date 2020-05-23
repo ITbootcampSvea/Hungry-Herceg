@@ -37,8 +37,8 @@ const ComboOrderList = ({meals, orderId}) => {
 
     return(
         <div>
-            <input type="text" onChange={(e) => setBudget(e.target.value)} />
             <h2>Get your perfect combo</h2>
+            <input type="text" onChange={(e) => setBudget(e.target.value)} />       
             <div style={{display: "flex"}}>
                 
                 <div>Meal</div>
