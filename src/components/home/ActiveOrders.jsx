@@ -11,9 +11,6 @@ const ActiveOrders = () => {
         setActiveOrders(orders.filter(el => el.status === 'active'));
     },[])
 
-    console.log(users)
-    
-    //ovo treba da se desava prilikom logovanja, obrisati kada komponenta LogIn bude gotova
     let user = users.find(user => user.username === appStorage.getUser());
     // debugger
     //u slucaju da u appStorage cuvamo samo username, ako cuvamo ceo user objekat onda ovaj find 
@@ -60,7 +57,7 @@ const ActiveOrders = () => {
                 let restaurant = restaurants.find(restaurant => restaurant.restaurantId === order.restaurantId);
 
                 let userOrders = user.history.filter(el => el.orderId === order.orderId);
-
+                
                 return(
                     <div className="active-info header order">
                     <div>
@@ -76,7 +73,7 @@ const ActiveOrders = () => {
                         <label className='pollLblInfo'>{order.duration}</label>
                     </div>
                     <div>
-                    {userOrders.length===0 ? <label className='pollLblInfo'>You didnt order yet</label>:<label className='pollLblInfo'>You order:{userOrders.map(orderItem => {
+                    {userOrders.length===0 ? <label className='pollLblInfo'>You didn't order yet</label>:<label className='pollLblInfo'>You ordered:{userOrders.map(orderItem => {
                                 return(
                                     <li>{orderItem.quantity} x {meals.find(meal => meal.mealId === orderItem.mealId).name}</li>
                                 )

@@ -1,39 +1,44 @@
 import React, { useState } from "react";
 import { appStorage } from "../../services/storage.service";
 
-const BasicOrderList = ({meals,orderedMeals,setOrderedMeals,orderId}) => {
+const BasicOrderList = ({meals,orderedMeals,setOrderedMeals,orderId,total,setTotal}) => {
     
     const [filteredMeals,setFilteredMeals] = useState(meals);
     
     const filterRestaurants = (input) => {
         if(input.startsWith('#')){
             let filter = meals.filter(meal => {
-                if(meal.tags.find(tag => tag.includes(input))){
+                if(meal.tags.find(tag => tag.toLowerCase().includes(input.toLowerCase()))){
                     return meal;
                 }
             })
             setFilteredMeals(filter);
         } else {
-            let filter = meals.filter(meal => meal.name.includes(input));
+            let filter = meals.filter(meal => meal.name.toLowerCase().includes(input.toLowerCase()));
             setFilteredMeals(filter);
         }
     }
 
     const addOrderItem = (meal) => {
-        //uraditi proveru da li taj orderItem vec postoji
-        //ako postoji => povecati quantity
-        //ako ne postoji => kreirati nov
-        let orderedMeal = {
-            user: appStorage.getUser(),
-            orderId: orderId,
-            mealId: meal.mealId,
-            quantity: document.querySelector(`#q${meal.mealId}`).value,
-            note: ''
+        let alreadyOrdered = orderedMeals.find(orderedMeal => orderedMeal.mealId === meal.mealId && orderedMeal.name === meal.name);
+        if(alreadyOrdered){
+            let quantity = parseInt(alreadyOrdered.quantity);
+            alreadyOrdered.quantity = quantity += parseInt(document.querySelector(`#q${meal.mealId}`).value); 
+            setTotal(total + alreadyOrdered.price * parseInt(document.querySelector(`#q${meal.mealId}`).value))
+        } else {
+            let orderedMeal = {
+                user: appStorage.getUser(),
+                name: meal.name,
+                price: meal.price,
+                orderId: orderId,
+                mealId: meal.mealId,
+                quantity: document.querySelector(`#q${meal.mealId}`).value,
+                note: ''
+            }
+            setOrderedMeals([...orderedMeals,orderedMeal]);
+            setTotal(total + orderedMeal.price * orderedMeal.quantity);
         }
-        setOrderedMeals([...orderedMeals,orderedMeal]);
-        console.log(orderedMeals);
     }
-    console.log(orderedMeals);
     
 
     return(
@@ -47,7 +52,7 @@ const BasicOrderList = ({meals,orderedMeals,setOrderedMeals,orderId}) => {
             </div>
             {filteredMeals.map(meal => {
                 return(
-                    <div style={{display: "flex"}}>
+                    <div key={meal.mealId} style={{display: "flex"}}>
                         <div>{meal.name}</div>
                         <div>{meal.price}</div>
                         <div><input defaultValue="1" min="1" id={'q' + meal.mealId} type="number" /></div>

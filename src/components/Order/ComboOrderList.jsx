@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { appStorage } from "../../services/storage.service";
 
-const ComboOrderList = ({meals, orderId, orderedMeals, setOrderedMeals}) => {
+const ComboOrderList = ({meals, orderId, orderedMeals, setOrderedMeals, total, setTotal,addOrderItems}) => {
 
     const saltyMeals = meals.filter(meal=> meal.tags.includes("#slano"));
     const sweetMeals = meals.filter(meal=> meal.tags.includes("#slatko"));
-    const [budget, setBudget] = useState(0)
+    const [budget, setBudget] = useState(0);
     
 
     let comboRow = [];
@@ -21,7 +21,7 @@ const ComboOrderList = ({meals, orderId, orderedMeals, setOrderedMeals}) => {
               </div>
               <div>
                 <button
-                  onClick={() => {setOrderedMeals(saltyMeal,sweetMeal)}}
+                  onClick={() => {addComboItems(saltyMeal,sweetMeal)}}
                 >
                   Add combo
                 </button>
@@ -32,8 +32,9 @@ const ComboOrderList = ({meals, orderId, orderedMeals, setOrderedMeals}) => {
       });
     });
 
-    
-    
+    const addComboItems = (saltyMeal,sweetMeal) => {
+        addOrderItems([saltyMeal,sweetMeal]);
+    };
 
     return(
         <div>
