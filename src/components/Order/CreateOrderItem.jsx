@@ -14,7 +14,9 @@ const CreateOrderItem = ({history}) => {
     //povlacenje podataka o restoranu preko id-ja
     let restaurant = restaurants.find(restaurant => restaurant.restaurantId === order.restaurantId);
     const [orderedMeals,setOrderedMeals] = useState([]);
-    const [combo, setCombo] = useState([])
+    const [totalOrderSum,setTotalOrderSum] = useState(0);
+    
+    
     
     
 
@@ -24,7 +26,7 @@ const CreateOrderItem = ({history}) => {
                 <h2>{restaurant.name}</h2>
             
             <BasicOrderList meals={restaurant.meals} orderedMeals={orderedMeals} setOrderedMeals={setOrderedMeals} orderId={id} />
-            <ComboOrderList meals={restaurant.meals} combo={combo} setCombo={setCombo} />
+            <ComboOrderList meals={restaurant.meals} orderedMeals={orderedMeals} orderId={id}/>
         </div>
     )
 }
