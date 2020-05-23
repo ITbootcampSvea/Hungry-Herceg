@@ -9,7 +9,7 @@ const Home = ({history}) => {
 
         return(
             <div className='wrapper'>
-               <NavBar />
+               <NavBar history={history}/>
                <div >
                    <div className='active'>
                    <ActivePolls />
