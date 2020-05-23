@@ -8,10 +8,16 @@ import NavBar from '../NavBar/NavBar'
 const Home = ({history}) => {
 
         return(
-            <div>
-                <NavBar history={history}/>
-                <ActivePolls />
+            <div className='wrapper'>
+               <NavBar />
+               <div >
+                   <div className='active'>
+                   <ActivePolls />
                 <ActiveOrders />
+                   </div>
+              
+               </div>
+              
             </div>
         )   
 }

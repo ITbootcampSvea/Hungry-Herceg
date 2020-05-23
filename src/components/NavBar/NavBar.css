@@ -13,8 +13,8 @@
 }
 
 .logo-icon {
-    height: 5rem;
-    width: 5rem;
+    height: 8rem;
+    width: 8rem;
     cursor: pointer;
     filter: drop-shadow(0.1rem 0.1rem 0.2rem black);
 }
@@ -35,7 +35,7 @@
 }
 
 .nav-bar-icon {
-    height: 2rem;
+    height: 4rem;
 }
 
 .nav-text {
@@ -43,7 +43,7 @@
     display: grid;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
-    font-size: 0.8rem;
+    font-size: 1.3rem;
     align-items: center;
     justify-items: center;
 }
@@ -52,14 +52,19 @@
  a {
     transition: all 0.5s ease-out;
     cursor: pointer;
-    border-bottom: 0.1rem solid transparent;
-    color: var(--dark-green);
+    border-bottom: 0.3rem solid transparent;
+    color: white;
     text-decoration: none;
+    padding: 0.5rem;
 }
 
-a:hover{
+a:hover {
     color: var(--light-green);
-}
+    border-bottom: 0.3rem solid var(--light-green);
+} 
+
+
+
 
 .homeLink{
     color: white;
@@ -67,12 +72,9 @@ a:hover{
 }
 
 .logoutLink:hover{
-    border-bottom: 0.1rem solid  rgb(153, 59, 52);
+    border-bottom: 0.3rem solid  rgb(153, 59, 52);
 }
 
-.nav-text a:hover {
-    border-bottom: 0.1rem solid var(--light-green);
-}
 
 
 .icon-wrapper {

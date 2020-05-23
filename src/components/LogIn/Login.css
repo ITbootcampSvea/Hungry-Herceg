@@ -72,7 +72,7 @@ html {
     border: none;
     outline: none;
     text-align: center;
-    border-bottom: 0.1rem solid var(--dark-green);
+    border-bottom: 0.2rem solid var(--dark-green);
     padding: 1.9rem;
     width: 100%;
     transition: all 0.7s ease-in-out;
