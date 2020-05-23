@@ -22,6 +22,25 @@ const CreateOrderItem = ({ history }) => {
   //ukoliko je korisnik vec porucio, prikazati na listi
   let user = users.find((user) => user.username === appStorage.getUser());
   let userOrders = user.history.filter((el) => el.orderId.toString() === id);
+  useEffect(() => {
+    let tmp = [];
+    let sum = 0;
+    userOrders.forEach((orderItem) => {
+      let orderedMeal = {
+        user: orderItem.user,
+        name: meals.find((meal) => meal.mealId === orderItem.mealId).name,
+        price: meals.find((meal) => meal.mealId === orderItem.mealId).price,
+        orderId: orderItem.orderId,
+        mealId: orderItem.mealId,
+        quantity: orderItem.quantity,
+        note: orderItem.note,
+      };
+      sum += orderedMeal.price * orderedMeal.quantity;
+      tmp.push(orderedMeal);
+    });
+    setOrderedMeals(tmp);
+    setTotal(sum);
+  }, []);
   
   //prima niz mealova, vrsi provere, na kraju stavlja mealove i novu cenu u state
   const addOrderItems = (meals) => {
@@ -58,23 +77,7 @@ const CreateOrderItem = ({ history }) => {
     setTotal(total + newPrice);
   };
 
-  useEffect(() => {
-    let tmp = [];
-    userOrders.forEach((orderItem) => {
-      let orderedMeal = {
-        user: orderItem.user,
-        name: meals.find((meal) => meal.mealId === orderItem.mealId).name,
-        price: meals.find((meal) => meal.mealId === orderItem.mealId).price,
-        orderId: orderItem.orderId,
-        mealId: orderItem.mealId,
-        quantity: orderItem.quantity,
-        note: orderItem.note,
-      };
-      setTotal(total + orderedMeal.price * orderedMeal.quantity);
-      tmp.push(orderedMeal);
-    });
-    setOrderedMeals(tmp);
-  }, []);
+  
 
   return (
     <div>
