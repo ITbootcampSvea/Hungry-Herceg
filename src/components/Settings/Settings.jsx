@@ -105,6 +105,20 @@ export default function Settings() {
     const handleDeleteUser = (id) => {
         setRenderUsers(renderUsers.filter(el => el.id !== id))
     }
+    const handleInputRestaurants = (e) => {
+        if (e.target.value === '') {
+            return setRenderRestaurants([]);
+        }
+        let filteredInputRestaurants = testRest.filter(el => el.name.includes(e.target.value));
+        setRenderRestaurants(filteredInputRestaurants)
+    }
+    const handleInputUsers = (e) => {
+        if (e.target.value === '') {
+            return setRenderUsers([]);
+        }
+        let filteredInputUsers = testUsers.filter(el => el.username.includes(e.target.value));
+        setRenderUsers(filteredInputUsers)
+    }
 
 
     return (
@@ -136,10 +150,12 @@ export default function Settings() {
             <div>
                 <h3>All Restaurants</h3>
                  {renderRestaurants.map(el => {return <div key={el.id}> <label>{el.name}</label><button onClick={(e)=>handleDeleteRestaurant(el.id)}>X</button></div>})}
+                <input type="text" placeholder="Search by name..." onChange={(e) => handleInputRestaurants(e)} />
             </div>
             <div>
                 <h3>All Users</h3>
                  {renderUsers.map(el => {return <div key={el.id}> <label>{el.username}</label><button onClick={(e)=>handleDeleteUser(el.id)}>X</button></div>})}
+                 <input type="text" placeholder="Search by name..." onChange={(e) => handleInputUsers(e)} />
             </div>
         </div>
     )
