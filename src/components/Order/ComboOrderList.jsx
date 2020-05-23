@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { appStorage } from "../../services/storage.service";
+import './Order.css'
 
 const ComboOrderList = ({
   meals,
@@ -42,19 +43,20 @@ const ComboOrderList = ({
     addOrderItems([saltyMeal, sweetMeal]);
   };
 
-  return (
-    <div>
-      <h3>Get your perfect combo</h3>
-      <input type="text" onChange={(e) => setBudget(e.target.value)} />
-      <div style={{ display: "flex" }}>
-        <div>Meal</div>
-        <div>Dessert</div>
-        <div>Price</div>
-        <div>Actions</div>
-      </div>
-      <div>{comboRow}</div>
-    </div>
-  );
-};
+    return(
+        <div className='comboOrderWrapp'>
+            <h3>Get your perfect combo</h3>
+            <input type="text" onChange={(e) => setBudget(e.target.value)} 
+            placeholder='Enter your budget limit' className='basicOrderInput'/>       
+            <div className='basicOrderTxt'>
+                <div>Meal</div>
+                <div>Dessert</div>
+                <div>Price</div>
+                <div>Actions</div>
+            </div>
+                <div>{comboRow}</div> 
+        </div>
+    )
+}
 
 export default ComboOrderList;

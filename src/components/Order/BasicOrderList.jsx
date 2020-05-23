@@ -1,13 +1,14 @@
 import React, { useState } from "react";
+import './Order.css'
 
 const BasicOrderList = ({meals,addOrderItems}) => {
     
     const [filteredMeals,setFilteredMeals] = useState(meals);
     
     const filterRestaurants = (input) => {
-        if(input.startsWith('#')){
+        if (input.startsWith('#')) {
             let filter = meals.filter(meal => {
-                if(meal.tags.find(tag => tag.toLowerCase().includes(input.toLowerCase()))){
+                if (meal.tags.find(tag => tag.toLowerCase().includes(input.toLowerCase()))) {
                     return meal;
                 }
             })
@@ -41,21 +42,23 @@ const BasicOrderList = ({meals,addOrderItems}) => {
 
     
 
-    return(
-        <div>
-            <input type="text" onChange={(e) => filterRestaurants(e.target.value)} />
-            <div style={{display: "flex"}}>
-                <div>Meal</div>
-                <div>Price</div>
-                <div>Quantity</div>
-                <div>Actions</div>
+
+    return (
+        <div className='basicOrderList'>
+            <input type="text" onChange={(e) => filterRestaurants(e.target.value)}
+                className='basicOrderInput' placeholder='Enter a meal name or a meal tag' />
+            <div className='basicOrderTxt'>
+                    <div>Meal</div>
+                    <div>Price</div>
+                    <div>Quantity</div>
+                    <div>Actions</div>
             </div>
             {filteredMeals.map(meal => {
-                return(
-                    <div key={meal.mealId} style={{display: "flex"}}>
-                        <div>{meal.name}</div>
+                return (
+                    <div key={meal.mealId} className='basicOrderTxt'>
+                        <div >{meal.name}</div>
                         <div>{meal.price}</div>
-                        <div><input defaultValue="1" min="1" id={'q' + meal.mealId} type="number" /></div>
+                        <div><input defaultValue="1" min="1" id={'q' + meal.mealId} type="number" className='orderQuantity' /></div>
                         <div><button onClick={() => {
                             let array = [meal];
                             addOrderItems(array);
