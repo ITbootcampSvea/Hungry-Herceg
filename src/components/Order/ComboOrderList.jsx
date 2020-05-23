@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { appStorage } from "../../services/storage.service";
 import './Order.css'
 
-const ComboOrderList = ({meals, orderId}) => {
+const ComboOrderList = ({meals, orderId, orderedMeals, setOrderedMeals, total, setTotal,addOrderItems}) => {
 
     const saltyMeals = meals.filter(meal=> meal.tags.includes("#slano"));
     const sweetMeals = meals.filter(meal=> meal.tags.includes("#slatko"));
-
-    const [budget, setBudget] = useState(0)
+    const [budget, setBudget] = useState(0);
     
 
     let comboRow = [];
@@ -23,8 +22,7 @@ const ComboOrderList = ({meals, orderId}) => {
               </div>
               <div>
                 <button
-                  onClick={() => {    
-                  }}
+                  onClick={() => {addComboItems(saltyMeal,sweetMeal)}}
                 >
                   Add combo
                 </button>
@@ -34,7 +32,10 @@ const ComboOrderList = ({meals, orderId}) => {
         }
       });
     });
-    
+
+    const addComboItems = (saltyMeal,sweetMeal) => {
+        addOrderItems([saltyMeal,sweetMeal]);
+    };
 
     return(
         <div className='comboOrderWrapp'>

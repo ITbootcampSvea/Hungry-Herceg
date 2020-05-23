@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { appStorage } from "../../services/storage.service";
 import './Order.css'
 
-const BasicOrderList = ({ meals, orderedMeals, setOrderedMeals, orderId, total, setTotal }) => {
-
-    const [filteredMeals, setFilteredMeals] = useState(meals);
-
+const BasicOrderList = ({meals,addOrderItems}) => {
+    
+    const [filteredMeals,setFilteredMeals] = useState(meals);
+    
     const filterRestaurants = (input) => {
         if (input.startsWith('#')) {
             let filter = meals.filter(meal => {
@@ -20,26 +19,28 @@ const BasicOrderList = ({ meals, orderedMeals, setOrderedMeals, orderId, total, 
         }
     }
 
-    const addOrderItem = (meal) => {
-        let alreadyOrdered = orderedMeals.find(orderedMeal => orderedMeal.mealId === meal.mealId && orderedMeal.name === meal.name);
-        if (alreadyOrdered) {
-            let quantity = parseInt(alreadyOrdered.quantity);
-            alreadyOrdered.quantity = quantity += parseInt(document.querySelector(`#q${meal.mealId}`).value);
-            setTotal(total + alreadyOrdered.price * parseInt(document.querySelector(`#q${meal.mealId}`).value))
-        } else {
-            let orderedMeal = {
-                user: appStorage.getUser(),
-                name: meal.name,
-                price: meal.price,
-                orderId: orderId,
-                mealId: meal.mealId,
-                quantity: document.querySelector(`#q${meal.mealId}`).value,
-                note: ''
-            }
-            setOrderedMeals([...orderedMeals, orderedMeal]);
-            setTotal(total + orderedMeal.price * orderedMeal.quantity);
-        }
-    }
+    // const addOrderItem = (meal) => {
+    //     let alreadyOrdered = orderedMeals.find(orderedMeal => orderedMeal.mealId === meal.mealId && orderedMeal.name === meal.name);
+    //     if(alreadyOrdered){
+    //         let quantity = parseInt(alreadyOrdered.quantity);
+    //         alreadyOrdered.quantity = quantity += parseInt(document.querySelector(`#q${meal.mealId}`).value); 
+    //         setTotal(total + alreadyOrdered.price * parseInt(document.querySelector(`#q${meal.mealId}`).value))
+    //     } else {
+    //         let orderedMeal = {
+    //             user: appStorage.getUser(),
+    //             name: meal.name,
+    //             price: meal.price,
+    //             orderId: orderId,
+    //             mealId: meal.mealId,
+    //             quantity: document.querySelector(`#q${meal.mealId}`).value,
+    //             note: ''
+    //         }
+    //         setOrderedMeals([...orderedMeals,orderedMeal]);
+    //         setTotal(total + orderedMeal.price * orderedMeal.quantity);
+    //     }
+    // }
+
+    
 
 
     return (
@@ -57,8 +58,11 @@ const BasicOrderList = ({ meals, orderedMeals, setOrderedMeals, orderId, total, 
                     <div key={meal.mealId} className='basicOrderTxt'>
                         <div >{meal.name}</div>
                         <div>{meal.price}</div>
-                        <div><input defaultValue="1" min="1" id={'q' + meal.mealId} type="number" className='orderQuantity'/></div>
-                        <div><button onClick={() => addOrderItem(meal)}>Add</button></div>
+                        <div><input defaultValue="1" min="1" id={'q' + meal.mealId} type="number" className='orderQuantity' /></div>
+                        <div><button onClick={() => {
+                            let array = [meal];
+                            addOrderItems(array);
+                        }}>Add</button></div>
                     </div>
                 )
             })}
