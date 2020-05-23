@@ -17,7 +17,7 @@
 
 .newPollCard {
     display: grid;
-    grid-template-rows: 1fr 1.5fr;
+    grid-template-rows: 1.5fr 1fr;
     align-items: center;
     justify-items: center;
 }
@@ -53,8 +53,6 @@
     letter-spacing: 0.2rem;
     font-family: 'Amatic SC', cursive;
 }
-
-.restaurantList {}
 
 .createPollInfo {
     display: grid;
@@ -170,4 +168,151 @@
 }
 
 
-.searchRest {}
+.searchRest {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    height: auto;
+    width: 55rem;
+    border-radius: 0.8rem;
+    background-color: var( --dark-gray);
+    box-shadow: 0.5rem 0.5rem 0.7rem black;
+}
+
+.showAllBtnWrap {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.showAllBtn {
+    width: 50%;
+    background: var(--dark-green);
+    padding: 0.9rem;
+    border: none;
+    outline: none;
+    color: white;
+    letter-spacing: 0.1rem;
+    cursor: pointer;
+    border-radius: 0.7rem;
+    justify-items: center;
+    align-content: center;
+    margin: 1.5rem 0;
+}
+
+.showAllBtn:hover {
+    background: var(--light-green);
+}
+
+.filteredResColumn {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.addRestImg {
+    height: 3.5rem;
+    cursor: pointer;
+    margin: 0.5rem 1.5rem 0.5rem 0;
+    filter: drop-shadow(0.1rem 0.1rem 0.15rem black);
+}
+
+.restNameWrapp {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.restImgWrapp {
+    display: grid;
+    justify-items: right;
+    align-items: center;
+}
+
+.restNameLbl {
+    color: white;
+    letter-spacing: 0.4rem;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.restListWrapp {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.restaurantList {
+    display: grid;
+    height: 90%;
+    width: 70%;
+    grid-template-rows: 1.5fr 0.5fr 3fr;
+    border-radius: 0.8rem;
+    box-shadow: 0.5rem 0.5rem 0.7rem black;
+}
+
+.restListHeader {
+    background: linear-gradient(to top, rgba(255, 255, 255, 1) 10%, rgba(77, 47, 47, 0.2)), url('../../img/restBackg2.jpg') ;
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 0.8rem;
+    border-top-right-radius: 0.8rem;
+}
+    
+.restaurantsHeading {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    background: white;
+}
+
+.restWord {
+    font-size: 2.5rem;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+    color: var(--primary-black);
+    font-family: 'Amatic SC', cursive;
+    font-weight: bolder;
+}
+
+.pollListRestWrapp {
+    background: white;
+    border-bottom-left-radius: 0.8rem;
+    border-bottom-right-radius: 0.8rem;
+}
+
+.transitionClmn {
+    margin: 1rem 0;
+    width: 80%;
+    background: var(--dark-gray);
+    border-top-right-radius: 0.8rem;
+    border-bottom-right-radius: 0.8rem;
+    transition: all 2s ease-in-out;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.removeBtn {
+    height: 5rem;
+    cursor: pointer;
+    filter: drop-shadow(0.1rem 0.1rem 0.15rem black);
+}
+
+.nameOfPickedRest {
+    justify-items: center;
+    align-items: center;
+    display: grid;
+}
+
+.choosenRest {
+    font-size: 2rem;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+}
+
+.removeImgWrapp {
+    display: grid;
+    align-items: center;
+    justify-items: right;
+    margin-right: 1rem;
+}
