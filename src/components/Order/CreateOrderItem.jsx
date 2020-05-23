@@ -26,7 +26,7 @@ const CreateOrderItem = ({history}) => {
                 <h2>{restaurant.name}</h2>
             
             <BasicOrderList meals={restaurant.meals} orderedMeals={orderedMeals} setOrderedMeals={setOrderedMeals} orderId={id} />
-            <ComboOrderList meals={restaurant.meals} orderedMeals={orderedMeals} orderId={id}/>
+            <ComboOrderList meals={restaurant.meals} orderedMeals={orderedMeals} setOrderedMeals={setOrderedMeals} orderId={id}/>
         </div>
     )
 }
