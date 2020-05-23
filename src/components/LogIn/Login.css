@@ -4,16 +4,6 @@
     box-sizing: border-box;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300&display=swap');
-
-:root {
-    --primary-black: #222629;
-    --dark-gray: #474B4F;
-    --light-gray: #6B6E70;
-    --dark-green: #61892F;
-    --light-green: #86C232;
-}
-
 html {
     font-size: 62.5%;
     font-family: 'Open Sans Condensed', sans-serif;
@@ -21,7 +11,7 @@ html {
 
 /*Background*/
 .Wrappeer {
-    background-image:linear-gradient(to top, rgba(34, 38, 41, 0.8), rgba(34, 38, 41, 0.2)), url('../../login-background.jpg');
+    background-image:linear-gradient(to top, rgba(34, 38, 41, 0.8), rgba(34, 38, 41, 0.2)), url('../../img/login-background.jpg');
     height: 100vh;
     background-repeat: no-repeat;
     background-size: cover;
@@ -72,7 +62,7 @@ html {
     border: none;
     outline: none;
     text-align: center;
-    border-bottom: 0.1rem solid var(--dark-green);
+    border-bottom: 0.2rem solid var(--dark-green);
     padding: 1.9rem;
     width: 100%;
     transition: all 0.7s ease-in-out;
@@ -96,7 +86,7 @@ html {
 
 .loginBtn {
     display: block;
-    background: url('../../loginIcon.png');
+    background: url('/img/loginIcon.png');
     width: 10rem;
     height: 10rem;
     border: none;
@@ -117,7 +107,7 @@ html {
 @media (max-width:500px) {
     .Wrappeer {
         background-image:linear-gradient(to top, rgba(34, 38, 41, 0.8), rgba(34, 38, 41, 0.2)), 
-        url('../../login-mobile-background.jpg');
+        url('../../img/login-mobile-background.jpg');
     }
     .loginCard {
         background: rgba(34, 38, 41, 0.9);
@@ -128,7 +118,7 @@ html {
 @media (min-width:501px) and (max-width:768px){
     .Wrappeer {
         background-image:linear-gradient(to top, rgba(34, 38, 41, 0.8), rgba(34, 38, 41, 0.2)), 
-        url('../../login-mobile-background.jpg');
+        url('../../img/login-mobile-background.jpg');
     }
     .loginCard {
         width: 40rem;

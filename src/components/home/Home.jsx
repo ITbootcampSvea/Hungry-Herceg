@@ -5,20 +5,21 @@ import './home.css'
 import NavBar from '../NavBar/NavBar'
 
 
-class Home extends React.Component {
-    constructor(props){
-        super(props);
-    }
+const Home = ({history}) => {
 
-    render(){
         return(
-            <div>
-               <NavBar />
-                <ActivePolls />
+            <div className='wrapper'>
+               <NavBar history={history}/>
+               <div >
+                   <div className='active'>
+                   <ActivePolls />
                 <ActiveOrders />
+                   </div>
+              
+               </div>
+              
             </div>
-        )
-    }  
+        )   
 }
 
 export default Home

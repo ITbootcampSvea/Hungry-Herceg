@@ -2,10 +2,12 @@ import React from 'react'
 import { authService } from '../../services/auth.service'
 import './Login.css'
 
+
 let username = '';
 let password = '';
 
 export default function LogIn({ history }) {
+   
 
     if (authService.isLoged()) history.push('/home');
 
@@ -13,13 +15,14 @@ export default function LogIn({ history }) {
         e.preventDefault();
         console.log(username, password)
         authService.LogIn(username,password);
+        history.push("/home");
         // checkUser(username, password).then(res => {      // Proveriti sa backend-om sta se dobija kao odgovor
         //     if (res.validated) {                         // checkUser - fja za vezu sa serverom
 
         //         authService.LogIn(username, password);
 
         //         if (username === 'Admin') {
-        //             history.push("/setting");
+        //             history.push("/settings");
         //         }
         //         else {
         //             history.push("/home");
@@ -44,7 +47,7 @@ export default function LogIn({ history }) {
     return (
         <div class="Wrappeer">
             <div class="loginCard">
-                <img src="hh.png" alt="logo" class='logoPhoto' />
+                <img src="./img/hh.png" alt="logo" class='logoPhoto' />
                 <div class="loginContent">
                     <h1>Log In</h1>
                     <form onSubmit={handleLogin}>
