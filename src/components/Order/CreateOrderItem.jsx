@@ -3,11 +3,12 @@ import { useParams } from "react-router-dom";
 import NavBar from '../NavBar/NavBar';
 import { orders, restaurants, users, meals } from "../../data";
 import BasicOrderList from "./BasicOrderList";
-import CurrentOrderList from "./CurrentOrderList"; 
+import CurrentOrderList from "./CurrentOrderList";
 import ComboOrderList from "./ComboOrderList";
 import { appStorage } from "../../services/storage.service";
+import './Order.css'
 
-const CreateOrderItem = ({history}) => {
+const CreateOrderItem = ({ history }) => {
 
     let { id } = useParams();
 
@@ -15,13 +16,13 @@ const CreateOrderItem = ({history}) => {
     let order = orders.find(order => order.orderId.toString() === id);
     //povlacenje podataka o restoranu preko id-ja
     let restaurant = restaurants.find(restaurant => restaurant.restaurantId === order.restaurantId);
-    const [orderedMeals,setOrderedMeals] = useState([]);
-    const [total,setTotal] = useState(0);
-    
+    const [orderedMeals, setOrderedMeals] = useState([]);
+    const [total, setTotal] = useState(0);
+
     //ukoliko je korisnik vec porucio, prikazati na listi
     let user = users.find(user => user.username === appStorage.getUser());
     let userOrders = user.history.filter(el => el.orderId.toString() === id);
-    
+
     useEffect(() => {
         let tmp = [];
         userOrders.forEach(orderItem => {
@@ -38,16 +39,25 @@ const CreateOrderItem = ({history}) => {
             tmp.push(orderedMeal);
         })
         setOrderedMeals(tmp);
-    },[])
-    
+    }, [])
 
-    return(
-        <div>
+
+    return (
+        <div className='wrapper'>
             <NavBar history={history} />
-                <h2>{restaurant.name}</h2>
-            <BasicOrderList meals={restaurant.meals} orderedMeals={orderedMeals} setOrderedMeals={setOrderedMeals} orderId={id} total={total} setTotal={setTotal} />
-            <ComboOrderList meals={restaurant.meals} orderedMeals={orderedMeals} orderId={id}/>
-            <CurrentOrderList orderedMeals={orderedMeals} setOrderedMeals={setOrderedMeals} total={total} setTotal={setTotal} orderId={id} />
+            <div className='orderWrapper'>
+                <div className='orderContent'>
+                    <div className='smallerOrderDiv'>
+                        <div className='orderHeadingImg'></div>
+                        <div className='orderRestNameWrapp'>
+                            <h2 className='orderRestNameHead'>{restaurant.name}</h2>
+                        </div>
+                        <BasicOrderList meals={restaurant.meals} orderedMeals={orderedMeals} setOrderedMeals={setOrderedMeals} orderId={id} total={total} setTotal={setTotal} />
+                        <ComboOrderList meals={restaurant.meals} orderedMeals={orderedMeals} orderId={id} />
+                        <CurrentOrderList orderedMeals={orderedMeals} setOrderedMeals={setOrderedMeals} total={total} setTotal={setTotal} orderId={id} />
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

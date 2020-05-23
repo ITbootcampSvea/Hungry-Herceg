@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { appStorage } from "../../services/storage.service";
+import './Order.css'
 
-const BasicOrderList = ({meals,orderedMeals,setOrderedMeals,orderId,total,setTotal}) => {
-    
-    const [filteredMeals,setFilteredMeals] = useState(meals);
-    
+const BasicOrderList = ({ meals, orderedMeals, setOrderedMeals, orderId, total, setTotal }) => {
+
+    const [filteredMeals, setFilteredMeals] = useState(meals);
+
     const filterRestaurants = (input) => {
-        if(input.startsWith('#')){
+        if (input.startsWith('#')) {
             let filter = meals.filter(meal => {
-                if(meal.tags.find(tag => tag.toLowerCase().includes(input.toLowerCase()))){
+                if (meal.tags.find(tag => tag.toLowerCase().includes(input.toLowerCase()))) {
                     return meal;
                 }
             })
@@ -21,9 +22,9 @@ const BasicOrderList = ({meals,orderedMeals,setOrderedMeals,orderId,total,setTot
 
     const addOrderItem = (meal) => {
         let alreadyOrdered = orderedMeals.find(orderedMeal => orderedMeal.mealId === meal.mealId && orderedMeal.name === meal.name);
-        if(alreadyOrdered){
+        if (alreadyOrdered) {
             let quantity = parseInt(alreadyOrdered.quantity);
-            alreadyOrdered.quantity = quantity += parseInt(document.querySelector(`#q${meal.mealId}`).value); 
+            alreadyOrdered.quantity = quantity += parseInt(document.querySelector(`#q${meal.mealId}`).value);
             setTotal(total + alreadyOrdered.price * parseInt(document.querySelector(`#q${meal.mealId}`).value))
         } else {
             let orderedMeal = {
@@ -35,27 +36,28 @@ const BasicOrderList = ({meals,orderedMeals,setOrderedMeals,orderId,total,setTot
                 quantity: document.querySelector(`#q${meal.mealId}`).value,
                 note: ''
             }
-            setOrderedMeals([...orderedMeals,orderedMeal]);
+            setOrderedMeals([...orderedMeals, orderedMeal]);
             setTotal(total + orderedMeal.price * orderedMeal.quantity);
         }
     }
-    
 
-    return(
-        <div>
-            <input type="text" onChange={(e) => filterRestaurants(e.target.value)} />
-            <div style={{display: "flex"}}>
-                <div>Meal</div>
-                <div>Price</div>
-                <div>Quantity</div>
-                <div>Actions</div>
+
+    return (
+        <div className='basicOrderList'>
+            <input type="text" onChange={(e) => filterRestaurants(e.target.value)}
+                className='basicOrderInput' placeholder='Placeholder' />
+            <div className='basicOrderTxt'>
+                    <div>Meal</div>
+                    <div>Price</div>
+                    <div>Quantity</div>
+                    <div>Actions</div>
             </div>
             {filteredMeals.map(meal => {
-                return(
-                    <div key={meal.mealId} style={{display: "flex"}}>
-                        <div>{meal.name}</div>
+                return (
+                    <div key={meal.mealId} className='basicOrderTxt'>
+                        <div >{meal.name}</div>
                         <div>{meal.price}</div>
-                        <div><input defaultValue="1" min="1" id={'q' + meal.mealId} type="number" /></div>
+                        <div><input defaultValue="1" min="1" id={'q' + meal.mealId} type="number" className='orderQuantity'/></div>
                         <div><button onClick={() => addOrderItem(meal)}>Add</button></div>
                     </div>
                 )

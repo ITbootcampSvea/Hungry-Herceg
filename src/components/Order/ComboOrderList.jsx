@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { appStorage } from "../../services/storage.service";
+import './Order.css'
 
 const ComboOrderList = ({meals, orderId}) => {
 
@@ -36,11 +37,11 @@ const ComboOrderList = ({meals, orderId}) => {
     
 
     return(
-        <div>
+        <div className='comboOrderWrapp'>
             <h2>Get your perfect combo</h2>
-            <input type="text" onChange={(e) => setBudget(e.target.value)} />       
-            <div style={{display: "flex"}}>
-                
+            <input type="text" onChange={(e) => setBudget(e.target.value)} 
+            placeholder='Placeholder' className='basicOrderInput'/>       
+            <div className='basicOrderTxt'>
                 <div>Meal</div>
                 <div>Dessert</div>
                 <div>Price</div>
