@@ -15,18 +15,16 @@ const ComboOrderList = ({
     sweetMeals.forEach((sweetMeal) => {
       if (saltyMeal.price + sweetMeal.price <= budget) {
         comboRow.push(
-          <div style={{ display: "flex" }}>
+          <div className='basicOrderTxt'>
             <div>{saltyMeal.name}</div>
             <div>{sweetMeal.name}</div>
             <div>{saltyMeal.price + sweetMeal.price}</div>
             <div>
-              <button
+              <img src='/img/add-order.png' alt='add' title='Add Combo' className='addOrderBtn'
                 onClick={() => {
                   addComboItems(saltyMeal, sweetMeal);
                 }}
-              >
-                Add combo
-              </button>
+              />
             </div>
           </div>
         );

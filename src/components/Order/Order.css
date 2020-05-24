@@ -11,7 +11,6 @@
     0 6px var(--primary-black), 
     -7px 0 4px -3px rgba(153, 59, 52, 0.37), 
     7px 0 4px -3px rgba(153, 59, 52, 0.37);
-    font-size: 1.4rem;
 }
 
 .orderContent {
@@ -30,6 +29,8 @@
     grid-template-rows: 1fr 0.4fr 1fr 1fr 1fr;
     color: white;
     box-shadow: 0.5rem 0.5rem 0.7rem black;
+    letter-spacing: 0.2rem;
+    font-size: 1.5rem;
 }
 
 .orderHeadingImg{
@@ -43,11 +44,12 @@
 
 .orderRestNameHead {
     font-family: 'Amatic SC', cursive;
-    font-size: 2.5rem;
+    font-size: 3rem;
     letter-spacing: 0.2rem;
     display: grid;
     justify-items: center;
     align-items: center;
+    margin-top: 1rem;
 }
 
 /*Basic Order List Comp*/
@@ -67,7 +69,6 @@
     width: 80%;
     transition: all 0.7s ease-in-out;
     color: white;
-    font-size: 1rem;
     letter-spacing: 0.2rem;
     border-bottom: 0.2rem solid transparent;
 }
@@ -79,7 +80,6 @@
 .basicOrderInput::placeholder{
     color: white;
     letter-spacing: 0.3rem;
-    font-size: 1.2rem;
     text-transform: uppercase;
     opacity: 0.6;
 }
@@ -93,14 +93,26 @@
     width: 100%;
 }
 
+.bacisNumberDiv {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
 .orderQuantity {
     color: var(--dark-green);
-    font-size: 1rem;
     letter-spacing: 0.2rem;
     outline: none;
     border: none;
     height: 1.5rem;
     width: 50%;
+    text-align: center;
+}
+
+.addOrderBtn {
+    height: 3.5rem;
+    filter: drop-shadow(0.1rem 0.1rem 0.15rem black);
+    cursor: pointer;
 }
 
 /*Combo Order List Comp*/

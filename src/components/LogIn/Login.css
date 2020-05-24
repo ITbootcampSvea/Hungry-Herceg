@@ -85,7 +85,6 @@ html {
 }
 
 .loginBtn {
-    display: block;
     background: url('/img/loginIcon.png');
     width: 10rem;
     height: 10rem;
@@ -96,7 +95,7 @@ html {
     border-radius: 0.25rem;
     transition: all 0.4s ease-in-out;
     cursor: pointer;
-    margin: 2rem 6rem;
+    margin: 1.2rem;
 }
 
 .loginBtn:hover {
@@ -123,9 +122,5 @@ html {
     .loginCard {
         width: 40rem;
         height: 50rem;
-    }
-    .loginBtn {
-        margin: 2rem 9rem;
-
     }
 }
