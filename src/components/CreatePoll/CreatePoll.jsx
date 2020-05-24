@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { appStorage } from '../../services/storage.service';
 import NavBar from '../NavBar/NavBar';
 import './poll.css'
+// import { getRestaurantsAll } from '../../services/api.service';
 //importovati createPoll iz API servisa
 
 let hours = 0;
@@ -12,33 +13,33 @@ let pollName = '';
 let itemsToShow = 3;
 let overflow = false;
 
-const testRest = [
-    {
-        id: 0,
-        name: "Karadjordje"
-    },
-    {
-        id: 1,
-        name: "Pera"
-    },
-    {
-        id: 2,
-        name: "Pizerija"
-    },
-    {
-        id: 3,
-        name: "Pizdarija"
-    },
-    {
-        id: 4,
-        name: "Dunja"
-    }
+// const testRest = [
+//     {
+//         id: 0,
+//         name: "Karadjordje"
+//     },
+//     {
+//         id: 1,
+//         name: "Pera"
+//     },
+//     {
+//         id: 2,
+//         name: "Pizerija"
+//     },
+//     {
+//         id: 3,
+//         name: "Pizdarija"
+//     },
+//     {
+//         id: 4,
+//         name: "Dunja"
+//     }
 
-]
+// ]
 
 export default function CreatePoll({ history }) {
 
-    const [restaurants, setRestaurants] = useState(testRest);
+    const [restaurants, setRestaurants] = useState([]);
 
 
     const [pollList, setPollList] = useState([]);
@@ -47,8 +48,10 @@ export default function CreatePoll({ history }) {
     const [stateOverflow, setStateOverflow] = useState(false);
 
     // useEffect(() => {                               //getAllRestaurants - fja za podatke sa apija
-    //     getAllRestaurants.then(res => {
-    //         setRestaurants(res.data)
+    //     getRestaurantsAll().then(res => {
+    //         setRestaurants(res);
+    //         console.log(res);
+            
     //     })
     // }, [])
 
