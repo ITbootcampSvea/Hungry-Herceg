@@ -80,3 +80,20 @@ a:hover {
     justify-items: center;
     align-items: end;
 }
+
+/*iPad*/
+@media (max-width:768px) {
+    .nav-bar {
+        width: min-content;
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: none;
+        margin: 0 1rem 12rem 1rem;
+        justify-content: center;
+        align-items: center;
+    }
+    .nav-fildes {
+        display: grid;
+        grid-template-columns: 0fr 1fr 1fr 1fr 1fr 1fr;
+    }
+}
