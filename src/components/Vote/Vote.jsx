@@ -106,9 +106,9 @@ export default function Vote({history, match}){
     return(
         <>
         
-                    <labe>{pollName}</labe>
-                    <labe>{pollAuthor}</labe>
-                    <labe>{endTime}</labe>
+                    <label>{pollName}</label>
+                    <label>{pollAuthor}</label>
+                    <label>{endTime}</label>
 
                     <ul>
                         {restaurants.map((restaurant,index)=>{
