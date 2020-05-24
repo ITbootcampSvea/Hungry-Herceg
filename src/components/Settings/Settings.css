@@ -1,0 +1,182 @@
+.settingsWrapp{
+    display: grid;
+    grid-template-rows: 1fr 3fr;
+    height: 100vh;
+    background: var(--primary-black);
+}
+
+.settingsHeader{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.settHeadWrapp{
+    display: grid;
+    align-items:center;
+    justify-items: right;
+}
+
+.settIconWrapp{
+    display: grid;
+    align-items: center;
+    justify-items: left;
+}
+
+.settIcon{
+    height: 8rem;
+    filter: drop-shadow(0.1rem 0.1rem 0.15rem black);
+    cursor: pointer;
+    margin-left: 2rem;
+}
+
+.settHeading{
+    color: white;
+    font-size: 3rem;
+    letter-spacing: 0.5rem;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+.settingsMainPart{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.mainPartHeader{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.mainPartHeadingWrapp{
+    display: grid;
+    align-items:center;
+    justify-items: right;
+}
+
+.settHeaderIconWrapp{
+    display: grid;
+    align-items:center;
+    justify-items: left;
+}
+
+.mainPartHeading{
+    color: white;
+    font-size: 2.5rem;
+    letter-spacing: 0.3rem;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+.settHeaderIcon{
+    height: 6rem;
+    filter: drop-shadow(0.1rem 0.1rem 0.15rem black);
+    cursor: pointer;
+    margin-left: 1.5rem;
+}
+
+.settingsInput{
+    padding: 1rem;
+    background-color: white;
+    color: var(--primary-black);
+    font-size: 1.5rem;
+    border: none;
+    outline: none;
+    margin-left: 1rem;
+}
+
+.createNewWrapp{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    margin: 3rem 0;
+}
+
+.createNewHeading{
+    text-transform: lowercase;
+    color: var(--dark-green);
+    font-size: 2rem;
+    letter-spacing: 0.3rem;
+    font-weight: 600;
+}
+
+
+.settSubmitBtn{
+    background-color:var(--dark-green) ;
+    border: none;
+    outline: none;
+    color:white ;
+    margin-left: 1rem;
+    padding: 1rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+.settSubmitBtn:hover{
+    background-color:var(--light-green)
+}
+
+.settDisplayBtn{
+
+    background-color:var(--primary-black) ;
+    border: 0.1rem solid white;
+    outline: none;
+    color:white ;
+    margin: 2rem 1rem;
+    padding: 1rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.settDisplayBtn:hover{
+    background-color: #373c41;
+}
+
+.settSubheadingWrapp{
+display: grid;
+align-items: center;
+}
+
+.settSubheading{
+    text-transform: lowercase;
+    color: white;
+    font-size: 2rem;
+    letter-spacing: 0.3rem;
+    font-weight: 300;
+    margin: 1rem;
+}
+
+.settColm{
+    margin-left: 1rem;
+    color: white;
+    width:80%;
+    padding: 1rem;
+    padding-left: 0;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.settDelBtn{
+    background-color: #993A34;
+    margin-left: 1rem;
+    color: white;
+    letter-spacing: 0.3rem;
+    border: none;
+    outline: none;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.settDelBtn:hover{
+    background-color: rgb(184, 71, 63);
+}
+
+.settUsernameLbl{
+    color: white;
+    font-size: 1.5rem;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+.transitionWapper{
+transition: all 1s ease-in-out;
+}

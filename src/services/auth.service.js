@@ -1,6 +1,6 @@
 import { appStorage } from "./storage.service";
 
-let loged = false;
+let loged = null;
 
 export const authService = {
 
@@ -8,12 +8,12 @@ export const authService = {
         //provera usera
 
         appStorage.setUser(user);
-        loged = true;
+        loged = user;
     
     },
     
     LogOut : ()=>{
-        loged = false;
+        loged = null;
         appStorage.removeUser();
         return loged;
     },
