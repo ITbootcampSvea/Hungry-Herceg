@@ -1,7 +1,6 @@
 .orderWrapper {
     height: 88vh;
     margin: 0 10%;
-    height: 100%;
     display: grid;
     background: var(--primary-black);
     justify-items: center;
@@ -21,7 +20,7 @@
 }
 
 .smallerOrderDiv{
-    width: 80%;
+    width: 60%;
     height: 100%;
     background: var(--dark-gray);
     border-radius: 0.8rem;
@@ -30,7 +29,7 @@
     color: white;
     box-shadow: 0.5rem 0.5rem 0.7rem black;
     letter-spacing: 0.2rem;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
 }
 
 .orderHeadingImg{
@@ -153,7 +152,7 @@
     padding: 0.7rem;
     border: none;
     outline: none;
-    width: 45%;
+    width: 35%;
     border-radius: 0.3rem;
     letter-spacing: 0.1rem;
     margin: 1rem 0
