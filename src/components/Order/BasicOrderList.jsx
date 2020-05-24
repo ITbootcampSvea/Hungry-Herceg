@@ -58,11 +58,11 @@ const BasicOrderList = ({meals,addOrderItems}) => {
                     <div key={meal.mealId} className='basicOrderTxt'>
                         <div >{meal.name}</div>
                         <div>{meal.price}</div>
-                        <div><input defaultValue="1" min="1" id={'q' + meal.mealId} type="number" className='orderQuantity' /></div>
-                        <div><button onClick={() => {
+                        <div className='bacisNumberDiv'><input defaultValue="1" min="1" id={'q' + meal.mealId} type="number" className='orderQuantity' /></div>
+                        <div><img src='/img/add-order.png' alt='add' title='Add Order' className='addOrderBtn' onClick={() => {
                             let array = [meal];
                             addOrderItems(array);
-                        }}>Add</button></div>
+                        }}/></div>
                     </div>
                 )
             })}

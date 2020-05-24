@@ -32,7 +32,7 @@ const CurrentOrderList = ({ orderedMeals, total, setTotal }) => {
                             <div>{orderedMeal.name}</div>
                             <div>{orderedMeal.price}</div>
                             <div>{orderedMeal.quantity}</div>
-                            <div><input className='orderQuantity' placeholder="Note" type="text" onInput={(e) => orderedMeal.note = e.target.value} /></div>
+                            <div className='bacisNumberDiv'><input className='orderQuantity' placeholder="Note" type="text" onInput={(e) => orderedMeal.note = e.target.value} /></div>
                             <div><img src='/img/del.png' alt='remove' className='removeOrder' onClick={() => removeMeal(orderedMeal)}/></div>
                         </div>
                     )
