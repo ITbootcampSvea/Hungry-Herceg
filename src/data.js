@@ -81,6 +81,25 @@ let polls = [
       },
     ],
   },
+  {
+    pollId: 2,
+    name: "Monday111",
+    author: "Pera",
+    createdAt: "00:00AM",
+    ends: "00:10AM",
+    duration: "10 (min)",
+    status: "active",
+    restaurants: [
+      {
+        restaurantId: 0,
+        votes: 0,
+      },
+      {
+        restaurantId: 1,
+        votes: 0,
+      },
+    ],
+  },
 ];
 
 let orders = [
@@ -100,6 +119,14 @@ let orders = [
     status: "active",
     orderItemsList: [0, 1, 2],
   },
+  {
+    orderId: 2,
+    pollId: 2,
+    restaurantId: 1,
+    duration: "20min",
+    status: "inactive",
+    orderItemsList: [0, 1, 2]
+  }
 ];
 
 let restaurants = [
