@@ -52,7 +52,7 @@ const ComboOrderList = ({
                 <div>Price</div>
                 <div>Actions</div>
             </div>
-                <div>{comboRow}</div> 
+                {comboRow}
         </div>
     )
 }
