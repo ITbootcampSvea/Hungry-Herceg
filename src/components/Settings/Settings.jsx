@@ -4,31 +4,57 @@ let mealName = '';
 let mealPrice = '';
 let restaurantName = '';
 let restaurantAddress = '';
-let userName = '';
+let restaurantTags = [];
+let username = '';
 let password = '';
 
-const testRest = [
-{
-    id:0,
-    name:"Karadjordje"
-},
-{
-    id:1,
-    name:"Pera"
-},
-{
-    id:2,
-    name:"Pizerija"
-},
-{
-    id:3,
-    name:"Pizdarija"
-},
-{
-    id:4,
-    name:"Dunja"
-}
-]
+
+let testRest = [
+    {
+      restaurantId: 0,
+      name: "Prvi restoran",
+      address: "Adresa restorana",
+      meals: [
+        {
+          mealId: 0,
+          name: "Pljeskavica",
+          price: 100,
+          tags: ['#slano','#rostilj']
+        },
+        {
+          mealId: 1,
+          name: "Lapacinka",
+          price: 200,
+          tags: ['#slatko']
+        },
+        {
+          mealId: 2,
+          name: "Masan burek",
+          price: 1000,
+          tags: ['#slano']
+        }
+      ],
+    },
+    {
+      restaurantId: 1,
+      name: "Drugi restoran",
+      address: "Adresa restorana",
+      meals: [
+        {
+          mealId: 3,
+          name: "Krofna",
+          price: 250,
+          tags: ['#slatko']
+        },
+        {
+          mealId: 4,
+          name: "Pasta",
+          price: 350,
+          tags: ['#slano']
+        }
+      ],
+    },
+  ];
 
 const testUsers = [
 {
@@ -69,42 +95,69 @@ export default function Settings() {
     const handleMealName = (e) => {
         mealName = e.target.value
     }
+
     const handleMealPrice = (e) => {
         mealPrice = e.target.value
     }
+    
     const handleRestaurantName = (e) => {
         restaurantName = e.target.value
     }
+
     const handleRestaurantAddress = (e) => {
         restaurantAddress = e.target.value
     }
-    const handleUserName = (e) => {
-        userName = e.target.value
+
+    const handleRestaurantTags = (e) => {
+        restaurantTags = e.target.value
     }
+
+    const handleUserName = (e) => {
+        username = e.target.value
+    }
+
     const handlePassword = (e) => {
         password = e.target.value
     }
+
     const handleSubmitUser = () => {
-        console.log(userName, password)
+    //     sendUser(username, password).then(res => {
+    //     console.log(res)
+    // })
     }
+
+    let newRestaurant = {
+        name: restaurantName,
+        address: restaurantAddress,
+        tags: [...restaurantTags]
+    }
+
     const handleSubmitRestaurant = () => {
-        console.log(restaurantName, restaurantAddress)
+    //     sendRestaurant(newRestaurant).then(res => {
+    //     console.log(res)
+    // })
     }
+
     const handleSubmitMeal = () => {
         console.log(mealName, mealPrice)
     }
+
     const handleDisplayRestaurants = () => {
         setRenderRestaurants(restaurants)
     }
+
     const handleDisplayUsers = () => {
         setRenderUsers(users)
     }
-    const handleDeleteRestaurant = (id) => {
-        setRenderRestaurants(renderRestaurants.filter(el => el.id !== id))
+
+    const handleDeleteRestaurant = (restaurantId) => {
+        setRenderRestaurants(renderRestaurants.filter(el => el.restaurantId !== restaurantId))
     }
+
     const handleDeleteUser = (id) => {
         setRenderUsers(renderUsers.filter(el => el.id !== id))
     }
+
     const handleInputRestaurants = (e) => {
         if (e.target.value === '') {
             return setRenderRestaurants([]);
@@ -133,6 +186,7 @@ export default function Settings() {
                 <h3>Create new restaurant</h3>
                 <input type="text" placeholder="Restaurant name" onChange={(e) => handleRestaurantName(e)}></input>
                 <input type="text" placeholder="Restaurant address" onChange={(e) => handleRestaurantAddress(e)}></input>
+                <input type="text" placeholder="Restaurant tags" onChange={(e) => handleRestaurantTags(e)}></input>
                 <button onClick={(e) => handleSubmitRestaurant(e)}>Submit Restaurant</button>
             </div>
             <div>
@@ -149,13 +203,16 @@ export default function Settings() {
             </div>
             <div>
                 <h3>All Restaurants</h3>
-                 {renderRestaurants.map(el => {return <div key={el.id}> <label>{el.name}</label><button onClick={(e)=>handleDeleteRestaurant(el.id)}>X</button></div>})}
                 <input type="text" placeholder="Search by name..." onChange={(e) => handleInputRestaurants(e)} />
+                {renderRestaurants.map(el => {return <div key={el.restaurantId}> 
+                <label>{el.name}{' '}{el.meals.map(el => {return <label key={el.mealId}>Meal: {el.name}{' '}</label>})}</label>
+                <button onClick={(e)=>handleDeleteRestaurant(el.restaurantId)}>Delete Restaurant</button><hr></hr></div>})}
             </div>
             <div>
                 <h3>All Users</h3>
-                 {renderUsers.map(el => {return <div key={el.id}> <label>{el.username}</label><button onClick={(e)=>handleDeleteUser(el.id)}>X</button></div>})}
-                 <input type="text" placeholder="Search by name..." onChange={(e) => handleInputUsers(e)} />
+                <input type="text" placeholder="Search by name..." onChange={(e) => handleInputUsers(e)} />
+                 {renderUsers.map(el => {return <div key={el.id}> 
+                 <label>{el.username}</label><button onClick={(e)=>handleDeleteUser(el.id)}>Delete User</button></div>})}
             </div>
         </div>
     )
