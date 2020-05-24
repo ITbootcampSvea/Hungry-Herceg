@@ -9,7 +9,8 @@ let password = '';
 export default function LogIn({ history }) {
    
 
-    if (authService.isLoged()) history.push('/home');
+    if (authService.isLoged() && authService.isLoged()!=="Admin") history.push('/home');
+    else if (authService.isLoged()) history.push('/settings');
 
     const handleLogin = (e) => {
         e.preventDefault();
