@@ -61,7 +61,7 @@ export default function Vote({ history, match }) {
         else {
             e.target.className = 'vote';
             e.target.innerHTML = "Vote";
-            votedList.splice(restaurants.indexOf(restaurants.find(el => el._id === e.target.id)), 1);
+            votedList.splice(votedList.indexOf(e.target.id), 1);
         }
 
     }
