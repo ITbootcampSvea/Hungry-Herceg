@@ -3,7 +3,7 @@ import ActivePolls from "./ActivePolls";
 import ActiveOrders from "./ActiveOrders";
 import "./home.css";
 import NavBar from "../NavBar/NavBar";
-import FinishedOrders from "./FinishedOrders";
+// import FinishedOrders from "./FinishedOrders";
 
 
 const Home = ({ history }) => {
@@ -15,7 +15,7 @@ const Home = ({ history }) => {
         <div className="active">
           <ActivePolls />
           <ActiveOrders />
-          <FinishedOrders />
+          {/* <FinishedOrders /> */}
         </div>
       </div>
     </div>

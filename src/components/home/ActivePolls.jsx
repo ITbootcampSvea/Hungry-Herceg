@@ -2,13 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { polls } from "../../../src/data";
 import { appStorage } from "../../services/storage.service";
+import axios from 'axios';
 
 class ActivePolls extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       userName: appStorage.getUser(),
-      allPolls: polls,
+      allPolls: []
     };
   }
 
@@ -17,10 +18,19 @@ class ActivePolls extends React.Component {
   }
 
   setAllPolls = async () => {
-    // let allPolls = await getAllPolls();
-    //getAllPolls ce biti u service i vuci ce sve polove sa servera
-    // this.setState({ allPolls: allPolls });
+    let allPolls = await this.getAllPolls();
+    this.setState({ allPolls: allPolls.data });
+    console.log(allPolls.data)
   };
+
+
+  //bice u service
+  getAllPolls=async () => {
+    const response = await axios(`https://hungry-herceg.herokuapp.com/poll`);
+    return response.data;
+}
+
+
 
   //brisace poll sa servera kada bude gotov back
   //sada brise samo iz state-a
@@ -44,7 +54,7 @@ class ActivePolls extends React.Component {
           pollsRow.push(
             <div className="active-info">
               <div>
-                <label className="pollLblInfo"> {poll.name}</label>
+                <label className="pollLblInfo">{poll.name}</label>
               </div>
               <div>
                 <label className="pollLblInfo">{poll.author}</label>
@@ -86,12 +96,12 @@ class ActivePolls extends React.Component {
               </div>
               <div className="className='pollGuest'">
                 <div>
-                  <Link to={`/poll/${poll.pollId}`} className="voteBtnLink">
+                  <Link to={`/vote/:${poll._id}`} className="voteBtnLink">
                     <img
                       src="./img/vote1.png"
                       alt="icon"
                       title="Vote"
-                      className="pollGuestIcon"
+                      className="pollGuestIcon"                     
                     />
                   </Link>
                 </div>
@@ -126,10 +136,10 @@ class ActivePolls extends React.Component {
             </div>
             <div>
               <label>Author</label>
-            </div>
+            </div>  
             <div>
-              <label>Remaining Time</label>
-            </div>
+              <label>Ends</label>
+            </div>         
             <div>
               <label>Action</label>
             </div>
