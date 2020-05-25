@@ -3,6 +3,10 @@ import axios from 'axios';
 
 const baseURL = "https://hungry-herceg.herokuapp.com";
 
+//users
+
+export const logInUser = (username, password) => axios.post(baseURL+"/user/login", {username, password});
+
 
 //Restaurants
 
@@ -12,5 +16,5 @@ export const getRestaurantByID = id => axios.get(baseURL+"/restaurant/:"+id);
 
  //Polls
 
-export const createPoll = (name,author,duration,restaurants) => axios.post(baseURL+"poll", {name,author,duration,restaurants});
+export const createPoll = (name, duration, restaurants) => axios.post(baseURL+"/poll", {name, duration, restaurants});
 
