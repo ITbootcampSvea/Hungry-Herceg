@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { polls } from "../../../src/data";
 import { appStorage } from "../../services/storage.service";
 import { getAllPolls } from '../../services/api.service';
 
@@ -25,11 +24,12 @@ class ActivePolls extends React.Component {
 
   //brisace poll sa servera kada bude gotov back
   //sada brise samo iz state-a
-  deletePoll = (index) => {
-    let activePollsAfterDelete = this.state.allPolls;
-    activePollsAfterDelete.splice(index, 1);
-    this.setState({ allPolls: activePollsAfterDelete });
-  };
+
+  // deletePoll = (poll) => {
+  //   let activePollsAfterDelete = this.state.allPolls;
+  //   activePollsAfterDelete.splice(index, 1);
+  //   this.setState({ allPolls: activePollsAfterDelete });
+  // };
 
   endPoll = (pollId) => {
     //salje pobednicki restoran u niz ordera na backu
@@ -66,7 +66,7 @@ class ActivePolls extends React.Component {
                   <img src="./img/end1.png" alt="icon" title="End Poll" />
                 </div>
                 <div>
-                  <Link to={`/poll/${poll.pollId}`} className="voteBtnLink">
+                  <Link to={`/vote/:${poll._id}`} className="voteBtnLink">
                     <img src="./img/vote1.png" alt="icon" title="Vote" />
                   </Link>
                 </div>
