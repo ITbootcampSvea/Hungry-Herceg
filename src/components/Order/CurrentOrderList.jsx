@@ -20,11 +20,11 @@ const CurrentOrderList = ({ orderedMeals, total, setTotal }) => {
         <div className='currentOrderWrapp'>
                 <h3>Current Order</h3>
                 <div className='currentOrderTxt'>
-                    <div>Meal</div>
-                    <div>Price</div>
-                    <div>Quantity</div>
-                    <div>Note</div>
-                    <div>Actions</div>
+                    <div className='orderBold'>Meal</div>
+                    <div className='orderBold'>Price</div>
+                    <div className='orderBold'>Quantity</div>
+                    <div className='orderBold'>Note</div>
+                    <div className='orderBold'>Actions</div>
                 </div>
                 {orderedMeals.map(orderedMeal => {
                     return (
@@ -33,11 +33,11 @@ const CurrentOrderList = ({ orderedMeals, total, setTotal }) => {
                             <div>{orderedMeal.price * orderedMeal.quantity}</div>
                             <div>{orderedMeal.quantity}</div>
                             <div className='bacisNumberDiv'><input className='orderQuantity' placeholder="Note" type="text" onInput={(e) => orderedMeal.note = e.target.value} /></div>
-                            <div><img src='/img/del.png' alt='remove' className='removeOrder' onClick={() => removeMeal(orderedMeal)}/></div>
+                            <div><img src='/img/del.png' alt='remove' title='Remove Meal' className='removeOrder' onClick={() => removeMeal(orderedMeal)}/></div>
                         </div>
                     )
                 })}
-                <div>Total price: {total}</div>
+                <div>Total price: <span className='orderBold'>{total}</span></div>
                 <button onClick={() => finishOrder(orderedMeals)} className='orderNowBtn'>ORDER NOW!</button>
         </div>
     )

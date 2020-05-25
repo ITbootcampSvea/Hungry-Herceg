@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './Settings.css'
 import { authService } from '../../services/auth.service';
+import { getRestaurantsAll } from '../../services/api.service';
 
 let mealName = '';
 let mealPrice = '';
@@ -10,53 +11,6 @@ let restaurantTags = [];
 let username = '';
 let password = '';
 
-
-let testRest = [
-    {
-      restaurantId: 0,
-      name: "Prvi restoran",
-      address: "Adresa restorana",
-      meals: [
-        {
-          mealId: 0,
-          name: "Pljeskavica",
-          price: 100,
-          tags: ['#slano','#rostilj']
-        },
-        {
-          mealId: 1,
-          name: "Lapacinka",
-          price: 200,
-          tags: ['#slatko']
-        },
-        {
-          mealId: 2,
-          name: "Masan burek",
-          price: 1000,
-          tags: ['#slano']
-        }
-      ],
-    },
-    {
-      restaurantId: 1,
-      name: "Drugi restoran",
-      address: "Adresa restorana",
-      meals: [
-        {
-          mealId: 3,
-          name: "Krofna",
-          price: 250,
-          tags: ['#slatko']
-        },
-        {
-          mealId: 4,
-          name: "Pasta",
-          price: 350,
-          tags: ['#slano']
-        }
-      ],
-    },
-  ];
 
 const testUsers = [
     {
@@ -82,17 +36,16 @@ export default function Settings({history}) {
 
     const [restaurants, setRestaurants] = useState([]);
     const [users, setUsers] = useState([]);
-    const [renderRestaurants, setRenderRestaurants] = useState([]);
-    const [renderUsers, setRenderUsers] = useState([]);
+    // const [renderUsers, setRenderUsers] = useState([]);
     const [restaurantSectionSelected, setRestaurantSectionSelected] = useState(false);
     const [usersSectionSelected, setUsersSectionSelected] = useState(false);
     const [mealsSectionSelected, setMealsSectionSelected] = useState(false);
-    const [selectedRestaurantId, setSelectedRestaurantId] = useState(null);
+    const [selected_id, setSelected_id] = useState(null);
 
     useEffect(() => {
-        // getAllRestaurants().then(res => {
-        setRestaurants(testRest)
-        // })
+        getRestaurantsAll().then(res => {
+        setRestaurants(res.data.data)
+        })
         // getAllUser().then(res => {
         setUsers(testUsers)
         // })
@@ -148,45 +101,39 @@ export default function Settings({history}) {
         console.log(mealName, mealPrice)
     }
 
-    const handleDisplayRestaurants = () => {
-        setRenderRestaurants(restaurants)
-    }
 
-    const handleDisplayUsers = () => {
-        setRenderUsers(users)
-    }
-
-    const handleDeleteRestaurant = (restaurantId) => {
-        setRenderRestaurants(renderRestaurants.filter(el => el.restaurantId !== restaurantId))
+    const handleDeleteRestaurant = (_id) => {
+        setRestaurants(restaurants.filter(el => el._id !== _id))
     }
 
     const getMeals = (id) => {
-        return renderRestaurants.find((el) => {
-            return el.restaurantId === id;
+        return restaurants.find((el) => {
+            return el._id === id;
         }).meals
     }
 
-    const handleSelectRestaurant = (restaurantId) => {
-        setSelectedRestaurantId(restaurantId)
+    const handleSelectRestaurant = (_id) => {
+        setSelected_id(_id)
+        setMealsSectionSelected(true)
     }
 
     const handleDeleteUser = (id) => {
-        setRenderUsers(renderUsers.filter(el => el.id !== id))
+        setUsers(users.filter(el => el.id !== id))
     }
 
     const handleInputRestaurants = (e) => {
         if (e.target.value === '') {
-            return setRenderRestaurants([]);
+            return setRestaurants([]);
         }
-        let filteredInputRestaurants = testRest.filter(el => el.name.includes(e.target.value));
-        setRenderRestaurants(filteredInputRestaurants)
+        let filteredInputRestaurants = restaurants.filter(el => el.name.includes(e.target.value));
+        setRestaurants(filteredInputRestaurants)
     }
     const handleInputUsers = (e) => {
         if (e.target.value === '') {
-            return setRenderUsers([]);
+            return setUsers([]);
         }
         let filteredInputUsers = testUsers.filter(el => el.username.includes(e.target.value));
-        setRenderUsers(filteredInputUsers)
+        setUsers(filteredInputUsers)
     }
     const handleRestaurantSectionSelected = () => {
         setRestaurantSectionSelected(!restaurantSectionSelected)
@@ -233,12 +180,9 @@ export default function Settings({history}) {
                             <button className='settSubmitBtn' onClick={(e) => handleSubmitRestaurant(e)}>Submit Restaurant</button>
                         </div>
                         <div>
-                            <button className='settDisplayBtn' onClick={(e) => handleDisplayRestaurants(e)}>Display All Restaurants</button>
-                        </div>
-                        <div>
+                            <div className='settSubheadingWrapp'> <h3 className='settSubheading'>Restaurants</h3></div>
                             <input className='settingsInput' type="text" placeholder="Search by name..." onChange={(e) => handleInputRestaurants(e)} />
-                            <div className='settSubheadingWrapp'> <h3 className='settSubheading'>All Restaurants</h3></div>
-                            {renderRestaurants.map(el => { return <div className='settColm' key={el.id}><div> <label onClick={() => handleSelectRestaurant(el.restaurantId)} className='settUsernameLbl allRestLbl'>{el.name}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteRestaurant(el.restaurantId)}>Delete</button></div></div> })}
+                            {restaurants.map(el => { return <div className='settColm' key={el._id}><div> <label onClick={() => handleSelectRestaurant(el._id)} className='settUsernameLbl allRestLbl'>{el.name}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteRestaurant(el._id)}>Delete</button></div></div> })}
                         </div>
                     </div>
                 </div>
@@ -249,12 +193,12 @@ export default function Settings({history}) {
                     </div>
                     <div style={mealSectionStyle} className='transitionWapper'>
                     <div>
-                        <div className='createNewWrapp'> <h3 className='createNewHeading'>Create new restaurant</h3></div>
+                        <div className='createNewWrapp'> <h3 className='createNewHeading'>Create new meal</h3></div>
                         <input className='settingsInput' type="text" placeholder="Meal name" onChange={(e) => handleMealName(e)}></input>
                         <input className='settingsInput' type="number" placeholder="Meal price" onChange={(e) => handleMealPrice(e)}></input>
                         <button className='settSubmitBtn' onClick={(e) => handleSubmitMeal(e)}>Submit Meal</button>
                         <div>
-                            {selectedRestaurantId !== null ? getMeals(selectedRestaurantId).map(el => {return <div className='selectedMealsWrapp' key={el.mealId} >
+                            {selected_id !== null ? getMeals(selected_id).map(el => {return <div className='selectedMealsWrapp' key={el._id} >
                                 <label className='settUsernameLbl'>{el.name}{' '}{el.price}</label></div>}): null}
                         </div>
                     </div>
@@ -273,12 +217,9 @@ export default function Settings({history}) {
                             <button className='settSubmitBtn' onClick={(e) => handleSubmitUser(e)}>Submit User</button>
                         </div>
                         <div>
-                            <div>
-                                <button className='settDisplayBtn' onClick={(e) => handleDisplayUsers(e)}>Display All Users</button>
-                            </div>
-                            <div className='settSubheadingWrapp'> <h3 className='settSubheading'>All Users</h3></div>
-                            {renderUsers.map(el => { return <div className='settColm' key={el.id}><div> <label className='settUsernameLbl '>{el.username}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteUser(el.id)}>Delete</button></div></div> })}
+                            <div className='settSubheadingWrapp'> <h3 className='settSubheading'>Users</h3></div>
                             <input className='settingsInput' type="text" placeholder="Search by name..." onChange={(e) => handleInputUsers(e)} />
+                            {users.map(el => { return <div className='settColm' key={el.id}><div> <label className='settUsernameLbl '>{el.username}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteUser(el.id)}>Delete</button></div></div> })}
                         </div>
                     </div>
                     </div>

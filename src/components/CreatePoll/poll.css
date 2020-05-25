@@ -6,7 +6,6 @@
 }
 
 .activePoll {
-    height: 88vh;
     margin: 0 10%;
     height: 100%;
     background: var(--primary-black);
@@ -314,4 +313,44 @@
     align-items: center;
     justify-items: right;
     margin-right: 1rem;
+}
+
+/*iPad*/
+@media (max-width:768px) {
+    .activePoll {
+        margin: 0;
+    }
+    .pollWrapper {
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: none;
+    }
+    .newPollCard {
+        grid-template-rows: 1fr 1fr;
+    }
+}
+
+/*Mobile telephone*/
+@media (max-width:500px) {
+    .searchRest {
+        width: 35rem;
+    }
+    .createPollInfo {
+        width: 35rem;
+    }
+    .createPollDurationWrapp {
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        justify-items: center;
+        padding-top: 0.1rem;
+    }
+    .NoInpPoll{
+        width: 40%;
+    }
+    .newPollCard {
+        grid-template-rows: 0.6fr 1fr 0.5fr;
+    }
+    .restaurantList {
+        width: 35rem;
+    }
 }

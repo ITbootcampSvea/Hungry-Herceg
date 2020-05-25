@@ -9,7 +9,8 @@ const NavBar = () => {
     return (
         <div className="nav-bar">
             <div className="logo">
-                <img src="/img/hh.png" alt="logo" className="logo-icon" />
+                <img src="/img/hh.png" alt="logo" className="logo-icon" 
+                onClick={() => history.push('/home') }/>
             </div>
             <div className="nav-fildes">
                 <div></div>
@@ -33,7 +34,8 @@ const NavBar = () => {
                 </div>
 
                 <div className="nav-filed">
-                    <Link>
+                   
+                    <Link to='/home'>{/*---------uneti pravu routu----------*/}
                         <div className="icon-wrapper">
                             <img src="/img/stat1.png" alt="icon" className="nav-bar-icon" />
                         </div>
@@ -53,12 +55,12 @@ const NavBar = () => {
                 </div>
 
                 <div className="nav-filed">
-                    <Link onClick={() => { authService.LogOut(); history.push('/login') }} className='logoutLink'>
+                    <div  onClick={() => { authService.LogOut(); history.push('/login') }} className='logoutLink'>
                         <div className="icon-wrapper">
                             <img src="/img/logout2.png" alt="icon" className="nav-bar-icon" />
                         </div>
                         <div className="nav-text rest logout">Log Out</div>
-                        </Link>
+                        </div>
                 </div>
             </div>
         </div>

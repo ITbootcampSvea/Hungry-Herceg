@@ -3,8 +3,8 @@ import { appStorage } from '../../services/storage.service';
 import NavBar from '../NavBar/NavBar';
 import './poll.css'
 import { useAlert } from 'react-alert'
-// import { getRestaurantsAll } from '../../services/api.service';
-//importovati createPoll iz API servisa
+import { getRestaurantsAll, createPoll } from '../../services/api.service';
+
 
 let hours = 0;
 let minutes = 15;
@@ -14,29 +14,6 @@ let pollName = '';
 let itemsToShow = 3;
 let overflow = false;
 
-// const testRest = [
-//     {
-//         id: 0,
-//         name: "Karadjordje"
-//     },
-//     {
-//         id: 1,
-//         name: "Pera"
-//     },
-//     {
-//         id: 2,
-//         name: "Pizerija"
-//     },
-//     {
-//         id: 3,
-//         name: "Pizdarija"
-//     },
-//     {
-//         id: 4,
-//         name: "Dunja"
-//     }
-
-// ]
 
 export default function CreatePoll({ history }) {
     const alert = useAlert()
@@ -49,13 +26,14 @@ export default function CreatePoll({ history }) {
     const [showAll, setShowAll] = useState(false);
     const [stateOverflow, setStateOverflow] = useState(false);
 
-    // useEffect(() => {                               //getAllRestaurants - fja za podatke sa apija
-    //     getRestaurantsAll().then(res => {
-    //         setRestaurants(res);
-    //         console.log(res);
+    useEffect(() => {                               //getAllRestaurants - fja za podatke sa apija
+        getRestaurantsAll().then(res => {
+            console.log(res.data.data);
             
-    //     })
-    // }, [])
+            setRestaurants(res.data.data);
+            
+        }).catch(res=>alert.error('Something wrong happened. Try reload or contact support. Details:' + res ));
+    }, [])
 
 
     const handleRestaurantName = (e) => {
@@ -68,7 +46,7 @@ export default function CreatePoll({ history }) {
         const { id } = e.target;
         let tempArr = restaurants;
         setPollList([...pollList, restaurants.find((restaurant, index) => {
-            if (restaurant.id + "" === id + "") {
+            if (restaurant._id + "" === id + "") {
                 tempArr.splice(index, 1);
                 setRestaurants(tempArr);
                 return true;
@@ -82,7 +60,7 @@ export default function CreatePoll({ history }) {
         const { id } = e.target;
         let tempArr = pollList;
         setRestaurants([...restaurants, pollList.find((restaurant, index) => {
-            if (restaurant.id + "" === id + "") {
+            if (restaurant._id + "" === id + "") {
                 tempArr.splice(index, 1);
                 setPollList(tempArr);
                 return true;
@@ -150,33 +128,29 @@ export default function CreatePoll({ history }) {
             return;
         }
 
-        let poll = {
-            name: pollName,
-            author: appStorage.getUser(),
-            duration: duration,
-            restaurants: pollList.map(res => res.id),
-        }
-
-        // createPoll(poll).then(res=>{   // resiti sa back-end
-        //     if(res.success){
-        //             // redirect na home ili na vote - resiti
-        //     }
-        //     else{
-        //         alert("doslo je do greske");
-        //     }
-        // }).catch(err=>{
-        //     alert("doslo je do greske:" + err);
-        // })
-    }
-    const handleCancel = () => {
-        let poll = {
+        const poll = {
             name: pollName,
             duration: duration,
-            restaurants: pollList.map(res => res.id),
+            restaurants: pollList.map(res => res._id),
         }
         console.log(poll);
+        
+        createPoll(poll.name,poll.duration,poll.restaurants).then(res=>{ 
+            console.log(res);
+              // resiti sa back-end
+            if(res.success){
+                    // redirect na home ili na vote - resiti
+            }
+            else{
+                alert.error("doslo je do greske");
+            }
+        }).catch(err=>{
+            alert.error("doslo je do greske:" + err);
+        })
+    }
+    const handleCancel = () => {
 
-        // history.push('/home')
+        history.push('/home')
     }
 
 
@@ -204,7 +178,7 @@ export default function CreatePoll({ history }) {
                                             <label className='restNameLbl'>{restaurant.name}</label>
                                         </div>
                                         <div className='restImgWrapp'>
-                                            <img src='/img/add-restaurant.png' alt='add' title='Add Restaurant' className='addRestImg' id={restaurant.id} onClick={handleAdd} />
+                                            <img src='/img/add-restaurant.png' alt='add' title='Add Restaurant' className='addRestImg' id={restaurant._id} onClick={handleAdd} />
                                         </div>
                                     </div>)
                                 })}
@@ -253,7 +227,7 @@ export default function CreatePoll({ history }) {
                                             <label className='choosenRest'>{restaurant.name}</label>
                                         </div>
                                         <div className='removeImgWrapp'> 
-                                            <img src='/img/del.png' alt='del' className='removeBtn' title='Remove Restaurant' id={restaurant.id} onClick={handleRemove} />
+                                            <img src='/img/del.png' alt='del' className='removeBtn' title='Remove Restaurant' id={restaurant._id} onClick={handleRemove} />
                                         </div>
                                     </div>)
                                 })}

@@ -42,10 +42,10 @@ const ComboOrderList = ({
             <input type="text" onChange={(e) => setBudget(e.target.value)} 
             placeholder='Enter your budget limit' className='basicOrderInput'/>       
             <div className='basicOrderTxt'>
-                <div>Meal</div>
-                <div>Dessert</div>
-                <div>Price</div>
-                <div>Actions</div>
+                <div className='orderBold'>Meal</div>
+                <div className='orderBold'>Dessert</div>
+                <div className='orderBold'>Price</div>
+                <div className='orderBold'>Actions</div>
             </div>
                 {comboRow}
         </div>

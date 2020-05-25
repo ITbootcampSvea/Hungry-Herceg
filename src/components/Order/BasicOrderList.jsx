@@ -48,10 +48,10 @@ const BasicOrderList = ({meals,addOrderItems}) => {
             <input type="text" onChange={(e) => filterRestaurants(e.target.value)}
                 className='basicOrderInput' placeholder='Enter a meal name or a meal tag' />
             <div className='basicOrderTxt'>
-                    <div>Meal</div>
-                    <div>Price</div>
-                    <div>Quantity</div>
-                    <div>Actions</div>
+                    <div className='orderBold'>Meal</div>
+                    <div className='orderBold'>Price</div>
+                    <div className='orderBold'>Quantity</div>
+                    <div className='orderBold'>Actions</div>
             </div>
             {filteredMeals.map(meal => {
                 return (

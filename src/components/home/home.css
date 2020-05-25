@@ -1,5 +1,4 @@
 .wrapper {
-    height: 100vh;
     display: grid;
     grid-template-rows: 1fr 6fr;
     background-color: var(--primary-black);
@@ -9,15 +8,11 @@
     color: white;
 }
 
-
 .active  {
-    height: 88vh;
     margin: 0 10%;
-    height: 100%;
     display: grid;
     grid-template-rows: 1fr 1fr;
     background: var(--primary-black);
-    display: grid;
     justify-items: center;
     align-items: center;
     box-shadow: 
@@ -38,7 +33,6 @@
     box-shadow: 0.5rem 0.5rem 0.7rem black;
 }
 
-
 .orderInfoLbl{
     font-size: 1.7rem;
     font-weight: 700;
@@ -49,14 +43,12 @@
     font-weight: 500;
 }
 
-
 .pollCardicon{
     position: absolute;
     height: 10rem;
     left: -5%;
     top: 20%;
     filter: drop-shadow(0.4rem 0.3rem 0.4rem rgba(243, 238, 238, 0.815) );
-
 }
 
 .active-info {
@@ -131,22 +123,17 @@
     background: var(--light-green);
 }
 
-
-
 .pollGuest{
     display: grid;
     grid-template-columns: 1fr;
     align-items: center;
     justify-items: center;
-
 }
-
 
 .pollGuestIcon{
     height: 3.7rem;
     filter: drop-shadow(0.1rem 0.1rem 0.1rem black);
 }
-
 
 .voteBtnLink:hover{
     border-bottom: none;
@@ -157,9 +144,6 @@
     grid-template-columns: 1fr 1fr 1fr;
 }
 
-
-
-
 .btn-icons img {
     height: 3.7rem;
     cursor: pointer;
@@ -167,4 +151,16 @@
     filter: drop-shadow(0.1rem 0.1rem 0.1rem black);
 }
 
-
+/*iPad*/
+@media (max-width:768px) {
+    .active {
+        margin: 0;
+    }
+    .poll-order-card {
+        width: 70rem;
+        margin-bottom: 2rem;
+    }
+    .pollCardicon {
+        display: none;
+    }
+}
