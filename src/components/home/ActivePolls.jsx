@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { polls } from "../../../src/data";
 import { appStorage } from "../../services/storage.service";
-import axios from 'axios';
+import { getAllPolls } from '../../services/api.service';
 
 class ActivePolls extends React.Component {
   constructor(props) {
@@ -18,18 +18,9 @@ class ActivePolls extends React.Component {
   }
 
   setAllPolls = async () => {
-    let allPolls = await this.getAllPolls();
+    let allPolls = await getAllPolls();
     this.setState({ allPolls: allPolls.data });
-    console.log(allPolls.data)
   };
-
-
-  //bice u service
-  getAllPolls=async () => {
-    const response = await axios(`https://hungry-herceg.herokuapp.com/poll`);
-    return response.data;
-}
-
 
 
   //brisace poll sa servera kada bude gotov back

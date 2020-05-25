@@ -18,3 +18,7 @@ export const getRestaurantByID = id => axios.get(baseURL+"/restaurant/:"+id);
 
 export const createPoll = (name, duration, restaurants) => axios.post(baseURL+"/poll", {name, duration, restaurants});
 
+export const getAllPolls = async () => {
+    const response = await axios(baseURL+"/poll");
+    return response.data;
+}
