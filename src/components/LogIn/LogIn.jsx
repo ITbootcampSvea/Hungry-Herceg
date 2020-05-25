@@ -1,12 +1,15 @@
 import React from 'react'
 import { authService } from '../../services/auth.service'
 import './Login.css'
+import { useAlert } from 'react-alert'
 
 
 let username = '';
 let password = '';
 
 export default function LogIn({ history }) {
+
+    const alert = useAlert()
    
 
     if (authService.isLoged() && authService.isLoged()!=="Admin") history.push('/home');
@@ -14,7 +17,7 @@ export default function LogIn({ history }) {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        console.log(username, password)
+        alert.success("You Log in succesfully")
         authService.LogIn(username,password);
         history.push("/home");
         // checkUser(username, password).then(res => {      // Proveriti sa backend-om sta se dobija kao odgovor
