@@ -10,6 +10,7 @@ const getHeader = () =>({headers:{Authorization:"Bearer " + appStorage.getToken(
 //Users
 
 export const logInUser = (username, password) => axios.post(baseURL+"/user/login", {username, password});
+export const getUsersAll = () => axios.get(baseURL+"/user");
 
 
 //Restaurants

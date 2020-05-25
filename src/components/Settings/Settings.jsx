@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './Settings.css'
 import { authService } from '../../services/auth.service';
-import { getRestaurantsAll } from '../../services/api.service';
+import { getRestaurantsAll, getUsersAll } from '../../services/api.service';
 
 let mealName = '';
 let mealPrice = '';
@@ -36,7 +36,6 @@ export default function Settings({history}) {
 
     const [restaurants, setRestaurants] = useState([]);
     const [users, setUsers] = useState([]);
-    // const [renderUsers, setRenderUsers] = useState([]);
     const [restaurantSectionSelected, setRestaurantSectionSelected] = useState(false);
     const [usersSectionSelected, setUsersSectionSelected] = useState(false);
     const [mealsSectionSelected, setMealsSectionSelected] = useState(false);
@@ -46,9 +45,9 @@ export default function Settings({history}) {
         getRestaurantsAll().then(res => {
         setRestaurants(res.data.data)
         })
-        // getAllUser().then(res => {
-        setUsers(testUsers)
-        // })
+        getUsersAll().then(res => {
+        setUsers(res.data.data)
+        })
     }, [])
 
     const handleMealName = (e) => {
@@ -219,7 +218,7 @@ export default function Settings({history}) {
                         <div>
                             <div className='settSubheadingWrapp'> <h3 className='settSubheading'>Users</h3></div>
                             <input className='settingsInput' type="text" placeholder="Search by name..." onChange={(e) => handleInputUsers(e)} />
-                            {users.map(el => { return <div className='settColm' key={el.id}><div> <label className='settUsernameLbl '>{el.username}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteUser(el.id)}>Delete</button></div></div> })}
+                            {users.map(el => { return <div className='settColm' key={el._id}><div> <label className='settUsernameLbl '>{el.username}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteUser(el.id)}>Delete</button></div></div> })}
                         </div>
                     </div>
                     </div>
