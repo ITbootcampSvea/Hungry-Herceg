@@ -50,9 +50,9 @@ class ActivePolls extends React.Component {
                   <label className="pollLblInfo">{poll.author}</label>
                 </div>
                 <div>
-                  <Link to={`/vote/${poll._id}`} className="voteBtnLink">
-                    <img src="./img/vote1.png" alt="icon" title="Vote" />
-                  </Link>
+                <div>
+                  <label className="pollLblInfo">{poll.ends}</label>
+                </div>
                 </div>
                 <div className="btn-icons">
                   <div>
