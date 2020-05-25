@@ -45,6 +45,11 @@
     font-weight: 500;
 }
 
+.pollLblNoInfo{
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
 .pollCardicon {
     position: absolute;
     height: 10rem;
@@ -119,6 +124,12 @@
     font-weight: 300;
     font-size: 1.4rem;
     transition: all 0.6s ease-in-out;
+}
+
+.noActiveInfo{
+    display: grid;
+    align-items: center;
+    justify-items: center;
 }
 
 .btn-green:hover {

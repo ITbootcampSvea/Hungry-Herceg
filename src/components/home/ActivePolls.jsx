@@ -103,8 +103,11 @@ class ActivePolls extends React.Component {
       });
     } else {
       pollsRow = (
-        <div className="active-info">
-          <label>No Active Polls</label>
+        <div className="noActiveInfo">
+          <div>
+          <label className="pollLblNoInfo">No Active Polls</label>
+          </div>
+        
         </div>
       );
     }
@@ -135,7 +138,7 @@ class ActivePolls extends React.Component {
               <label>Action</label>
             </div>
           </div>
-          <div className='pollRowsWrapp'>
+          <div className='pollRow'>
           {pollsRow}
           </div>
           <div className="card-btn-wrapper">
