@@ -52,13 +52,15 @@ const ActiveOrders = () => {
                     <label className='orderInfoLbl'>Action</label>
                 </div>
             </div>
-            {activeOrders.map(order => {
+            
+            <div className='pollRowsWrapp'>    {activeOrders.map(order => {
                 let poll = polls.find(poll => poll.pollId === order.pollId);
                 let restaurant = restaurants.find(restaurant => restaurant.restaurantId === order.restaurantId);
 
                 let userOrders = user.history.filter(el => el.orderId === order.orderId);
                 
                 return(
+                    
                     <div className="active-info header order">
                     <div>
                         <label className='pollLblInfo'>{poll.name}</label>
@@ -93,8 +95,9 @@ const ActiveOrders = () => {
                             </div>
                         </div>
                 </div>
+                
                 ) 
-            })}
+            })} </div>
 
         </div>
 

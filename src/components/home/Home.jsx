@@ -3,6 +3,7 @@ import ActivePolls from "./ActivePolls";
 import ActiveOrders from "./ActiveOrders";
 import "./home.css";
 import NavBar from "../NavBar/NavBar";
+import FinishedOrders from './FinishedOrders'
 // import FinishedOrders from "./FinishedOrders";
 
 
@@ -13,9 +14,11 @@ const Home = ({ history }) => {
       <NavBar history={history} />
       <div>
         <div className="active">
+          <div>
           <ActivePolls />
           <ActiveOrders />
-          {/* <FinishedOrders /> */}
+          </div>
+       <FinishedOrders/>
         </div>
       </div>
     </div>
