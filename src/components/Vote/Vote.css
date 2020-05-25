@@ -118,3 +118,22 @@
 .voted:hover{
     background: #CC4D43;
 }
+
+
+/*iPad*/
+@media (max-width:768px) {
+    .activeVote {
+        margin: 0;
+        align-items: baseline;
+    }
+    .voteCard {
+        width: 70rem;
+    }
+}
+
+/*Mobile telephone*/
+@media (max-width:500px) {
+    .voteCard {
+        width: 35rem;
+    }
+}
