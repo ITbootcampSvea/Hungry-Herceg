@@ -1,17 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { appStorage } from "../../services/storage.service";
-import { orders, polls, restaurants, users, meals, orderItems } from "../../data";
+import {
+  orders,
+  polls,
+  restaurants,
+  users,
+  meals,
+  orderItems,
+} from "../../data";
 import { Link } from "react-router-dom";
 
 const FinishedOrders = () => {
   const [inactiveOrders, setInactiveOrders] = useState([]);
+
   useEffect(() => {
     setInactiveOrders(orders.filter((el) => el.status === "inactive"));
   }, []);
 
   let user = users.find((user) => user.username === appStorage.getUser());
-  let allUsersOrderItems = orderItems.map((item) => item.order);
   
+
+  let inactiveOrderMeals = inactiveOrders.map((order)=>order.orderItemsList);
+  
+  
+
+
+  console.log(inactiveOrderMeals);
+  
+ 
+
+
+
 
   return (
     <div className="active-polls">

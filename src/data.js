@@ -161,13 +161,13 @@ let restaurants = [
     address: "Adresa restorana",
     meals: [
       {
-        mealId: 3,
+        mealId: 0,
         name: "Krofna",
         price: 250,
         tags: ['#slatko']
       },
       {
-        mealId: 3,
+        mealId: 1,
         name: "Pasta",
         price: 350,
         tags: ['#slano']
