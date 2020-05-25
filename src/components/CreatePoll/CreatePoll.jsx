@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { appStorage } from '../../services/storage.service';
 import NavBar from '../NavBar/NavBar';
 import './poll.css'
 import { useAlert } from 'react-alert'
@@ -11,7 +10,7 @@ let minutes = 15;
 let duration = 15;
 let pollName = '';
 
-let itemsToShow = 3;
+let itemsToShow = 5;
 let overflow = false;
 
 
@@ -26,10 +25,9 @@ export default function CreatePoll({ history }) {
     const [showAll, setShowAll] = useState(false);
     const [stateOverflow, setStateOverflow] = useState(false);
 
-    useEffect(() => {                               //getAllRestaurants - fja za podatke sa apija
+    useEffect(() => {        
         getRestaurantsAll().then(res => {
-            console.log(res.data.data);
-            
+          
             setRestaurants(res.data.data);
             
         }).catch(res=>alert.error('Something wrong happened. Try reload or contact support. Details:' + res ));
@@ -79,9 +77,27 @@ export default function CreatePoll({ history }) {
 
         return arr;
     }
+
     const filterList = (restaurants, search, showAll) => {
 
-        let arr = customSort(restaurants).filter(el => el.name.toLowerCase().startsWith(search.toLowerCase()));
+        let arr = customSort(restaurants).filter(el => {
+            
+            if (search.startsWith("#")){
+
+                for (let i = 0; i < el.tags.length; i++) {
+                    if(el.tags[i].startsWith(search.slice(1,search.length))){
+                        return true;
+                    }
+                      
+                }
+                return false;
+            }
+
+            else{
+                return el.name.toLowerCase().includes(search.toLowerCase());
+            }
+        
+        });
 
         overflow = arr.length > itemsToShow;
 
@@ -119,7 +135,7 @@ export default function CreatePoll({ history }) {
 
     const handleCreatePoll = () => {
         if (pollName.trim().length < 1) {
-            alert.error('Plese enter poll name'); // resiti sa dizajnerima
+            alert.error('Plese enter poll name'); 
             return;
         }
 
@@ -133,19 +149,16 @@ export default function CreatePoll({ history }) {
             duration: duration,
             restaurants: pollList.map(res => res._id),
         }
-        console.log(poll);
         
         createPoll(poll.name,poll.duration,poll.restaurants).then(res=>{ 
-            console.log(res);
-              // resiti sa back-end
-            if(res.success){
-                    // redirect na home ili na vote - resiti
+            if(res.data.message === "Success"){
+                history.push("/home");
             }
             else{
-                alert.error("doslo je do greske");
+                alert.error("Something went wrong");
             }
         }).catch(err=>{
-            alert.error("doslo je do greske:" + err);
+            alert.error("Something went wrong:" + err);
         })
     }
     const handleCancel = () => {
