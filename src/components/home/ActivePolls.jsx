@@ -153,13 +153,7 @@ class ActivePolls extends React.Component {
               <label>Action</label>
             </div>
           </div>
-<<<<<<< HEAD
-          <div className='pollRow'>
-          {pollsRow}
-          </div>
-=======
           <div className="pollRowsWrapp">{pollsRow}</div>
->>>>>>> 58244f0eddb6f9d726e51690c1c560539e5f3e9e
           <div className="card-btn-wrapper">
             <button className="btn-green">
               <Link to={"/createpoll"} className="creBtnLink">
