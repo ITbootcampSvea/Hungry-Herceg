@@ -1,15 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { polls } from "../../../src/data";
 import { appStorage } from "../../services/storage.service";
-import { getAllPolls } from '../../services/api.service';
+import {
+  getAllPolls,
+  deletePollById,
+  endPollById,
+} from "../../services/api.service";
 
 class ActivePolls extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       userName: appStorage.getUser(),
-      allPolls: []
+      allPolls: [],
     };
   }
 
@@ -17,18 +20,12 @@ class ActivePolls extends React.Component {
     this.setAllPolls();
   }
 
-  setAllPolls = async () => {
-    let allPolls = await getAllPolls();
-    this.setState({ allPolls: allPolls.data });
-  };
-
-
-  //brisace poll sa servera kada bude gotov back
-  //sada brise samo iz state-a
-  deletePoll = (index) => {
-    let activePollsAfterDelete = this.state.allPolls;
-    activePollsAfterDelete.splice(index, 1);
-    this.setState({ allPolls: activePollsAfterDelete });
+  setAllPolls = () => {
+    getAllPolls()
+      .then((res) => {
+        this.setState({ allPolls: res.data.data });
+      })
+      .catch((err) => window.alert("Error occurred" + err));
   };
 
   endPoll = (pollId) => {
@@ -40,8 +37,9 @@ class ActivePolls extends React.Component {
     let allPolls = this.state.allPolls;
     let pollsRow = [];
     if (allPolls.length > 0) {
-      allPolls.map((poll, index) => {
-        if (poll.author === this.state.userName) {
+      allPolls.map((poll) => {
+        if (poll.author === this.state.userName && poll.status) {
+          console.log(poll);
           pollsRow.push(
             <div className="active-info">
               <div>
@@ -59,14 +57,31 @@ class ActivePolls extends React.Component {
                     src="./img/del.png"
                     alt="icon"
                     title="Delete"
-                    onClick={() => this.deletePoll(index)}
+                    onClick={() => {
+                      deletePollById(poll._id).then((res) => {
+                        if (res.data.message === "Success") {
+                          this.setAllPolls();
+                        }
+                      });
+                    }}
                   />
                 </div>
                 <div>
-                  <img src="./img/end1.png" alt="icon" title="End Poll" />
+                  <img
+                    src="./img/end1.png"
+                    alt="icon"
+                    title="End Poll"
+                    onClick={() =>
+                      endPollById(poll._id).then((res) => {
+                        if (res.data.message === "Success") {
+                          this.setAllPolls();
+                        }
+                      })
+                    }
+                  />
                 </div>
                 <div>
-                  <Link to={`/poll/${poll.pollId}`} className="voteBtnLink">
+                  <Link to={`/vote/:${poll._id}`} className="voteBtnLink">
                     <img src="./img/vote1.png" alt="icon" title="Vote" />
                   </Link>
                 </div>
@@ -92,7 +107,7 @@ class ActivePolls extends React.Component {
                       src="./img/vote1.png"
                       alt="icon"
                       title="Vote"
-                      className="pollGuestIcon"                     
+                      className="pollGuestIcon"
                     />
                   </Link>
                 </div>
@@ -130,17 +145,21 @@ class ActivePolls extends React.Component {
             </div>
             <div>
               <label>Author</label>
-            </div>  
+            </div>
             <div>
               <label>Ends</label>
-            </div>         
+            </div>
             <div>
               <label>Action</label>
             </div>
           </div>
+<<<<<<< HEAD
           <div className='pollRow'>
           {pollsRow}
           </div>
+=======
+          <div className="pollRowsWrapp">{pollsRow}</div>
+>>>>>>> 58244f0eddb6f9d726e51690c1c560539e5f3e9e
           <div className="card-btn-wrapper">
             <button className="btn-green">
               <Link to={"/createpoll"} className="creBtnLink">
