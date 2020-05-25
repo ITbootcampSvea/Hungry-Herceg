@@ -136,15 +136,22 @@ export default function Settings() {
     }
 
     const resturantSectionStyle = restaurantSectionSelected ? { opacity: 1 } : { opacity: 0 };
-    const userSectionStyle = usersSectionSelected? { opacity: 1 } : { opacity: 0 };
-    const mealSectionStyle = mealsSectionSelected? { opacity: 1 } : { opacity: 0 };
+    const userSectionStyle = usersSectionSelected ? { opacity: 1 } : { opacity: 0 };
+    const mealSectionStyle = mealsSectionSelected ? { opacity: 1 } : { opacity: 0 };
 
 
     return (
         <div className='settingsWrapp'>
             <div className='settingsHeader'>
+                <div></div>
                 <div className='settHeadWrapp'><h1 className='settHeading'>Settings</h1></div>
                 <div className='settIconWrapp'><img className='settIcon' src='/img/setti.png' alt='settings' /></div>
+                <div className='settLogoutWrapp'>
+                    <div>
+                        <img src="/img/logout2.png" alt="icon" className="settLogoutIcon" />
+                        <label className='settLogoutLbl'>Logout</label>
+                    </div>
+                </div>
             </div>
             <div className='settingsMainPart'>
                 <div className='settResWrapp'>
@@ -172,23 +179,23 @@ export default function Settings() {
                 <div className='settUserWrapp'>
                     <div className='mainPartHeader'>
                         <div className='mainPartHeadingWrapp'> <h1 className='mainPartHeading'>Users</h1></div>
-                        <div className='settHeaderIconWrapp'><img className='settHeaderIcon' src='/img/settUser.png' alt='logo'  onClick={() => handleUserSectionSelected()} /></div>
+                        <div className='settHeaderIconWrapp'><img className='settHeaderIcon' src='/img/settUser.png' alt='logo' onClick={() => handleUserSectionSelected()} /></div>
                     </div>
                     <div style={userSectionStyle} className='transitionWapper'>
-                    <div>
-                        <div className='createNewWrapp'> <h3 className='createNewHeading'>Create new user</h3></div>
-                        <input className='settingsInput' type="text" placeholder="Username" onChange={(e) => handleUserName(e)}></input>
-                        <input className='settingsInput' type="text" placeholder="Password" onChange={(e) => handlePassword(e)}></input>
-                        <button className='settSubmitBtn' onClick={(e) => handleSubmitUser(e)}>Submit User</button>
-                    </div>
-                    <div>
                         <div>
-                            <button className='settDisplayBtn' onClick={(e) => handleDisplayUsers(e)}>Display All Users</button>
+                            <div className='createNewWrapp'> <h3 className='createNewHeading'>Create new user</h3></div>
+                            <input className='settingsInput' type="text" placeholder="Username" onChange={(e) => handleUserName(e)}></input>
+                            <input className='settingsInput' type="text" placeholder="Password" onChange={(e) => handlePassword(e)}></input>
+                            <button className='settSubmitBtn' onClick={(e) => handleSubmitUser(e)}>Submit User</button>
                         </div>
-                        <div className='settSubheadingWrapp'> <h3 className='settSubheading'>All Users</h3></div>
-                        {renderUsers.map(el => { return <div className='settColm' key={el.id}><div> <label className='settUsernameLbl'>{el.username}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteUser(el.id)}>Delete</button></div></div> })}
-                        <input className='settingsInput' type="text" placeholder="Search by name..." onChange={(e) => handleInputUsers(e)} />
-                    </div>
+                        <div>
+                            <div>
+                                <button className='settDisplayBtn' onClick={(e) => handleDisplayUsers(e)}>Display All Users</button>
+                            </div>
+                            <div className='settSubheadingWrapp'> <h3 className='settSubheading'>All Users</h3></div>
+                            {renderUsers.map(el => { return <div className='settColm' key={el.id}><div> <label className='settUsernameLbl'>{el.username}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteUser(el.id)}>Delete</button></div></div> })}
+                            <input className='settingsInput' type="text" placeholder="Search by name..." onChange={(e) => handleInputUsers(e)} />
+                        </div>
                     </div>
 
                 </div>
@@ -198,12 +205,12 @@ export default function Settings() {
                         <div className='settHeaderIconWrapp'><img className='settHeaderIcon' src='/img/settMeal.png' alt='logo' onClick={() => handleMealsSectionSelected()} /></div>
                     </div>
                     <div style={mealSectionStyle} className='transitionWapper'>
-                    <div>
-                        <div className='createNewWrapp'> <h3 className='createNewHeading'>Create new restaurant</h3></div>
-                        <input className='settingsInput' type="text" placeholder="Meal name" onChange={(e) => handleMealName(e)}></input>
-                        <input className='settingsInput' type="number" placeholder="Meal price" onChange={(e) => handleMealPrice(e)}></input>
-                        <button className='settSubmitBtn' onClick={(e) => handleSubmitMeal(e)}>Submit Meal</button>
-                    </div>
+                        <div>
+                            <div className='createNewWrapp'> <h3 className='createNewHeading'>Create new restaurant</h3></div>
+                            <input className='settingsInput' type="text" placeholder="Meal name" onChange={(e) => handleMealName(e)}></input>
+                            <input className='settingsInput' type="number" placeholder="Meal price" onChange={(e) => handleMealPrice(e)}></input>
+                            <button className='settSubmitBtn' onClick={(e) => handleSubmitMeal(e)}>Submit Meal</button>
+                        </div>
                     </div>
                 </div>
             </div>
