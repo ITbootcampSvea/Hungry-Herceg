@@ -38,82 +38,84 @@ class ActivePolls extends React.Component {
     let pollsRow = [];
     if (allPolls.length > 0) {
       allPolls.map((poll) => {
-        if (poll.author === this.state.userName && poll.status) {
-          console.log(poll);
-          pollsRow.push(
-            <div className="active-info">
-              <div>
-                <label className="pollLblInfo">{poll.name}</label>
-              </div>
-              <div>
-                <label className="pollLblInfo">{poll.author}</label>
-              </div>
-              <div>
-                <label className="pollLblInfo">{poll.ends}</label>
-              </div>
-              <div className="btn-icons">
+        if (poll.status) {
+          if (poll.author === this.state.userName) {
+            console.log(poll);
+            pollsRow.push(
+              <div className="active-info">
                 <div>
-                  <img
-                    src="./img/del.png"
-                    alt="icon"
-                    title="Delete"
-                    onClick={() => {
-                      deletePollById(poll._id).then((res) => {
-                        if (res.data.message === "Success") {
-                          this.setAllPolls();
-                        }
-                      });
-                    }}
-                  />
+                  <label className="pollLblInfo">{poll.name}</label>
                 </div>
                 <div>
-                  <img
-                    src="./img/end1.png"
-                    alt="icon"
-                    title="End Poll"
-                    onClick={() =>
-                      endPollById(poll._id).then((res) => {
-                        if (res.data.message === "Success") {
-                          this.setAllPolls();
-                        }
-                      })
-                    }
-                  />
+                  <label className="pollLblInfo">{poll.author}</label>
                 </div>
                 <div>
-                  <Link to={`/vote/:${poll._id}`} className="voteBtnLink">
-                    <img src="./img/vote1.png" alt="icon" title="Vote" />
-                  </Link>
+                  <label className="pollLblInfo">{poll.ends}</label>
                 </div>
-              </div>
-            </div>
-          );
-        } else {
-          pollsRow.push(
-            <div className="active-info">
-              <div>
-                <label className="pollLblInfo">{poll.name}</label>
-              </div>
-              <div>
-                <label className="pollLblInfo">{poll.author}</label>
-              </div>
-              <div>
-                <label className="pollLblInfo">{poll.ends}</label>
-              </div>
-              <div className="className='pollGuest'">
-                <div>
-                  <Link to={`/vote/:${poll._id}`} className="voteBtnLink">
+                <div className="btn-icons">
+                  <div>
                     <img
-                      src="./img/vote1.png"
+                      src="./img/del.png"
                       alt="icon"
-                      title="Vote"
-                      className="pollGuestIcon"
+                      title="Delete"
+                      onClick={() => {
+                        deletePollById(poll._id).then((res) => {
+                          if (res.data.message === "Success") {
+                            this.setAllPolls();
+                          }
+                        });
+                      }}
                     />
-                  </Link>
+                  </div>
+                  <div>
+                    <img
+                      src="./img/end1.png"
+                      alt="icon"
+                      title="End Poll"
+                      onClick={() =>
+                        endPollById(poll._id).then((res) => {
+                          if (res.data.message === "Success") {
+                            this.setAllPolls();
+                          }
+                        })
+                      }
+                    />
+                  </div>
+                  <div>
+                    <Link to={`/vote/:${poll._id}`} className="voteBtnLink">
+                      <img src="./img/vote1.png" alt="icon" title="Vote" />
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
+            );
+          } else {
+            pollsRow.push(
+              <div className="active-info">
+                <div>
+                  <label className="pollLblInfo">{poll.name}</label>
+                </div>
+                <div>
+                  <label className="pollLblInfo">{poll.author}</label>
+                </div>
+                <div>
+                  <label className="pollLblInfo">{poll.ends}</label>
+                </div>
+                <div className="className='pollGuest'">
+                  <div>
+                    <Link to={`/vote/:${poll._id}`} className="voteBtnLink">
+                      <img
+                        src="./img/vote1.png"
+                        alt="icon"
+                        title="Vote"
+                        className="pollGuestIcon"
+                      />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            );
+          }
         }
       });
     } else {
