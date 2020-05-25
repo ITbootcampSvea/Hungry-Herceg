@@ -1,5 +1,4 @@
 .orderWrapper {
-    height: 88vh;
     margin: 0 10%;
     display: grid;
     background: var(--primary-black);
@@ -13,7 +12,6 @@
 
 .orderContent {
     width: 100%;
-    height: 50%;
     background-color: var(--primary-black);
     display: grid;
     justify-items: center;
@@ -164,4 +162,22 @@
 
 .orderNowBtn:hover {
     background: var(--light-green);
+}
+
+/*iPad*/
+@media (max-width:768px) {
+    .orderWrapper {
+        margin: 0;
+    }
+    .smallerOrderDiv {
+        width: 80%;
+    }
+}
+
+/*Mobile telephone*/
+@media (max-width:500px) {
+    .smallerOrderDiv {
+        width: 35rem;
+        padding-left: 0.4rem;
+    }
 }
