@@ -2,17 +2,20 @@ import React, { useEffect, useState } from "react";
 import { orders, polls, restaurants, users, meals } from "../../data";
 import { appStorage } from "../../services/storage.service";
 import { Link } from "react-router-dom";
+import { findData, getDataById } from "../../services/api";
 
 const ActiveOrders = () => {
 
     const [activeOrders,setActiveOrders] = useState([]);
-    //povlacenje podataka sa back-a, kada bude gotov api
+    //povlacenje podataka sa back-a
     useEffect(() => {
-        setActiveOrders(orders.filter(el => el.status === 'active'));
+        findData('order').then(res => {
+            let orders = res.data.data;
+            setActiveOrders(orders.filter(el => el.status === true));
+        })
     },[])
-
+    console.log(activeOrders);
     let user = users.find(user => user.username === appStorage.getUser());
-    // debugger
     //u slucaju da u appStorage cuvamo samo username, ako cuvamo ceo user objekat onda ovaj find 
     //nije potreban
 
@@ -53,21 +56,19 @@ const ActiveOrders = () => {
                 </div>
             </div>
             {activeOrders.map(order => {
-                let poll = polls.find(poll => poll.pollId === order.pollId);
-                let restaurant = restaurants.find(restaurant => restaurant.restaurantId === order.restaurantId);
 
-                let userOrders = user.history.filter(el => el.orderId === order.orderId);
+                let userOrders = user.history.filter(el => el.orderId === order._id);
                 
                 return(
                     <div className="active-info header order">
                     <div>
-                        <label className='pollLblInfo'>{poll.name}</label>
+                        <label className='pollLblInfo'>{order.pollId.name}</label>
                     </div>
                     <div>
-                        <label className='pollLblInfo'>{restaurant.name}</label>
+                        <label className='pollLblInfo'>{order.restaurantId.name}</label>
                     </div>
                     <div>
-                        <label className='pollLblInfo'>{poll.author}</label>
+                        <label className='pollLblInfo'>{order.pollId.author}</label>
                     </div>
                     <div>
                         <label className='pollLblInfo'>{order.duration}</label>
@@ -80,7 +81,7 @@ const ActiveOrders = () => {
                             })} </label>}
                     </div>
                     <div className="btn-icons">
-                    {user.username === poll.author ? <>
+                    {user.username === order.pollId.author ? <>
                             <div>
                                 <img src="./img/del.png" alt="icon" title="Delete" title='Delete order' onClick={() => deleteOrder(order.orderId)}/>
                             </div>
@@ -89,7 +90,7 @@ const ActiveOrders = () => {
                             </div>
                             </>:<div></div>}
                             <div>
-                            <Link to={`/order/${order.orderId}`} className='voteBtnLink'><img src='./img/order.png'alt='logo' title='Go to Order'/></Link>
+                            <Link to={`/order/${order._id}`} className='voteBtnLink'><img src='./img/order.png'alt='logo' title='Go to Order'/></Link>
                             </div>
                         </div>
                 </div>

@@ -7,20 +7,27 @@ import CurrentOrderList from "./CurrentOrderList";
 import ComboOrderList from "./ComboOrderList";
 import { appStorage } from "../../services/storage.service";
 import './Order.css'
+import { findData, getDataById } from "../../services/api";
 
 const CreateOrderItem = ({ history }) => {
     let { id } = useParams();
+    const [order,setOrder] = useState({});
+    const [restaurant,setRestaurant] = useState({});
 
     //povlacenje podataka o order-u preko id-ja
-    let order = orders.find((order) => order.orderId.toString() === id);
-    //povlacenje podataka o restoranu preko id-ja
-    let restaurant = restaurants.find(
-        (restaurant) => restaurant.restaurantId === order.restaurantId
-    );
+    useEffect(() => {
+        getDataById('order',id).then(res => {
+            setOrder(res.data.data);
+            setRestaurant(res.data.data.restaurantId);
+        });
+    },[])
+        
+    console.log(order);
+
     const [orderedMeals, setOrderedMeals] = useState([]);
     const [total, setTotal] = useState(0);
 
-    //ukoliko je korisnik vec porucio, prikazati na listi
+    // //ukoliko je korisnik vec porucio, prikazati na listi
     let user = users.find((user) => user.username === appStorage.getUser());
     let userOrders = user.history.filter((el) => el.orderId.toString() === id);
     useEffect(() => {
@@ -77,8 +84,6 @@ const CreateOrderItem = ({ history }) => {
         setOrderedMeals([...orderedMeals, ...newMeals]);
         setTotal(total + newPrice);
     };
-
-
 
     return (
         <div className='wrapper'>
