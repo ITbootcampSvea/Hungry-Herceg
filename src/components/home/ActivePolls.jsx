@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { appStorage } from "../../services/storage.service";
-import { getAllPolls, deletePollById } from "../../services/api.service";
-import axios from "axios";
+import {
+  getAllPolls,
+  deletePollById,
+  endPollById,
+} from "../../services/api.service";
 
 class ActivePolls extends React.Component {
   constructor(props) {
@@ -17,11 +20,13 @@ class ActivePolls extends React.Component {
     this.setAllPolls();
   }
 
-  setAllPolls = async () => {
-    let allPolls = await getAllPolls();
-    this.setState({ allPolls: allPolls.data.data });
+  setAllPolls = () => {
+    getAllPolls()
+      .then((res) => {
+        this.setState({ allPolls: res.data.data });
+      })
+      .catch((err) => window.alert("Error occurred" + err));
   };
-
 
   endPoll = (pollId) => {
     //salje pobednicki restoran u niz ordera na backu
@@ -33,7 +38,7 @@ class ActivePolls extends React.Component {
     let pollsRow = [];
     if (allPolls.length > 0) {
       allPolls.map((poll) => {
-        if (poll.author === this.state.userName) {
+        if (poll.author === this.state.userName && poll.status) {
           console.log(poll);
           pollsRow.push(
             <div className="active-info">
@@ -53,13 +58,27 @@ class ActivePolls extends React.Component {
                     alt="icon"
                     title="Delete"
                     onClick={() => {
-                      deletePollById(poll._id);
-                      this.setAllPolls();
+                      deletePollById(poll._id).then((res) => {
+                        if (res.data.message === "Success") {
+                          this.setAllPolls();
+                        }
+                      });
                     }}
                   />
                 </div>
                 <div>
-                  <img src="./img/end1.png" alt="icon" title="End Poll" />
+                  <img
+                    src="./img/end1.png"
+                    alt="icon"
+                    title="End Poll"
+                    onClick={() =>
+                      endPollById(poll._id).then((res) => {
+                        if (res.data.message === "Success") {
+                          this.setAllPolls();
+                        }
+                      })
+                    }
+                  />
                 </div>
                 <div>
                   <Link to={`/vote/:${poll._id}`} className="voteBtnLink">
