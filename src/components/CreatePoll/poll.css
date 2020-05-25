@@ -322,8 +322,8 @@
     }
     .pollWrapper {
         display: grid;
-        grid-template-rows: 1fr 1fr 1fr;
         grid-template-columns: none;
+        height: auto;
     }
     .newPollCard {
         grid-template-rows: 1fr 1fr;
