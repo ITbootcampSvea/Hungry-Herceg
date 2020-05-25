@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { GetUser } from "../../services/api.service";
+import { getUsers } from "../../services/api.service";
 import { Polar } from "react-chartjs-2";
 import { user, meals } from "../../data";
 import NavBar from "../NavBar/NavBar";
@@ -7,17 +7,17 @@ import './Profile.css'
 const Profile = ({ history }) => {
   const [userInfo, setUserInfo] = useState({});
   const [userHistory, setUserHistory] = useState({});
-  //let meals = [];
+  let meals = [];
 
   //povlacenje sa servera i setovanje podataka
 
-  //   useEffect(() => {
-  //     //GetUser().then((data) => {
-  //       setUserInfo(data);
-  //       setUserHistory(data.history);
-  //       console.log(data);
-  //     });
-  //   });
+    useEffect(() => {
+      getUsers().then((data) => {
+        setUserInfo(data.data.data);
+        setUserHistory(data.history);
+        console.log(data.data.data);
+      });
+    },[]);
   //userHistory.map();
 
   //povlacenje mealova po id-ju
@@ -54,7 +54,7 @@ const Profile = ({ history }) => {
           <div></div>
         <div className='avatarInfoWrapp'>
           <div className='welcomeWrap'><label className='welLbl'>Welcome</label></div>
-          <div className='welcomeWrapÙsername'><label className='userNmaeAvatarCardLbl'>{user.username}</label></div>
+          <div className='welcomeWrapÙsername'><label className='userNmaeAvatarCardLbl'>{userInfo.username}</label></div>
         </div>
         </div>
         <div className='chartWrapper'>

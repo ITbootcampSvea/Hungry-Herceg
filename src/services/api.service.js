@@ -6,6 +6,7 @@ const baseURL = "https://hungry-herceg.herokuapp.com";
 //users
 
 export const logInUser = (username, password) => axios.post(baseURL+"/user/login", {username, password});
+export const getUsers = () => axios.get (baseURL+"/user");
 
 
 //Restaurants
