@@ -114,6 +114,10 @@
     cursor: pointer;
 }
 
+.orderBold {
+    font-weight: bolder;
+}
+
 /*Combo Order List Comp*/
 .comboOrderWrapp {
     display: grid;
