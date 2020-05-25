@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { appStorage } from "../../services/storage.service";
 import { getAllPolls } from '../../services/api.service';
+import axios from "axios";
 
 class ActivePolls extends React.Component {
   constructor(props) {
@@ -22,14 +23,11 @@ class ActivePolls extends React.Component {
   };
 
 
-  //brisace poll sa servera kada bude gotov back
-  //sada brise samo iz state-a
-
-  // deletePoll = (poll) => {
-  //   let activePollsAfterDelete = this.state.allPolls;
-  //   activePollsAfterDelete.splice(index, 1);
-  //   this.setState({ allPolls: activePollsAfterDelete });
-  // };
+  deletePoll = (pollId) => {
+    axios.delete(`https://hungry-herceg.herokuapp.com/poll/${pollId}`, {headers:{Authorization:"Bearer " + appStorage.getToken()}}
+    )
+    this.setAllPolls();
+  };
 
   endPoll = (pollId) => {
     //salje pobednicki restoran u niz ordera na backu
@@ -40,8 +38,9 @@ class ActivePolls extends React.Component {
     let allPolls = this.state.allPolls;
     let pollsRow = [];
     if (allPolls.length > 0) {
-      allPolls.map((poll, index) => {
+      allPolls.map((poll) => {
         if (poll.author === this.state.userName) {
+          console.log(poll)
           pollsRow.push(
             <div className="active-info">
               <div>
@@ -59,7 +58,7 @@ class ActivePolls extends React.Component {
                     src="./img/del.png"
                     alt="icon"
                     title="Delete"
-                    onClick={() => this.deletePoll(index)}
+                    onClick={() => this.deletePoll(poll._id)}
                   />
                 </div>
                 <div>
