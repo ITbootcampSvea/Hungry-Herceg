@@ -1,0 +1,114 @@
+.activeVote{
+    margin: 0 10%;
+    height: 100%;
+    display: grid;
+    background: var(--primary-black);
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    box-shadow: 
+    0 -6px var(--primary-black),
+    0 6px var(--primary-black), 
+    -7px 0 4px -3px rgba(153, 59, 52, 0.37), 
+    7px 0 4px -3px rgba(153, 59, 52, 0.37);
+}
+
+.voteCard{
+    display: grid;
+    grid-template-rows: 1fr 3fr;
+    background: linear-gradient(to right bottom, #6B6E70, #474B4F);
+    width: 60%;
+    height: 50%;
+    border-radius: 1rem;
+    box-shadow: 0.5rem 0.5rem 0.7rem black;
+}
+
+
+.voteHeader{
+    background: white;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.voteingIcon{
+    filter: drop-shadow(0.2rem 0.2rem 0.3rem black );
+}
+
+.voteCardInfowrapp{
+    display: grid;
+    grid-template-rows:1fr 3fr 1fr ;
+}
+
+.voteBtnWrapp{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+.voteBtn{
+    background: var(--dark-green);
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    color: white;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    width: 30%;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+}
+
+.voteBtn:hover{
+    background: var(--light-green);
+}
+
+.voteFiledWrapp{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.voteingLbl{
+    color: white;
+    letter-spacing: 0.3rem;
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+
+.vote{
+    background: var(--dark-green);
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    color: white;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+}
+
+.vote:hover{
+    background: var(--light-green);
+}
+
+
+
+.voted{
+    background: rgb(153,58,52);
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    color: white;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+}
+
+.voted:hover{
+    background: #CC4D43;
+}
