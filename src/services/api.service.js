@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { appStorage } from './storage.service';
 
 
 const baseURL = "https://hungry-herceg.herokuapp.com";
@@ -16,5 +17,5 @@ export const getRestaurantByID = id => axios.get(baseURL+"/restaurant/:"+id);
 
  //Polls
 
-export const createPoll = (name, duration, restaurants) => axios.post(baseURL+"/poll", {name, duration, restaurants});
+export const createPoll = (name, duration, restaurants) => axios.post(baseURL+"/poll", {name, duration:Number(duration), restaurants},{headers:{Authorization:"Bearer " + appStorage.getToken()}});
 
