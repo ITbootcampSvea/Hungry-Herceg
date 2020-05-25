@@ -110,7 +110,6 @@ const CreateOrderItem = ({ history }) => {
                             orderedMeals={orderedMeals}
                             setOrderedMeals={setOrderedMeals}
                             orderId={id}
-                            orderId={id}
                             total={total}
                             setTotal={setTotal}
                             addOrderItems={addOrderItems}

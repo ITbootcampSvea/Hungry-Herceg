@@ -1,14 +1,20 @@
 import { appStorage } from "./storage.service";
 
 let loged = null;
+let token = "";
+let userId = "";
 
 export const authService = {
 
-    LogIn : (user,pass)=>{
+    LogIn : (USER ,ID, TOKEN)=>{
         //provera usera
 
-        appStorage.setUser(user);
-        loged = user;
+        appStorage.setUser(USER);
+        appStorage.setUserId(ID);
+        appStorage.setToken(TOKEN);
+        loged = USER;
+        token = TOKEN;
+        userId = ID;
     
     },
     

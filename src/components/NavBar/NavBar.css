@@ -89,7 +89,7 @@ a:hover {
 /*iPad*/
 @media (max-width:768px) {
     .nav-bar {
-        width: min-content;
+        width: 100%;
         display: grid;
         grid-template-rows: 1fr 1fr;
         grid-template-columns: none;
@@ -100,5 +100,8 @@ a:hover {
     .nav-fildes {
         display: grid;
         grid-template-columns: 0fr 1fr 1fr 1fr 1fr 1fr;
+    }
+    .nav-filed {
+        padding-left: 1.6rem;
     }
 }

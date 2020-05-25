@@ -6,7 +6,6 @@
 }
 
 .activePoll {
-    height: 88vh;
     margin: 0 10%;
     height: 100%;
     background: var(--primary-black);
@@ -40,7 +39,7 @@
     justify-items: center;
 }
 
-.newPollInpDiv{
+.newPollInpDiv {
     align-items: center;
     justify-items: center;
     display: grid;
@@ -64,7 +63,7 @@
     box-shadow: 0.5rem 0.5rem 0.7rem black;
 }
 
-.newPollInp{
+.newPollInp {
     background: transparent;
     border: none;
     outline: none;
@@ -80,7 +79,7 @@
     border-bottom: 0.2rem solid transparent;
 }
 
-.newPollInp::placeholder{
+.newPollInp::placeholder {
     color: white;
     letter-spacing: 0.3rem;
     font-size: 1.2rem;
@@ -88,7 +87,7 @@
     opacity: 0.6;
 }
 
-.NoInpPoll{
+.NoInpPoll {
     border: none;
     outline: none;
     color: var(--light-green);
@@ -100,39 +99,39 @@
     margin-right: 2rem;
 }
 
-.timeInfoLbl{
+.timeInfoLbl {
     color: white;
     font-size: 1.5rem;
     letter-spacing: 0.2rem;
 }
 
-.newPollInp:focus{
+.newPollInp:focus {
     border-bottom: 0.2rem solid var(--light-green);
 }
 
-.creNewPollBtns{
+.creNewPollBtns {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
-.createPollDurationWrapp{
-  text-align: center;
-  padding-top:2rem;
+.createPollDurationWrapp {
+    text-align: center;
+    padding-top: 2rem;
 }
 
-.leftBtnDiv{
+.leftBtnDiv {
     display: grid;
     align-items: center;
     justify-items: left;
 }
 
-.rightBtnDiv{
+.rightBtnDiv {
     display: grid;
     align-items: center;
     justify-items: right;
 }
 
-.leftBtnCreatePoll{
+.leftBtnCreatePoll {
     width: 70%;
     background: var(--dark-green);
     padding: 0.9rem;
@@ -145,11 +144,11 @@
     border-bottom-right-radius: 0.3rem;
 }
 
-.leftBtnCreatePoll:hover{
+.leftBtnCreatePoll:hover {
     background: var(--light-green);
 }
 
-.rightBtnCreatePoll{
+.rightBtnCreatePoll {
     width: 35%;
     background: var(--primary-black);
     padding: 0.9rem;
@@ -162,10 +161,9 @@
     border-bottom-left-radius: 0.3rem;
 }
 
-.rightBtnCreatePoll:hover{
+.rightBtnCreatePoll:hover {
     background: #101113;
 }
-
 
 .searchRest {
     display: grid;
@@ -206,6 +204,52 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
 }
+
+.filteredListWrap {
+    overflow-y: scroll;
+    max-height: 12rem;
+}
+
+/*----------------------------scrollbar-------------------------------------------*/
+
+.pollListRestWrapp {
+    background: white;
+    border-bottom-left-radius: 0.8rem;
+    border-bottom-right-radius: 0.8rem;
+    overflow-y: scroll;
+}
+
+#style-6::-webkit-scrollbar-track {
+    background-color: var(--dark-grey);
+    border-radius: 0.5rem;
+}
+
+#style-6::-webkit-scrollbar {
+    width: 0.6rem;
+    background-color: var(--light-grey);
+}
+
+#style-6::-webkit-scrollbar-thumb {
+    border-radius: 0.5rem;
+    background: linear-gradient(to bottom, #86C232, #61892F)
+}
+
+#style-5::-webkit-scrollbar-track {
+    background-color: var(--dark-grey);
+    border-radius: 0.5rem;
+}
+
+#style-5::-webkit-scrollbar {
+    width: 0.6rem;
+    background-color: var(--light-grey);
+}
+
+#style-5::-webkit-scrollbar-thumb {
+    border-radius: 0.5rem;
+    background: linear-gradient(to bottom, #86C232, #61892F)
+}
+
+/*-----------------------------------------------------------------------------------------*/
 
 .addRestImg {
     height: 3.5rem;
@@ -250,13 +294,13 @@
 }
 
 .restListHeader {
-    background: linear-gradient(to top, rgba(255, 255, 255, 1) 10%, rgba(77, 47, 47, 0.2)), url('../../img/restBackg2.jpg') ;
+    background: linear-gradient(to top, rgba(255, 255, 255, 1) 10%, rgba(77, 47, 47, 0.2)), url('../../img/restBackg2.jpg');
     background-size: cover;
     background-position: center;
     border-top-left-radius: 0.8rem;
     border-top-right-radius: 0.8rem;
 }
-    
+
 .restaurantsHeading {
     display: grid;
     justify-items: center;
@@ -271,12 +315,6 @@
     color: var(--primary-black);
     font-family: 'Amatic SC', cursive;
     font-weight: bolder;
-}
-
-.pollListRestWrapp {
-    background: white;
-    border-bottom-left-radius: 0.8rem;
-    border-bottom-right-radius: 0.8rem;
 }
 
 .transitionClmn {
@@ -314,4 +352,46 @@
     align-items: center;
     justify-items: right;
     margin-right: 1rem;
+}
+
+/*iPad*/
+
+@media (max-width:768px) {
+    .activePoll {
+        margin: 0;
+    }
+    .pollWrapper {
+        display: grid;
+        height: auto;
+        grid-template-columns: none;
+    }
+    .newPollCard {
+        grid-template-rows: 1fr 1fr;
+    }
+}
+
+/*Mobile telephone*/
+
+@media (max-width:500px) {
+    .searchRest {
+        width: 35rem;
+    }
+    .createPollInfo {
+        width: 35rem;
+    }
+    .createPollDurationWrapp {
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        justify-items: center;
+        padding-top: 0.1rem;
+    }
+    .NoInpPoll {
+        width: 40%;
+    }
+    .newPollCard {
+        grid-template-rows: 0.6fr 1fr 0.5fr;
+    }
+    .restaurantList {
+        width: 35rem;
+    }
 }

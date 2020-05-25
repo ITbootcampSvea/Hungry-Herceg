@@ -1,45 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { appStorage } from '../../services/storage.service';
 import NavBar from '../NavBar/NavBar';
 import './poll.css'
 import { useAlert } from 'react-alert'
-// import { getRestaurantsAll } from '../../services/api.service';
-//importovati createPoll iz API servisa
+import { getRestaurantsAll, createPoll } from '../../services/api.service';
+
 
 let hours = 0;
 let minutes = 15;
 let duration = 15;
 let pollName = '';
 
-let itemsToShow = 3;
+let itemsToShow = 5;
 let overflow = false;
 
-// const testRest = [
-//     {
-//         id: 0,
-//         name: "Karadjordje"
-//     },
-//     {
-//         id: 1,
-//         name: "Pera"
-//     },
-//     {
-//         id: 2,
-//         name: "Pizerija"
-//     },
-//     {
-//         id: 3,
-//         name: "Pizdarija"
-//     },
-//     {
-//         id: 4,
-//         name: "Dunja"
-//     }
+let max = 15;
 
-// ]
 
 export default function CreatePoll({ history }) {
-    const alert = useAlert()
+    const alert = useAlert();
 
     const [restaurants, setRestaurants] = useState([]);
 
@@ -49,13 +27,14 @@ export default function CreatePoll({ history }) {
     const [showAll, setShowAll] = useState(false);
     const [stateOverflow, setStateOverflow] = useState(false);
 
-    // useEffect(() => {                               //getAllRestaurants - fja za podatke sa apija
-    //     getRestaurantsAll().then(res => {
-    //         setRestaurants(res);
-    //         console.log(res);
+    useEffect(() => {        
+        getRestaurantsAll().then(res => {
+          
+            setRestaurants(res.data.data);
             
-    //     })
-    // }, [])
+        }).catch(res=>alert.error('Something wrong happened. Try reload or contact support. Details:' + res ));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
 
     const handleRestaurantName = (e) => {
@@ -65,24 +44,30 @@ export default function CreatePoll({ history }) {
 
 
     const handleAdd = (e) => { // move restorant from search list to poll list
-        const { id } = e.target;
-        let tempArr = restaurants;
-        setPollList([...pollList, restaurants.find((restaurant, index) => {
-            if (restaurant.id + "" === id + "") {
-                tempArr.splice(index, 1);
-                setRestaurants(tempArr);
-                return true;
-            }
-            return false;
+        
+        if (pollList.length < max){
+            const { id } = e.target;
+            let tempArr = restaurants;
+            setPollList([...pollList, restaurants.find((restaurant, index) => {
+                if (restaurant._id + "" === id + "") {
+                    tempArr.splice(index, 1);
+                    setRestaurants(tempArr);
+                    return true;
+                }
+                return false;
 
-        })]);
+            })]);
+        }
+        else{
+            alert.error("Nubmer of restaurants must be less that " + max);
+        }
 
     }
     const handleRemove = (e) => { // move back restorant from poll list to search list
         const { id } = e.target;
         let tempArr = pollList;
         setRestaurants([...restaurants, pollList.find((restaurant, index) => {
-            if (restaurant.id + "" === id + "") {
+            if (restaurant._id + "" === id + "") {
                 tempArr.splice(index, 1);
                 setPollList(tempArr);
                 return true;
@@ -101,9 +86,27 @@ export default function CreatePoll({ history }) {
 
         return arr;
     }
+
     const filterList = (restaurants, search, showAll) => {
 
-        let arr = customSort(restaurants).filter(el => el.name.toLowerCase().startsWith(search.toLowerCase()));
+        let arr = customSort(restaurants).filter(el => {
+            
+            if (search.startsWith("#")){
+
+                for (let i = 0; i < el.tags.length; i++) {
+                    if(el.tags[i].startsWith(search.slice(1,search.length))){
+                        return true;
+                    }
+                      
+                }
+                return false;
+            }
+
+            else{
+                return el.name.toLowerCase().includes(search.toLowerCase());
+            }
+        
+        });
 
         overflow = arr.length > itemsToShow;
 
@@ -141,42 +144,35 @@ export default function CreatePoll({ history }) {
 
     const handleCreatePoll = () => {
         if (pollName.trim().length < 1) {
-            alert.error('Plese enter poll name'); // resiti sa dizajnerima
+            alert.error('Plese enter poll name'); 
             return;
         }
 
-        if (pollList.length < 2 || pollList.length > 15) {
+        if (pollList.length < 2 || pollList.length > max) {
             alert.error("Poll list must contain more than 2 and less then 15 items");
             return;
         }
 
-        let poll = {
+        const poll = {
             name: pollName,
-            author: appStorage.getUser(),
             duration: duration,
-            restaurants: pollList.map(res => res.id),
+            restaurants: pollList.map(res => res._id),
         }
-
-        // createPoll(poll).then(res=>{   // resiti sa back-end
-        //     if(res.success){
-        //             // redirect na home ili na vote - resiti
-        //     }
-        //     else{
-        //         alert("doslo je do greske");
-        //     }
-        // }).catch(err=>{
-        //     alert("doslo je do greske:" + err);
-        // })
+        
+        createPoll(poll.name,poll.duration,poll.restaurants).then(res=>{ 
+            if(res.data.message === "Success"){
+                history.push("/home");
+            }
+            else{
+                alert.error("Something went wrong");
+            }
+        }).catch(err=>{
+            alert.error("Something went wrong:" + err);
+        })
     }
     const handleCancel = () => {
-        let poll = {
-            name: pollName,
-            duration: duration,
-            restaurants: pollList.map(res => res.id),
-        }
-        console.log(poll);
 
-        // history.push('/home')
+        history.push('/home')
     }
 
 
@@ -186,7 +182,6 @@ export default function CreatePoll({ history }) {
             <div className='activePoll'>
                 <div className='pollWrapper'>
                     <div className='newPollCard'>
-
                         <div className='searchRest'>
                             <div className='createPollHeading'>
                                 <label className='headingCard'>Search Restaurants</label>
@@ -197,20 +192,19 @@ export default function CreatePoll({ history }) {
                             <div className='showAllBtnWrap'>
                                 {stateOverflow ? (<button className='showAllBtn' onClick={handleShowHide}>{!showAll ? "Show all >>>" : "Show less <<<"}</button>) : null}
                             </div>
-                            <div className='filteredListWrap'>
+                            <div id="style-6" className='filteredListWrap'>
                                 {filterList(restaurants, search, showAll).map((restaurant, index) => {
                                     return (<div className='filteredResColumn' key={"result" + index}>
                                         <div className='restNameWrapp'>
                                             <label className='restNameLbl'>{restaurant.name}</label>
                                         </div>
                                         <div className='restImgWrapp'>
-                                            <img src='/img/add-restaurant.png' alt='add' title='Add Restaurant' className='addRestImg' id={restaurant.id} onClick={handleAdd} />
+                                            <img src='/img/add-restaurant.png' alt='add' title='Add Restaurant' className='addRestImg' id={restaurant._id} onClick={handleAdd} />
                                         </div>
                                     </div>)
                                 })}
                             </div>
                         </div>
-
                         <div className='createPollInfo'>
                             <div className='createPollHeading'>
                                 <h3 className='headingCard'>Create New Poll</h3>
@@ -238,7 +232,6 @@ export default function CreatePoll({ history }) {
                             </div>
                         </div>
                     </div>
-
                     <div className='restListWrapp'>
                         <div className='restaurantList'>
                             <div className='restListHeader'>
@@ -252,20 +245,14 @@ export default function CreatePoll({ history }) {
                                         <div className='nameOfPickedRest'>
                                             <label className='choosenRest'>{restaurant.name}</label>
                                         </div>
-                                        <div className='removeImgWrapp'> 
-                                            <img src='/img/del.png' alt='del' className='removeBtn' title='Remove Restaurant' id={restaurant.id} onClick={handleRemove} />
+                                        <div className='removeImgWrapp'>
+                                            <img src='/img/del.png' alt='del' className='removeBtn' title='Remove Restaurant' id={restaurant._id} onClick={handleRemove} />
                                         </div>
                                     </div>)
                                 })}
                             </div>
                         </div>
-
-
                     </div>
-
-
-
-
                 </div>
             </div>
         </div >

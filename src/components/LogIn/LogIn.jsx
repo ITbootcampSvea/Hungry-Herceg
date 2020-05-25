@@ -2,6 +2,7 @@ import React from 'react'
 import { authService } from '../../services/auth.service'
 import './Login.css'
 import { useAlert } from 'react-alert'
+import { logInUser } from '../../services/api.service';
 
 
 let username = '';
@@ -17,25 +18,26 @@ export default function LogIn({ history }) {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        alert.success("You Log in succesfully")
-        authService.LogIn(username,password);
-        history.push("/home");
-        // checkUser(username, password).then(res => {      // Proveriti sa backend-om sta se dobija kao odgovor
-        //     if (res.validated) {                         // checkUser - fja za vezu sa serverom
+        
+        
 
-        //         authService.LogIn(username, password);
 
-        //         if (username === 'Admin') {
-        //             history.push("/settings");
-        //         }
-        //         else {
-        //             history.push("/home");
-        //         }
-        //     }
-        //     else {
-        //         alert('Username ili password nisu tacani!')       // Da li moze pojedinacna provera na backend-u
-        //     }
-        // })
+        logInUser(username, password).then(res => {     
+            if (res.data.message === "Success") {   
+                const {token,userId,username} = res.data.data;    
+                authService.LogIn(username, userId, token);
+
+                if (username === 'Admin') {
+                    history.push("/settings");
+                }
+                else {
+                    history.push("/home");
+                }
+            }
+            else {
+                alert.error('Wrong username or password!') 
+            }
+        }).catch(err=>alert.error('Wrong username or password!'));
 
     }
 
@@ -49,15 +51,15 @@ export default function LogIn({ history }) {
 
 
     return (
-        <div class="Wrappeer">
-            <div class="loginCard">
-                <img src="./img/hh.png" alt="logo" class='logoPhoto' />
-                <div class="loginContent">
+        <div className="Wrappeer">
+            <div className="loginCard">
+                <img src="./img/hh.png" alt="logo" className='logoPhoto' />
+                <div className="loginContent">
                     <h1>Log In</h1>
                     <form onSubmit={handleLogin}>
-                        <input type="username" placeholder="Enter username" class="loginIntput" onInput={(e) => handleUsername(e)} required></input>
-                        <input type="password" placeholder="Enter password" class="loginIntput" onInput={(e) => handlePassword(e)} required></input>
-                        <button type="submit" class="loginBtn"></button>
+                        <input type="username" placeholder="Enter username" className="loginIntput" onInput={(e) => handleUsername(e)} required></input>
+                        <input type="password" placeholder="Enter password" className="loginIntput" onInput={(e) => handlePassword(e)} required></input>
+                        <button type="submit" className="loginBtn"></button>
                     </form>
                 </div>
             </div>
