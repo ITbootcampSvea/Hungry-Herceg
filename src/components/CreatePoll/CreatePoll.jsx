@@ -13,9 +13,11 @@ let pollName = '';
 let itemsToShow = 5;
 let overflow = false;
 
+let max = 15;
+
 
 export default function CreatePoll({ history }) {
-    const alert = useAlert()
+    const alert = useAlert();
 
     const [restaurants, setRestaurants] = useState([]);
 
@@ -31,6 +33,7 @@ export default function CreatePoll({ history }) {
             setRestaurants(res.data.data);
             
         }).catch(res=>alert.error('Something wrong happened. Try reload or contact support. Details:' + res ));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -41,17 +44,23 @@ export default function CreatePoll({ history }) {
 
 
     const handleAdd = (e) => { // move restorant from search list to poll list
-        const { id } = e.target;
-        let tempArr = restaurants;
-        setPollList([...pollList, restaurants.find((restaurant, index) => {
-            if (restaurant._id + "" === id + "") {
-                tempArr.splice(index, 1);
-                setRestaurants(tempArr);
-                return true;
-            }
-            return false;
+        
+        if (pollList.length < max){
+            const { id } = e.target;
+            let tempArr = restaurants;
+            setPollList([...pollList, restaurants.find((restaurant, index) => {
+                if (restaurant._id + "" === id + "") {
+                    tempArr.splice(index, 1);
+                    setRestaurants(tempArr);
+                    return true;
+                }
+                return false;
 
-        })]);
+            })]);
+        }
+        else{
+            alert.error("Nubmer of restaurants must be less that " + max);
+        }
 
     }
     const handleRemove = (e) => { // move back restorant from poll list to search list
@@ -139,7 +148,7 @@ export default function CreatePoll({ history }) {
             return;
         }
 
-        if (pollList.length < 2 || pollList.length > 15) {
+        if (pollList.length < 2 || pollList.length > max) {
             alert.error("Poll list must contain more than 2 and less then 15 items");
             return;
         }
@@ -173,7 +182,6 @@ export default function CreatePoll({ history }) {
             <div className='activePoll'>
                 <div className='pollWrapper'>
                     <div className='newPollCard'>
-
                         <div className='searchRest'>
                             <div className='createPollHeading'>
                                 <label className='headingCard'>Search Restaurants</label>
@@ -184,7 +192,7 @@ export default function CreatePoll({ history }) {
                             <div className='showAllBtnWrap'>
                                 {stateOverflow ? (<button className='showAllBtn' onClick={handleShowHide}>{!showAll ? "Show all >>>" : "Show less <<<"}</button>) : null}
                             </div>
-                            <div className='filteredListWrap'>
+                            <div id="style-6" className='filteredListWrap'>
                                 {filterList(restaurants, search, showAll).map((restaurant, index) => {
                                     return (<div className='filteredResColumn' key={"result" + index}>
                                         <div className='restNameWrapp'>
@@ -197,7 +205,6 @@ export default function CreatePoll({ history }) {
                                 })}
                             </div>
                         </div>
-
                         <div className='createPollInfo'>
                             <div className='createPollHeading'>
                                 <h3 className='headingCard'>Create New Poll</h3>
@@ -225,7 +232,6 @@ export default function CreatePoll({ history }) {
                             </div>
                         </div>
                     </div>
-
                     <div className='restListWrapp'>
                         <div className='restaurantList'>
                             <div className='restListHeader'>
@@ -239,20 +245,14 @@ export default function CreatePoll({ history }) {
                                         <div className='nameOfPickedRest'>
                                             <label className='choosenRest'>{restaurant.name}</label>
                                         </div>
-                                        <div className='removeImgWrapp'> 
+                                        <div className='removeImgWrapp'>
                                             <img src='/img/del.png' alt='del' className='removeBtn' title='Remove Restaurant' id={restaurant._id} onClick={handleRemove} />
                                         </div>
                                     </div>)
                                 })}
                             </div>
                         </div>
-
-
                     </div>
-
-
-
-
                 </div>
             </div>
         </div >

@@ -50,7 +50,9 @@ class ActivePolls extends React.Component {
                   <label className="pollLblInfo">{poll.author}</label>
                 </div>
                 <div>
-                  <label className="pollLblInfo">{poll.ends}</label>
+                  <Link to={`/vote/${poll._id}`} className="voteBtnLink">
+                    <img src="./img/vote1.png" alt="icon" title="Vote" />
+                  </Link>
                 </div>
                 <div className="btn-icons">
                   <div>
@@ -120,8 +122,11 @@ class ActivePolls extends React.Component {
       });
     } else {
       pollsRow = (
-        <div className="active-info">
-          <label>No Active Polls</label>
+        <div className="noActiveInfo">
+          <div>
+          <label className="pollLblNoInfo">No Active Polls</label>
+          </div>
+        
         </div>
       );
     }
