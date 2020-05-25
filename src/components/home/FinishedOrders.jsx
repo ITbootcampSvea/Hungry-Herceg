@@ -12,7 +12,9 @@ return(
             <div className='finishedOrderHeader'>
                 <label className='finishedOrderHeadeing'>Finished orders</label>
             </div>
-            <div className='finishedOrderMainPart'></div>
+            <div className='finishedOrderMainPart'>
+                
+            </div>
             <div className='finishedOrderFooter'></div>
         </div>
     </div>
