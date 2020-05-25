@@ -31,6 +31,13 @@
     grid-template-rows: 1fr 1fr 1fr 1fr;
     border-radius: 1rem;
     box-shadow: 0.5rem 0.5rem 0.7rem black;
+    margin: 2rem 0;
+  
+}
+
+.pollRowsWrapp{
+    overflow-y: scroll;
+    max-height: 20rem;
 }
 
 .orderInfoLbl{
