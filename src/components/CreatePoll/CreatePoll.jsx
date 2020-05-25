@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { appStorage } from '../../services/storage.service';
 import NavBar from '../NavBar/NavBar';
 import './poll.css'
+import { useAlert } from 'react-alert'
 // import { getRestaurantsAll } from '../../services/api.service';
 //importovati createPoll iz API servisa
 
@@ -38,6 +39,7 @@ let overflow = false;
 // ]
 
 export default function CreatePoll({ history }) {
+    const alert = useAlert()
 
     const [restaurants, setRestaurants] = useState([]);
 
@@ -139,12 +141,12 @@ export default function CreatePoll({ history }) {
 
     const handleCreatePoll = () => {
         if (pollName.trim().length < 1) {
-            alert('Morate uneti naziv polla'); // resiti sa dizajnerima
+            alert.error('Plese enter poll name'); // resiti sa dizajnerima
             return;
         }
 
         if (pollList.length < 2 || pollList.length > 15) {
-            alert("Poll list must contain more than 2 and less then 15 items");
+            alert.error("Poll list must contain more than 2 and less then 15 items");
             return;
         }
 
