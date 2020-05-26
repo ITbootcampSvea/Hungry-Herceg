@@ -13,6 +13,7 @@ class ActivePolls extends React.Component {
     this.state = {
       userName: appStorage.getUser(),
       allPolls: [],
+      loading: true
     };
   }
 
@@ -21,108 +22,109 @@ class ActivePolls extends React.Component {
   }
 
   setAllPolls = () => {
+    this.setState({ loading: true })
     getAllPolls()
       .then((res) => {
-        this.setState({ allPolls: res.data.data });
+        this.setState({ allPolls: res.data.data,
+                        loading: false  });
       })
       .catch((err) => window.alert("Error occurred" + err));
   };
 
-  
-
   render() {
-    
-    let allActivePolls = this.state.allPolls.filter(el => el.status);
+    let allActivePolls = this.state.allPolls.filter((el) => el.status);
     let pollsRow = [];
     if (allActivePolls.length > 0) {
       allActivePolls.forEach((poll) => {
         let isoDateTime = new Date(poll.ends);
-        let localDateTime = isoDateTime.toLocaleDateString() + " " + isoDateTime.toLocaleTimeString();
-          if (poll.author === this.state.userName) {
-            console.log(poll.ends)
-            pollsRow.push(
-              <div className="active-info">
+        let localDateTime =
+          isoDateTime.toLocaleDateString() +
+          " " +
+          isoDateTime.toLocaleTimeString();
+        if (poll.author === this.state.userName) {
+          pollsRow.push(
+            <div className="active-info">
+              <div>
+                <label className="pollLblInfo">{poll.name}</label>
+              </div>
+              <div>
+                <label className="pollLblInfo">{poll.author}</label>
+              </div>
+              <div>
                 <div>
-                  <label className="pollLblInfo">{poll.name}</label>
-                </div>
-                <div>
-                  <label className="pollLblInfo">{poll.author}</label>
-                </div>
-                <div>
-                  <div>
-                    <label className="pollLblInfo">{`${localDateTime}`}</label>
-                  </div>
-                </div>
-                <div className="btn-icons">
-                  <div>
-                    <img
-                      src="./img/del.png"
-                      alt="icon"
-                      title="Delete"
-                      onClick={() => {
-                        deletePollById(poll._id).then((res) => {
-                          if (res.data.message === "Success") {
-                            this.setAllPolls();
-                          }
-                        });
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <img
-                      src="./img/end1.png"
-                      alt="icon"
-                      title="End Poll"
-                      onClick={() =>
-                        endPollById(poll._id).then((res) => {
-                          if (res.data.message === "Success") {
-                            this.setAllPolls();
-                          }
-                        })
-                      }
-                    />
-                  </div>
-                  <div>
-                    <Link to={`/vote/${poll._id}`} className="voteBtnLink">
-                      <img src="./img/vote1.png" alt="icon" title="Vote" />
-                    </Link>
-                  </div>
+                  <label className="pollLblInfo">{`${localDateTime}`}</label>
                 </div>
               </div>
-            );
-          } else {
-            pollsRow.push(
-              <div className="active-info">
+              <div className="btn-icons">
                 <div>
-                  <label className="pollLblInfo">{poll.name}</label>
+                  <img
+                    src="./img/del.png"
+                    alt="icon"
+                    title="Delete"
+                    onClick={() => {
+                      deletePollById(poll._id).then((res) => {
+                        if (res.data.message === "Success") {
+                          this.setAllPolls();
+                        }
+                      });
+                    }}
+                  />
                 </div>
                 <div>
-                  <label className="pollLblInfo">{poll.author}</label>
+                  <img
+                    src="./img/end1.png"
+                    alt="icon"
+                    title="End Poll"
+                    onClick={() =>
+                      endPollById(poll._id).then((res) => {
+                        if (res.data.message === "Success") {
+                          this.setAllPolls();
+                        }
+                      })
+                    }
+                  />
                 </div>
                 <div>
-                  <label className="pollLblInfo">{poll.ends}</label>
-                </div>
-                <div className="className='pollGuest'">
-                  <div>
-                    <Link to={`/vote/${poll._id}`} className="voteBtnLink">
-                      <img
-                        src="./img/vote1.png"
-                        alt="icon"
-                        title="Vote"
-                        className="pollGuestIcon"
-                      />
-                    </Link>
-                  </div>
+                  <Link to={`/vote/${poll._id}`} className="voteBtnLink">
+                    <img src="./img/vote1.png" alt="icon" title="Vote" />
+                  </Link>
                 </div>
               </div>
-            );
-          }  
+            </div>
+          );
+        } else {
+          pollsRow.push(
+            <div className="active-info">
+              <div>
+                <label className="pollLblInfo">{poll.name}</label>
+              </div>
+              <div>
+                <label className="pollLblInfo">{poll.author}</label>
+              </div>
+              <div>
+                <label className="pollLblInfo">{poll.ends}</label>
+              </div>
+              <div className="className='pollGuest'">
+                <div>
+                  <Link to={`/vote/${poll._id}`} className="voteBtnLink">
+                    <img
+                      src="./img/vote1.png"
+                      alt="icon"
+                      title="Vote"
+                      className="pollGuestIcon"
+                    />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          );
+        }
       });
     } else {
       pollsRow = (
         <div className="noActiveInfo">
           <div>
-            <label className="pollLblNoInfo">No Active Polls</label>
+      <label className="pollLblNoInfo">{this.state.loading ? "Loading..." : "No Active Polls"}</label>
           </div>
         </div>
       );
