@@ -9,7 +9,6 @@ Aplikacija Hungry-Herceg resava problem neusaglasenosti oko izbora restorana pri
 - Inicijalizovati projekat komandom npm install
 - Pokrenuti aplikaciju na lokalnom serveru komandom npm start
 
-
 ## Koriscene tehnologije
 
 * [React](https://reactjs.org/) - The web framework used
