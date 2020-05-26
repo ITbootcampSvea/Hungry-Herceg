@@ -91,6 +91,7 @@ export default function Settings({history}) {
 
                 getRestaurantsAll().then(res => {
                 setRestaurants(res.data.data)
+                setSelected_id(null)
                 })
             }
         }).catch(err => alert.error('Something went wrong!'+err))
@@ -103,8 +104,8 @@ export default function Settings({history}) {
         }).meals
     }
 
-    const handleSelectRestaurant = (_id) => {
-        setSelected_id(_id)
+    const handleSelectRestaurant = (id) => {
+        setSelected_id(id)
         setMealsSectionSelected(true)
     }
 
