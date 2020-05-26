@@ -91,3 +91,18 @@
         font-family: 'Amatic SC', cursive;
 
 }
+
+@media (max-width:768px) {
+    .activeProfile {
+        margin: 0;
+    }
+    .profileWrapper {
+        grid-template-columns: none;
+        grid-template-rows: 1fr 3fr;
+    }
+    .avatarCard {
+        width: 50%;
+        height: 75%;
+    }
+}
+
