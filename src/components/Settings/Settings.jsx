@@ -223,7 +223,7 @@ export default function Settings({history}) {
                         <div>
                             <div className='settSubheadingWrapp'> <h3 className='settSubheading'>Restaurants</h3></div>
                             <input className='settingsInput' type="text" placeholder="Search by name..." name="restaurantsearch" onChange={(e) => handleInput(e)} />
-                            {getFilteredRestaurants(searchRestaurant, restaurants).map(el => { return <div className='settColm' key={el._id}><div> <label onClick={() => handleSelectRestaurant(el._id)} className='settUsernameLbl allRestLbl'>{el.name}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteRestaurant(el._id)}>Delete</button></div></div> })}
+                           <div id="style-4" className=' cetColmWrapper'> {getFilteredRestaurants(searchRestaurant, restaurants).map(el => { return <div className='settColm' key={el._id}><div> <label onClick={() => handleSelectRestaurant(el._id)} className='allRestLbl'>{el.name}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteRestaurant(el._id)}>Delete</button></div></div> })}</div>
                         </div>
                     </div>
                 </div>
@@ -266,15 +266,12 @@ export default function Settings({history}) {
                             <input type="submit" value="Submit user" className='settSubmitBtn' />
                         </form>
                         <div>
-                            <div className='settSubheadingWrapp'> <h3 className='settSubheading'>Users</h3></div>
+                            <div  className='settSubheadingWrapp'> <h3 className='settSubheading'>Users</h3></div>
                             <input className='settingsInput' type="text" placeholder="Search by name..." name="usersearch" onChange={(e) => handleInput(e)} />
-                            {getFilteredUsers(searchUser, users).map(el => { return <div className='settColm' key={el._id}><div> <label className='settUsernameLbl '>{el.username}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteUser(el._id)}>Delete</button></div></div> })}
+                           <div id="style-4" className='allFilterUsersWrapp'>{getFilteredUsers(searchUser, users).map(el => { return <div className='settColm' key={el._id}><div> <label className='settUsernameLbl '>{el.username}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteUser(el._id)}>Delete</button></div></div> })}</div>
                         </div>
                     </div>
                     </div>
-
-               
-                
             </div>
         </div>
     )

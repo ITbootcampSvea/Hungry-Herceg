@@ -10,6 +10,7 @@
 }
 
 .active {
+    height: 86vh;
     margin: 0 10%;
     display: grid;
     grid-template-columns: 2.5fr 1fr;
@@ -68,6 +69,11 @@
     letter-spacing: 0.1rem;
     text-transform: capitalize;
     font-size: 1rem;
+
+}
+
+.mainPartWrapper{
+    background: linear-gradient(to bottom, #222629 30%, #474B4F 70%);
 }
 
 .order {
