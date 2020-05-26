@@ -87,6 +87,7 @@ const Profile = ({ history }) => {
   return (
     <div className="wrapper">
       <NavBar history={history} />
+      <div className='mainPartWrapper'>
       <div className="activeProfile">
         <div className="profileWrapper">
           <div className="avatarCard">
@@ -132,6 +133,7 @@ const Profile = ({ history }) => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

@@ -10,23 +10,29 @@ import {
 class ActivePolls extends React.Component {
   constructor(props) {
     super(props);
+    this.countdown = null;
     this.state = {
       userName: appStorage.getUser(),
+      userId: appStorage.getUserId(),
       allPolls: [],
-      loading: true
+      loading: true,
     };
   }
 
   componentDidMount() {
     this.setAllPolls();
+    this.countdown = window.setInterval(() => this.setAllPolls(), 15000);
+  }
+
+  componentWillUnmount() {
+    window.clearInterval(this.countdown);
   }
 
   setAllPolls = () => {
-    this.setState({ loading: true })
+    this.setState({ loading: true });
     getAllPolls()
       .then((res) => {
-        this.setState({ allPolls: res.data.data,
-                        loading: false  });
+        this.setState({ allPolls: res.data.data, loading: false });
       })
       .catch((err) => window.alert("Error occurred" + err));
   };
@@ -34,8 +40,15 @@ class ActivePolls extends React.Component {
   render() {
     let allActivePolls = this.state.allPolls.filter((el) => el.status);
     let pollsRow = [];
+
     if (allActivePolls.length > 0) {
       allActivePolls.forEach((poll) => {
+        let restaurants = poll.restaurants;
+        let userVoted =
+          restaurants.filter((restaurant) => {
+            return restaurant.votes.includes(this.state.userId);
+          }).length > 0;
+
         let isoDateTime = new Date(poll.ends);
         let localDateTime =
           isoDateTime.toLocaleDateString() +
@@ -85,9 +98,13 @@ class ActivePolls extends React.Component {
                   />
                 </div>
                 <div>
-                  <Link to={`/vote/${poll._id}`} className="voteBtnLink">
-                    <img src="./img/vote1.png" alt="icon" title="Vote" />
-                  </Link>
+                  {userVoted ? (
+                    <p>"Ne mos opet glasati"</p>
+                  ) : (
+                    <Link to={`/vote/${poll._id}`} className="voteBtnLink">
+                      <img src="./img/vote1.png" alt="icon" title="Vote" />
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
@@ -102,18 +119,22 @@ class ActivePolls extends React.Component {
                 <label className="pollLblInfo">{poll.author}</label>
               </div>
               <div>
-                <label className="pollLblInfo">{poll.ends}</label>
+                <label className="pollLblInfo">{`${localDateTime}`}</label>
               </div>
               <div className="className='pollGuest'">
                 <div>
-                  <Link to={`/vote/${poll._id}`} className="voteBtnLink">
-                    <img
-                      src="./img/vote1.png"
-                      alt="icon"
-                      title="Vote"
-                      className="pollGuestIcon"
-                    />
-                  </Link>
+                  {userVoted ? (
+                    <p>"Ne mos opet glasati"</p>
+                  ) : (
+                    <Link to={`/vote/${poll._id}`} className="voteBtnLink">
+                      <img
+                        src="./img/vote1.png"
+                        alt="icon"
+                        title="Vote"
+                        className="pollGuestIcon"
+                      />
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
@@ -124,7 +145,9 @@ class ActivePolls extends React.Component {
       pollsRow = (
         <div className="noActiveInfo">
           <div>
-      <label className="pollLblNoInfo">{this.state.loading ? "Loading..." : "No Active Polls"}</label>
+            <label className="pollLblNoInfo">
+              {this.state.loading ? "Loading..." : "No Active Polls"}
+            </label>
           </div>
         </div>
       );
@@ -156,7 +179,9 @@ class ActivePolls extends React.Component {
               <label>Action</label>
             </div>
           </div>
-          <div id="style-4" className="pollRowsWrapp">{pollsRow}</div>
+          <div id="style-4" className="pollRowsWrapp">
+            {pollsRow}
+          </div>
           <div className="card-btn-wrapper">
             <button className="btn-green">
               <Link to={"/createpoll"} className="creBtnLink">

@@ -8,6 +8,7 @@
     0 6px var(--primary-black), 
     -7px 0 4px -3px rgba(153, 59, 52, 0.37), 
     7px 0 4px -3px rgba(153, 59, 52, 0.37);
+    height: 86vh;
 }
 
 .orderContent {
@@ -18,12 +19,12 @@
 }
 
 .smallerOrderDiv{
-    width: 60%;
+    width: 54%;
     height: 80rem;
     background: var(--dark-gray);
     border-radius: 0.8rem;
     display: grid;
-    grid-template-rows: 1fr 0.4fr 1fr 1fr 1fr;
+    grid-template-rows: 1.4fr 0.4fr 1fr 1fr 1fr;
     color: white;
     box-shadow: 0.5rem 0.5rem 0.7rem black;
     letter-spacing: 0.2rem;
@@ -31,12 +32,17 @@
 }
 
 .orderHeadingImg{
-    background: linear-gradient(to top, rgba(71, 75, 79, 1) 10%, rgba(77, 47, 47, 0.2)), 
+    background: linear-gradient(45deg, rgba(255,255,255, 0.9)40%, rgba(71, 75, 79, 0.1),rgba(255,255,255, 0.9)), 
     url('../../img/order-heading.jpg');
     background-size: cover;
     background-position: center;
     border-top-left-radius: 0.8rem;
     border-top-right-radius: 0.8rem;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 35% 100%,20% 50%, 35% 0%, 30% 0, 15% 50%,30% 100%, 26% 100%, 11% 50%, 26% 0, 24% 0,9% 50%,24% 100%,0 100% );  
+}
+
+.orderRestNameWrapp{
+       background: linear-gradient(to right, #474B4F,#6B6E70,#474B4F);
 }
 
 .orderRestNameHead {
@@ -50,6 +56,13 @@
 }
 
 /*Basic Order List Comp*/
+
+.basicOrderTxtWrapp{
+overflow-y: scroll;
+max-height: 10rem;
+width: 100%;
+}
+
 .basicOrderList {
     display: grid;
     justify-items: center;
@@ -124,12 +137,33 @@
     margin-top: 2rem;
 }
 
+.comboRowWrapp{
+    overflow-y: scroll;
+    max-height: 5rem;
+    width: 100%;
+}
+
+.comboHedingWrapp{
+    width: 100%;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    background: linear-gradient(to right, #474B4F,#6B6E70,#474B4F);
+}
+
 /*Current Order List Comp*/
 .currentOrderWrapp {
     display: grid;
     justify-items: center;
     align-items: center;
     margin-top: 2rem;
+}
+
+
+.currOrderClmsWrapp{
+    overflow-y: scroll;
+    max-height: 5rem;
+    width: 100%;
 }
 
 .removeOrder {
@@ -159,6 +193,8 @@
     letter-spacing: 0.1rem;
     margin: 1rem 0
 }
+
+
 
 .orderNowBtn:hover {
     background: var(--light-green);
