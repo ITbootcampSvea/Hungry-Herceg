@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import './Settings.css'
 import { authService } from '../../services/auth.service';
-import { getRestaurantsAll, getUsersAll, createUser, deleteUserById, createRestaurant } from '../../services/api.service';
+import { getRestaurantsAll, getUsersAll, createUser, deleteUserById, createRestaurant, deleteRestaurantById, updateMealToRestaurant, createMeal } from '../../services/api.service';
 import { useAlert } from 'react-alert';
 
 let mealName = '';
 let mealPrice = '';
+let mealsTags = '';
 let restaurantName = '';
 let restaurantAddress = '';
 let restaurantTags = [];
@@ -98,13 +99,44 @@ export default function Settings({history}) {
             }).catch(err => alert.error('Something went wrong!'+err))
     }
 
-    const handleSubmitMeal = () => {
-        console.log(mealName, mealPrice)
+    const handleSubmitMeal = (e) => {
+        e.preventDefault();
+        createMeal(mealName, Number(mealPrice), mealsTags).then(res => {
+            console.log(res.data)
+            if(res.data.message === "Success"){
+
+                let tempMeals = getMeals(selected_id).map(el => el._id);
+                tempMeals.push(res.data.data._id)
+                updateMealToRestaurant(selected_id, tempMeals).then(ress => {
+                    console.log(ress.data)
+                    if(ress.data.message === "Success"){
+
+                        getRestaurantsAll().then(res => {
+                            setRestaurants(res.data.data)
+                            })
+                        } 
+                    }
+                )
+            }
+        }).catch(err => alert.error('Something went wrong!'+err))
+
+    }
+
+    const handleMealsTags = (e) => {
+        mealsTags = e.target.value;
     }
 
 
-    const handleDeleteRestaurant = (_id) => {
-        setRestaurants(restaurants.filter(el => el._id !== _id))
+    const handleDeleteRestaurant = (id) => {
+        deleteRestaurantById(id).then(res => {
+            console.log(res.data)
+            if(res.data.message === "Success"){
+
+                getRestaurantsAll().then(res => {
+                setRestaurants(res.data.data)
+                })
+            }
+        }).catch(err => alert.error('Something went wrong!'+err))
     }
 
     const getMeals = (id) => {
@@ -204,10 +236,13 @@ export default function Settings({history}) {
                     </div>
                     <div style={mealSectionStyle} className='transitionWapper'>
                     <div>
+                        <form onSubmit={(e) => handleSubmitMeal(e)}>
                         <div className='createNewWrapp'> <h3 className='createNewHeading'>Create new meal</h3></div>
-                        <input className='settingsInput' type="text" placeholder="Meal name" onChange={(e) => handleMealName(e)}></input>
-                        <input className='settingsInput' type="number" placeholder="Meal price" onChange={(e) => handleMealPrice(e)}></input>
-                        <button className='settSubmitBtn' onClick={(e) => handleSubmitMeal(e)}>Submit Meal</button>
+                        <input className='settingsInput' type="text" placeholder="Meal name" onChange={(e) => handleMealName(e)} required></input>
+                        <input className='settingsInput' type="number" placeholder="Meal price" onChange={(e) => handleMealPrice(e)} required></input>
+                        <input className='settingsInput' type="text" placeholder="Meal tags" onChange={(e) => handleMealsTags(e)}></input>
+                        <input type="submit" value="Submit Meal" className='settSubmitBtn'/>
+                        </form>
                         <div>
                             {selected_id !== null ? getMeals(selected_id).map(el => {return <div className='selectedMealsWrapp' key={el._id} >
                                 <label className='settUsernameLbl'>{el.name}{' '}{el.price}</label></div>}): null}
