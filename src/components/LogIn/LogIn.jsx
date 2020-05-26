@@ -53,7 +53,7 @@ export default function LogIn({ history }) {
     return (
         <div className="Wrappeer">
             <div className="loginCard">
-                <img src="./img/hh.png" alt="logo" className='logoPhoto' />
+                <img src="./img/logo192.png" alt="logo" className='logoPhoto' />
                 <div className="loginContent">
                     <h1>Log In</h1>
                     <form onSubmit={handleLogin}>

@@ -45,8 +45,9 @@
 .userAvatar{
     position: absolute;
     left: 50%;
-    top: -15%;
+    top: -20%;
     transform: translateX(-50%);
+    height: 9rem;
     filter: drop-shadow(0.1rem 0.1rem 0.1rem white);
 }
 
