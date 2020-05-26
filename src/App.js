@@ -11,23 +11,13 @@ import Vote from "./components/Vote/Vote";
 import Profile from "./components/Profile/Profile";
 import Settings from "./components/Settings/Settings";
 import AdminRoute from "./routes/AdminRoute";
-import { positions, Provider as AlertProvider } from 'react-alert'
-import AlertTemplate from 'react-alert-template-basic'
+
 
 function App() {
 
-  const transitions = {
-    FADE: 'fade',
-    SCALE: 'scale'
-  }
-  const options = {
-    position: positions.BOTTOM_CENTER,
-    timeout: 3000,
-    transition: transitions.SCALE
-  }
 
   return (
-    <AlertProvider template={AlertTemplate} {...options}>
+    
     <BrowserRouter>
       <Switch>
 
@@ -46,7 +36,6 @@ function App() {
         <Redirect to={authService.isLoged() ? "/home" : "/login"} />
       </Switch>
     </BrowserRouter>
-    </AlertProvider>
   );
 }
 
