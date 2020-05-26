@@ -26,4 +26,8 @@ export const authService = {
     
     isLoged : ()=>loged||appStorage.getUser(),
 
+    getToken : () => token,
+
+    getUserId : () => userId
+
 }

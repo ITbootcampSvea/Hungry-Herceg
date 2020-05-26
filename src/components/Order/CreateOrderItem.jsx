@@ -7,67 +7,76 @@ import CurrentOrderList from "./CurrentOrderList";
 import ComboOrderList from "./ComboOrderList";
 import { appStorage } from "../../services/storage.service";
 import './Order.css'
+import { getOrderById, getUserById } from "../../services/api.service";
 
 const CreateOrderItem = ({ history }) => {
     let { id } = useParams();
-
-    //povlacenje podataka o order-u preko id-ja
-    let order = orders.find((order) => order.orderId.toString() === id);
-    //povlacenje podataka o restoranu preko id-ja
-    let restaurant = restaurants.find(
-        (restaurant) => restaurant.restaurantId === order.restaurantId
-    );
+    let user = appStorage.getUser();
+    const [order,setOrder] = useState({});
+    const [restaurant,setRestaurant] = useState({});
+    const [userOrders,setUserOrders] = useState([]);
     const [orderedMeals, setOrderedMeals] = useState([]);
     const [total, setTotal] = useState(0);
-
-    //ukoliko je korisnik vec porucio, prikazati na listi
-    let user = users.find((user) => user.username === appStorage.getUser());
-    let userOrders = user.history.filter((el) => el.orderId.toString() === id);
+    const [meals,setMeals] = useState([]);
+    const [filteredMeals,setFilteredMeals] = useState([]);
+    const [refresh,setRefresh] = useState('');
+    //povlacenje podataka o order-u preko id-ja
     useEffect(() => {
-        let tmp = [];
-        let sum = 0;
-        userOrders.forEach((orderItem) => {
-            let orderedMeal = {
-                user: orderItem.user,
-                name: meals.find((meal) => meal.mealId === orderItem.mealId).name,
-                price: meals.find((meal) => meal.mealId === orderItem.mealId).price,
-                orderId: orderItem.orderId,
-                mealId: orderItem.mealId,
-                quantity: orderItem.quantity,
-                note: orderItem.note,
-            };
-            sum += orderedMeal.price * orderedMeal.quantity;
-            tmp.push(orderedMeal);
+        getOrderById(id).then(res => {
+            setOrder(res.data.data);
+            setRestaurant(res.data.data.restaurant);
+            setMeals(res.data.data.restaurant.meals);
+            setFilteredMeals(res.data.data.restaurant.meals);
+            setUserOrders(res.data.data.orderItemList.filter(orderItem => orderItem.user === user));
+            let sum = 0;
+            res.data.data.orderItemList.filter(orderItem => orderItem.user === user).forEach(orderItem => 
+                sum += orderItem.quantity * orderItem.meal.price );
+            setTotal(sum);
         });
-        setOrderedMeals(tmp);
-        setTotal(sum);
-    }, []);
+    },[refresh])
+        
 
-    //prima niz mealova, vrsi provere, na kraju stavlja mealove i novu cenu u state
+    //filtriranje meal-ova
+    const filterMeals = (input) => {
+        if(input.startsWith('#')) {
+            let filter = meals.filter(meal => {
+                if(restaurant.tags.find(tag => tag.toLowerCase().includes(input.toLowerCase().substring(1))) ||
+                    meal.tag.toLowerCase().includes(input.toLowerCase().substring(1))){
+                    return meal;
+                }
+            })
+            setFilteredMeals(filter);
+        } else {
+            let filter = meals.filter(meal => meal.name.toLowerCase().includes(input.toLowerCase()));
+            setFilteredMeals(filter);
+        }
+    }
+    
+
+    // //prima niz mealova, vrsi provere, na kraju stavlja mealove i novu cenu u state
     const addOrderItems = (meals) => {
         let newMeals = [];
         let newPrice = 0;
         meals.forEach((meal) => {
             let alreadyOrdered = orderedMeals.find(
                 (orderedMeal) =>
-                    orderedMeal.mealId === meal.mealId && orderedMeal.name === meal.name
-            );
+                    orderedMeal.meal === meal._id );
             if (alreadyOrdered) {
                 let quantity = parseInt(alreadyOrdered.quantity);
                 alreadyOrdered.quantity = quantity += parseInt(
-                    document.querySelector(`#q${meal.mealId}`).value
+                    document.querySelector(`#q${meal._id}`).value
                 );
                 newPrice +=
                     alreadyOrdered.price *
-                    parseInt(document.querySelector(`#q${meal.mealId}`).value);
+                    parseInt(document.querySelector(`#q${meal._id}`).value);
             } else {
                 let orderedMeal = {
                     user: appStorage.getUser(),
                     name: meal.name,
                     price: meal.price,
                     orderId: id,
-                    mealId: meal.mealId,
-                    quantity: document.querySelector(`#q${meal.mealId}`).value,
+                    meal: meal._id,
+                    quantity: document.querySelector(`#q${meal._id}`).value,
                     note: "",
                 };
                 newMeals.push(orderedMeal);
@@ -77,8 +86,6 @@ const CreateOrderItem = ({ history }) => {
         setOrderedMeals([...orderedMeals, ...newMeals]);
         setTotal(total + newPrice);
     };
-
-
 
     return (
         <div className='wrapper'>
@@ -93,7 +100,8 @@ const CreateOrderItem = ({ history }) => {
                         </div>
 
                         <BasicOrderList
-                            meals={restaurant.meals}
+                            filteredMeals={filteredMeals}
+                            filterMeals={filterMeals}
                             orderedMeals={orderedMeals}
                             setOrderedMeals={setOrderedMeals}
                             orderId={id}
@@ -102,7 +110,7 @@ const CreateOrderItem = ({ history }) => {
                             addOrderItems={addOrderItems}
                         />
                         <ComboOrderList
-                            meals={restaurant.meals}
+                            meals={meals}
                             orderedMeals={orderedMeals}
                             setOrderedMeals={setOrderedMeals}
                             orderId={id}
@@ -111,11 +119,14 @@ const CreateOrderItem = ({ history }) => {
                             addOrderItems={addOrderItems}
                         />
                         <CurrentOrderList
+                            userOrders={userOrders}
                             orderedMeals={orderedMeals}
                             setOrderedMeals={setOrderedMeals}
                             total={total}
                             setTotal={setTotal}
                             orderId={id}
+                            refresh={refresh}
+                            setRefresh={setRefresh}
                         />
                     </div>
                 </div>
