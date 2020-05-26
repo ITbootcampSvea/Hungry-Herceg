@@ -11,11 +11,18 @@ let max = 3;
 export default function Vote({ history, match }) {
     const alert = useAlert()
 
+   
+
     const [restaurants, setRestaurants] = useState([]);
 
     const [pollName, setPollName] = useState("");
     const [endTime, setEndTime] = useState("");
     const [pollAuthor, setPollAuthor] = useState("");
+    let isoDateTime = new Date(endTime);
+    let localDateTime =
+      isoDateTime.toLocaleDateString() +
+      " " +
+      isoDateTime.toLocaleTimeString();
 
     useEffect(() => {
 
@@ -98,12 +105,23 @@ export default function Vote({ history, match }) {
                         </div>
                         <div className='voteCardInfowrapp'>
                             <div className='voteCardInfoHeader'>
-                                <div><label>{pollName}</label> </div>
-                                <div><label>{pollAuthor}</label> </div>
-                                <div><label>{endTime}</label> </div>
+                                <div className='voteHeaderFiled'>
+                                    <div className='voteCardFildes'><small className='voteFiledSmall'>Poll name</small></div>
+                                    <div className='voteCardFildes'><label className='voteFiledLbl'>{pollName}</label> </div>
+                                    </div>
+                                    
+                                    <div className='voteHeaderFiled'>
+                                    <div className='voteCardFildes'><small className='voteFiledSmall'>Poll author</small></div>
+                                    <div className='voteCardFildes'><label className='voteFiledLbl'>{pollAuthor}</label> </div>
+                                    </div>
+
+                                    <div className='voteHeaderFiled'>
+                                    <div className='voteCardFildes'><small className='voteFiledSmall'>End time</small></div>
+                                    <div className='voteCardFildes'><label className='voteFiledLbl'>{`${localDateTime}`}</label> </div>
+                                    </div>
                             </div>
-                            <div>
-                                <ul>
+                            <div className='voteListWrapp' id="style-4">
+                                
                                     {restaurants.map(({restaurant}, index) => {
                                         return (
                                             <div className='voteFiledWrapp' key={"res" + index}><div><label className='voteingLbl'> {restaurant.name}</label></div>
@@ -113,7 +131,7 @@ export default function Vote({ history, match }) {
                                             </div>
                                         )
                                     })}
-                                </ul>
+                               
                             </div>
                             <div className='voteBtnWrapp'>
                                 <button className='voteBtn' onClick={confirmVotes}>Confirm</button>
