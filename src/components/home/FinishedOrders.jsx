@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { appStorage } from "../../services/storage.service";
 import { getAllOrders } from "../../services/api.service";
-import axios from "axios";
 import { ExportToCsv } from "export-to-csv";
+import { CSVLink, CSVDownload } from "react-csv";
 
 class FinishedOrders extends React.Component {
   constructor(props) {
@@ -21,13 +21,13 @@ class FinishedOrders extends React.Component {
   setAllOrders = () => {
     getAllOrders()
       .then((res) => {
-        
         this.setState({ allOrders: res.data.data });
       })
       .catch((err) => window.alert("Error occurred" + err));
   };
 
   render() {
+    console.log(this.state.data);
     let allOrders = this.state.allOrders;
 
     let ordersRow = [];
@@ -35,39 +35,21 @@ class FinishedOrders extends React.Component {
     if (allOrders.length > 0) {
       allOrders.map((order) => {
         if (order.poll.status === false) {
-         
           let orderItemList = order.orderItemList;
-          console.log(orderItemList)
+          console.log(orderItemList);
           let data = [];
-          let singleMealName = '';
-          let singleMealQuantity = '';
-          let singleMealPrice = '';
-          let singleMealNote = '';
-          orderItemList.map(orderItem=>{
+          
+          orderItemList.forEach((orderItem) => {
             let completedOrder = {
-              
-                mealName: orderItem.meal.name,
-                mealQuantity: orderItem.quantity,
-                mealPrice: orderItem.meal.price * singleMealQuantity,
-                mealNote: orderItem.note,
-                approved: true,
-                description: "Using content here"
-            }
+              mealName: orderItem.meal.name,
+              mealQuantity: orderItem.quantity,
+              mealPrice: orderItem.meal.price * orderItem.quantity,
+              mealNote: orderItem.note,
+            };
+
             data.push(completedOrder);
-            
-            
-          // singleMealName = orderItem.meal.name;
-          // singleMealQuantity = orderItem.quantity;
-          // singleMealPrice = orderItem.meal.price * singleMealQuantity;
-          
-          })
-          console.log(data)
-          
-          // let dataForExport = [
-          //   {
-          //     name:"Danko"
-          //   }
-          // ]
+            console.log(data);
+          });
 
           if (order.poll.author === this.state.userName) {
             ordersRow.push(
@@ -88,8 +70,7 @@ class FinishedOrders extends React.Component {
                 <div>
                   <div>
                     <label className="pollLblInfo">
-                      <button
-                      >EXPORT NOW</button>
+                      <CSVLink style={{color:"black"}} filename={"my-file.csv"} data={data}>EXPORT NOW</CSVLink>
                     </label>
                   </div>
                 </div>
@@ -108,7 +89,7 @@ class FinishedOrders extends React.Component {
                   <label className="pollLblInfo">{order.restaurant.name}</label>
                 </div>
                 <div>
-                  <label className="pollLblInfo">Order pending...</label>
+                  <label className="pollLblInfo"></label>
                 </div>
               </div>
             );
