@@ -53,7 +53,7 @@ const BasicOrderList = ({filteredMeals,addOrderItems,filterMeals}) => {
                     <div className='orderBold'>Quantity</div>
                     <div className='orderBold'>Actions</div>
             </div>
-            {filteredMeals.map(meal => {
+        <div id="style-4" className='basicOrderTxtWrapp'>   {filteredMeals.map(meal => {
                 return (
                     <div key={meal._id} className='basicOrderTxt'>
                         <div >{meal.name}</div>
@@ -65,7 +65,7 @@ const BasicOrderList = ({filteredMeals,addOrderItems,filterMeals}) => {
                         }}/></div>
                     </div>
                 )
-            })}
+            })}</div> 
         </div>
     )
 }

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import './Settings.css'
 import { authService } from '../../services/auth.service';
-import { getRestaurantsAll, getUsersAll } from '../../services/api.service';
+import { getRestaurantsAll, getUsersAll, createUser, deleteUserById, createRestaurant, deleteRestaurantById, createMeal, deleteMealById } from '../../services/api.service';
+import { useAlert } from 'react-alert';
 
 let mealName = '';
 let mealPrice = '';
+let mealsTags = 'slano';
 let restaurantName = '';
 let restaurantAddress = '';
 let restaurantTags = [];
@@ -12,27 +14,9 @@ let username = '';
 let password = '';
 
 
-const testUsers = [
-    {
-        id: 0,
-        username: "Admin",
-        password: 1234,
-        history: [0, 0, 2, 1],
-    },
-    {
-        id: 1,
-        username: "Admin 2",
-        password: 1234,
-        history: [0, 0, 2, 1],
-    },
-    {
-        id: 2,
-        username: "Admin 3",
-        password: 1234,
-        history: [0, 0, 2, 1],
-    }
-]
 export default function Settings({history}) {
+
+    const alert = useAlert();
 
     const [restaurants, setRestaurants] = useState([]);
     const [users, setUsers] = useState([]);
@@ -40,6 +24,10 @@ export default function Settings({history}) {
     const [usersSectionSelected, setUsersSectionSelected] = useState(false);
     const [mealsSectionSelected, setMealsSectionSelected] = useState(false);
     const [selected_id, setSelected_id] = useState(null);
+    const [searchUser, setSearchUser] = useState('');
+    const [searchRestaurant, setSearchRestaurant] = useState('');
+    const [searchMeals, setSearchMeals] = useState('');
+
 
     useEffect(() => {
         getRestaurantsAll().then(res => {
@@ -50,90 +38,121 @@ export default function Settings({history}) {
         })
     }, [])
 
-    const handleMealName = (e) => {
-        mealName = e.target.value
-    }
 
-    const handleMealPrice = (e) => {
-        mealPrice = e.target.value
-    }
-    
-    const handleRestaurantName = (e) => {
-        restaurantName = e.target.value
-    }
+    const handleSubmitUser = (e) => {
+        e.preventDefault()
 
-    const handleRestaurantAddress = (e) => {
-        restaurantAddress = e.target.value
-    }
+        if(username.trim() && password.trim()){
 
-    const handleRestaurantTags = (e) => {
-        restaurantTags = e.target.value
-    }
+            createUser(username, password).then(res => {
 
-    const handleUserName = (e) => {
-        username = e.target.value
-    }
+                if(res.data.message === "Success"){
 
-    const handlePassword = (e) => {
-        password = e.target.value
-    }
-
-    const handleSubmitUser = () => {
-    //     sendUser(username, password).then(res => {
-    //     console.log(res)
-    // })
-    }
-
-    let newRestaurant = {
-        name: restaurantName,
-        address: restaurantAddress,
-        tags: [...restaurantTags]
-    }
-
-    const handleSubmitRestaurant = () => {
-    //     sendRestaurant(newRestaurant).then(res => {
-    //     console.log(res)
-    // })
-    }
-
-    const handleSubmitMeal = () => {
-        console.log(mealName, mealPrice)
+                    getUsersAll().then(res => {
+                    setUsers(res.data.data)
+                    })
+                }
+                else{
+                    alert.error(res.data.message)
+                }
+            }).catch(err => {alert.error('Something went wrong!' + err.message); console.log(err)})
+        }
     }
 
 
-    const handleDeleteRestaurant = (_id) => {
-        setRestaurants(restaurants.filter(el => el._id !== _id))
+    const handleSubmitRestaurant = (e) => {
+        e.preventDefault()
+        createRestaurant(restaurantName, restaurantAddress, restaurantTags, []).then(res => {
+            if(res.data.message === "Success"){
+
+                getRestaurantsAll().then(res => {
+                setRestaurants(res.data.data)
+                })
+            }
+            }).catch(err => alert.error('Something went wrong!'+err))
     }
 
-    const getMeals = (id) => {
-        return restaurants.find((el) => {
+    const handleSubmitMeal = (e) => {
+        e.preventDefault();
+        if(selected_id){
+            createMeal(selected_id, mealName, Number(mealPrice), mealsTags).then(res => {
+                console.log(mealsTags)
+                if(res.data.message === "Success"){
+
+                getRestaurantsAll().then(res => {
+                    setRestaurants(res.data.data)
+                    })
+                }
+            }).catch(err => alert.error('Something went wrong!'+err))
+        }
+        else{
+            alert.info("Please select restaurant first.");
+        }
+    }
+
+
+
+    const handleDeleteRestaurant = (id) => {
+        deleteRestaurantById(id).then(res => {
+            if(res.data.message === "Success"){
+
+                getRestaurantsAll().then(res => {
+                setRestaurants(res.data.data)
+                setSelected_id(null)
+                })
+            }
+        }).catch(err => alert.error('Something went wrong!'+err))
+    }
+
+
+    const getMeals = (id, rest) => {
+        return rest.find((el) => {
             return el._id === id;
         }).meals
     }
 
-    const handleSelectRestaurant = (_id) => {
-        setSelected_id(_id)
+    const handleSelectRestaurant = (id) => {
+        setSelected_id(id)
         setMealsSectionSelected(true)
     }
 
     const handleDeleteUser = (id) => {
-        setUsers(users.filter(el => el.id !== id))
+        deleteUserById(id).then(res => {
+            if(res.data.message === "Success"){
+
+                getUsersAll().then(res => {
+                setUsers(res.data.data)
+                })
+            }
+            }).catch(err => alert.error('Something went wrong!'+err))
     }
 
-    const handleInputRestaurants = (e) => {
-        if (e.target.value === '') {
-            return setRestaurants([]);
-        }
-        let filteredInputRestaurants = restaurants.filter(el => el.name.includes(e.target.value));
-        setRestaurants(filteredInputRestaurants)
+    const handleDeleteMeal = (id) => {
+        deleteMealById(id).then(res => {
+            if(res.data.message === "Success"){
+
+                getRestaurantsAll().then(res => {
+                setRestaurants(res.data.data)
+                })
+            }
+            }).catch(err => alert.error('Something went wrong!'+err))
     }
-    const handleInputUsers = (e) => {
-        if (e.target.value === '') {
-            return setUsers([]);
-        }
-        let filteredInputUsers = testUsers.filter(el => el.username.includes(e.target.value));
-        setUsers(filteredInputUsers)
+
+
+    const getFilteredRestaurants = (search, array) => {
+        return array.filter(el => el.name.toLowerCase().includes(search.toLowerCase()));
     }
+
+
+    const getFilteredMeals = (search, array) => {
+        return array.filter(el => el.name.toLowerCase().includes(search.toLowerCase()));
+    }
+
+
+    const getFilteredUsers = (search, array) => {
+        return array.filter(el => el.username.toLowerCase().includes(search.toLowerCase()));
+    }
+
     const handleRestaurantSectionSelected = () => {
         setRestaurantSectionSelected(!restaurantSectionSelected)
     }
@@ -146,9 +165,32 @@ export default function Settings({history}) {
         setMealsSectionSelected(!mealsSectionSelected)
     }
 
-    const resturantSectionStyle = restaurantSectionSelected ? { opacity: 1 } : { opacity: 0 };
-    const userSectionStyle = usersSectionSelected ? { opacity: 1 } : { opacity: 0 };
-    const mealSectionStyle = mealsSectionSelected ? { opacity: 1 } : { opacity: 0 };
+    const resturantSectionStyle = restaurantSectionSelected ? { display: "block" } : { display: "none" };
+    const userSectionStyle = usersSectionSelected ? { display: "block" } : { display: "none" };
+    const mealSectionStyle = mealsSectionSelected ? { display: "block" } : { display: "none" };
+
+
+    const handleInput = (e) => {
+        const {name, value} = e.target
+        switch (name) {
+            case "restaurantname":restaurantName = value; break;
+            case "restaurantaddress":restaurantAddress = value; break;
+            case "restauranttags":restaurantTags = value.split(' ');
+                                if(restaurantTags[restaurantTags.length - 1] === ''){
+                                    restaurantTags.pop()}; break;
+            case "restaurantsearch":setSearchRestaurant(value); break;
+            case "mealname":mealName = value; break;
+            case "mealprice":mealPrice = value; break;
+            case "mealtags":mealsTags = value; break;
+            case "mealssearch":setSearchMeals(value); break;
+            case "username":username = value; break;
+            case "password":password = value; break;
+            case "usersearch":setSearchUser(value); break;
+
+            default:
+                break;
+        }
+    }
 
 
     return (
@@ -171,17 +213,17 @@ export default function Settings({history}) {
                         <div className='settHeaderIconWrapp'><img className='settHeaderIcon' src='/img/settRest.png' alt='logo' onClick={() => handleRestaurantSectionSelected()} /></div>
                     </div>
                     <div style={resturantSectionStyle} className='transitionWapper'>
-                        <div>
+                        <form onSubmit={(e) => handleSubmitRestaurant(e)}>
                             <div className='createNewWrapp'> <h3 className='createNewHeading'>Create new restaurant</h3></div>
-                            <input className='settingsInput' type="text" placeholder="Restaurant name" onChange={(e) => handleRestaurantName(e)}></input>
-                            <input className='settingsInput' type="text" placeholder="Restaurant address" onChange={(e) => handleRestaurantAddress(e)}></input>
-                            <input className='settingsInput' type="text" placeholder="Restaurant tags" onChange={(e) => handleRestaurantTags(e)}></input>
-                            <button className='settSubmitBtn' onClick={(e) => handleSubmitRestaurant(e)}>Submit Restaurant</button>
-                        </div>
+                            <input className='settingsInput' type="text" placeholder="Restaurant name" name="restaurantname" onChange={(e) => handleInput(e)} required></input>
+                            <input className='settingsInput' type="text" placeholder="Restaurant address" name="restaurantaddress" onChange={(e) => handleInput(e)}></input>
+                            <input className='settingsInput' type="text" placeholder="Restaurant tags" name="restauranttags" onChange={(e) => handleInput(e)}></input>
+                            <input type="submit" value="Submit Restaurant" className='settSubmitBtn' />
+                        </form>
                         <div>
                             <div className='settSubheadingWrapp'> <h3 className='settSubheading'>Restaurants</h3></div>
-                            <input className='settingsInput' type="text" placeholder="Search by name..." onChange={(e) => handleInputRestaurants(e)} />
-                            {restaurants.map(el => { return <div className='settColm' key={el._id}><div> <label onClick={() => handleSelectRestaurant(el._id)} className='settUsernameLbl allRestLbl'>{el.name}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteRestaurant(el._id)}>Delete</button></div></div> })}
+                            <input className='settingsInput' type="text" placeholder="Search by name..." name="restaurantsearch" onChange={(e) => handleInput(e)} />
+                           <div id="style-4" className=' cetColmWrapper'> {getFilteredRestaurants(searchRestaurant, restaurants).map(el => { return <div className='settColm' key={el._id}><div> <label onClick={() => handleSelectRestaurant(el._id)} className='allRestLbl'>{el.name}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteRestaurant(el._id)}>Delete</button></div></div> })}</div>
                         </div>
                     </div>
                 </div>
@@ -192,13 +234,21 @@ export default function Settings({history}) {
                     </div>
                     <div style={mealSectionStyle} className='transitionWapper'>
                     <div>
+                        <form onSubmit={(e) => handleSubmitMeal(e)}>
                         <div className='createNewWrapp'> <h3 className='createNewHeading'>Create new meal</h3></div>
-                        <input className='settingsInput' type="text" placeholder="Meal name" onChange={(e) => handleMealName(e)}></input>
-                        <input className='settingsInput' type="number" placeholder="Meal price" onChange={(e) => handleMealPrice(e)}></input>
-                        <button className='settSubmitBtn' onClick={(e) => handleSubmitMeal(e)}>Submit Meal</button>
+                        <input className='settingsInput' type="text" placeholder="Meal name" name="mealname" onChange={(e) => handleInput(e)} required></input>
+                        <input className='settingsInput' type="number" placeholder="Meal price" name="mealprice" onChange={(e) => handleInput(e)} required></input>
+                        <select className='settingsInput' placeholder="Meal tags" name="mealtags" onChange={(e) => handleInput(e)}>
+                            <option value="slano">slano</option>
+                            <option value="slatko">slatko</option>
+                        </select>
+                        <input type="submit" value="Submit Meal" className='settSubmitBtn'/>
+                        </form>
                         <div>
-                            {selected_id !== null ? getMeals(selected_id).map(el => {return <div className='selectedMealsWrapp' key={el._id} >
-                                <label className='settUsernameLbl'>{el.name}{' '}{el.price}</label></div>}): null}
+                        <div className='settSubheadingWrapp'> <h3 className='settSubheading'>Meals</h3></div>
+                            <input className='settingsInput' type="text" placeholder="Search by name..." name="mealssearch" onChange={(e) => handleInput(e)} />
+                            {selected_id !== null ? getFilteredMeals(searchMeals, getMeals(selected_id, restaurants)).map(el => {return <div className='selectedMealsWrapp' key={el._id} >
+                                <label className='settUsernameLbl'>{el.name}{' '}{el.price}</label><button className='settDelBtn' onClick={(e) => handleDeleteMeal(el._id)}>Delete</button></div>}): null}
                         </div>
                     </div>
                     </div>
@@ -209,22 +259,19 @@ export default function Settings({history}) {
                         <div className='settHeaderIconWrapp'><img className='settHeaderIcon' src='/img/settUser.png' alt='logo' onClick={() => handleUserSectionSelected()} /></div>
                     </div>
                     <div style={userSectionStyle} className='transitionWapper'>
-                        <div>
+                        <form onSubmit={(e) => handleSubmitUser(e)}>
                             <div className='createNewWrapp'> <h3 className='createNewHeading'>Create new user</h3></div>
-                            <input className='settingsInput' type="text" placeholder="Username" onChange={(e) => handleUserName(e)}></input>
-                            <input className='settingsInput' type="text" placeholder="Password" onChange={(e) => handlePassword(e)}></input>
-                            <button className='settSubmitBtn' onClick={(e) => handleSubmitUser(e)}>Submit User</button>
-                        </div>
+                            <input className='settingsInput' type="text" placeholder="Username" name="username" onChange={(e) => handleInput(e)} required></input>
+                            <input className='settingsInput' type="text" placeholder="Password" name="password" onChange={(e) => handleInput(e)} required></input>
+                            <input type="submit" value="Submit user" className='settSubmitBtn' />
+                        </form>
                         <div>
-                            <div className='settSubheadingWrapp'> <h3 className='settSubheading'>Users</h3></div>
-                            <input className='settingsInput' type="text" placeholder="Search by name..." onChange={(e) => handleInputUsers(e)} />
-                            {users.map(el => { return <div className='settColm' key={el._id}><div> <label className='settUsernameLbl '>{el.username}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteUser(el.id)}>Delete</button></div></div> })}
+                            <div  className='settSubheadingWrapp'> <h3 className='settSubheading'>Users</h3></div>
+                            <input className='settingsInput' type="text" placeholder="Search by name..." name="usersearch" onChange={(e) => handleInput(e)} />
+                           <div id="style-4" className='allFilterUsersWrapp'>{getFilteredUsers(searchUser, users).map(el => { return <div className='settColm' key={el._id}><div> <label className='settUsernameLbl '>{el.username}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteUser(el._id)}>Delete</button></div></div> })}</div>
                         </div>
                     </div>
                     </div>
-
-               
-                
             </div>
         </div>
     )

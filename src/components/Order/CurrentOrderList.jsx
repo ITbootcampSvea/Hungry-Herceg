@@ -49,7 +49,9 @@ const CurrentOrderList = ({ orderedMeals, setOrderedMeals, userOrders, total, se
 
     return (
         <div className='currentOrderWrapp'>
+               <div className='comboHedingWrapp'>
                 <h3>Current Order</h3>
+                </div>
                 <div className='currentOrderTxt'>
                     <div className='orderBold'>Meal</div>
                     <div className='orderBold'>Price</div>
@@ -57,6 +59,7 @@ const CurrentOrderList = ({ orderedMeals, setOrderedMeals, userOrders, total, se
                     <div className='orderBold'>Note</div>
                     <div className='orderBold'>Actions</div>
                 </div>
+                <div id="style-4" className='currOrderClmsWrapp'>
                 {userOrders.length !== 0 ? <> {userOrders.map(orderedItem => {
                     return (
                         <div key={orderedItem._id} className='currentOrderTxt'>
@@ -66,7 +69,8 @@ const CurrentOrderList = ({ orderedMeals, setOrderedMeals, userOrders, total, se
                             <div className='bacisNumberDiv'>{orderedItem.note}</div>
                             <div><img src='/img/del.png' alt='remove' title='Remove Meal' className='removeOrder' onClick={() => deleteOrderItem(orderedItem._id)}/></div>
                         </div>)})} <p>--------------</p> </> : <div></div> }
-                {orderedMeals.map(orderedMeal => {
+                </div>
+          <div id="style-4" className='currOrderClmsWrapp'>{orderedMeals.map(orderedMeal => {
                     return (
                         <div key={orderedMeal.meal} className='currentOrderTxt'>
                             <div>{orderedMeal.name}</div> 
@@ -77,6 +81,7 @@ const CurrentOrderList = ({ orderedMeals, setOrderedMeals, userOrders, total, se
                         </div>
                     )
                 })}
+                </div>
                 <div>Total price: <span className='orderBold'>{total}</span></div>
                 <button onClick={() => finishOrder(orderedMeals)} className='orderNowBtn'>ORDER NOW!</button>
         </div>

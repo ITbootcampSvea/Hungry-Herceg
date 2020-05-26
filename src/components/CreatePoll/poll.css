@@ -16,14 +16,18 @@
 
 .newPollCard {
     display: grid;
-    grid-template-rows: 1.5fr 1fr;
+    grid-template-rows: 1fr 2fr;
+}
+
+.createPollInfoWrapp {
+    display: grid;
     align-items: center;
     justify-items: center;
 }
 
 .createPollContent {
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 0.2fr;
     background: var(--dark-gray);
     border-bottom-left-radius: 0.8rem;
     border-bottom-right-radius: 0.8rem;
@@ -105,13 +109,29 @@
     letter-spacing: 0.2rem;
 }
 
-.newPollInp:focus {
+.newPollInp:hover {
     border-bottom: 0.2rem solid var(--light-green);
+}
+
+.searchRestWrapp {
+    display: grid;
+    align-items: start;
+    justify-items: center;
+    margin-top: 3rem;
 }
 
 .creNewPollBtns {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
+    background: white;
+    border-bottom-left-radius: 0.8rem;
+    border-bottom-right-radius: 0.8rem;
+}
+
+.gradientDiv{
+    background: linear-gradient(45deg, #222629,white,#222629);
+    border-bottom-left-radius: 0.8rem;
+    border-bottom-right-radius: 0.8rem;
 }
 
 .createPollDurationWrapp {
@@ -132,7 +152,7 @@
 }
 
 .leftBtnCreatePoll {
-    width: 70%;
+    width: 90%;
     background: var(--dark-green);
     padding: 0.9rem;
     border: none;
@@ -149,7 +169,7 @@
 }
 
 .rightBtnCreatePoll {
-    width: 35%;
+    width: 80%;
     background: var(--primary-black);
     padding: 0.9rem;
     border: none;
@@ -168,7 +188,7 @@
 .searchRest {
     display: grid;
     grid-template-rows: 1fr 1fr;
-    height: auto;
+    height: 45rem;
     width: 55rem;
     border-radius: 0.8rem;
     background-color: var( --dark-gray);
@@ -207,15 +227,13 @@
 
 .filteredListWrap {
     overflow-y: scroll;
-    max-height: 12rem;
+    max-height: 18rem;
 }
 
 /*----------------------------scrollbar-------------------------------------------*/
 
 .pollListRestWrapp {
     background: white;
-    border-bottom-left-radius: 0.8rem;
-    border-bottom-right-radius: 0.8rem;
     overflow-y: scroll;
 }
 
@@ -245,6 +263,21 @@
 }
 
 #style-5::-webkit-scrollbar-thumb {
+    border-radius: 0.5rem;
+    background: linear-gradient(to bottom, #86C232, #61892F)
+}
+
+#style-4::-webkit-scrollbar-track {
+    background-color: var(--dark-grey);
+    border-radius: 0.5rem;
+}
+
+#style-4::-webkit-scrollbar {
+    width: 0.6rem;
+    background-color: var(--light-grey);
+}
+
+#style-4::-webkit-scrollbar-thumb {
     border-radius: 0.5rem;
     background: linear-gradient(to bottom, #86C232, #61892F)
 }
@@ -286,11 +319,17 @@
 
 .restaurantList {
     display: grid;
-    height: 90%;
+    height: 70rem;
     width: 70%;
-    grid-template-rows: 1.5fr 0.5fr 3fr;
+    grid-template-rows: 1.5fr 0.5fr 2fr 0.6fr;
     border-radius: 0.8rem;
     box-shadow: 0.5rem 0.5rem 0.7rem black;
+}
+
+.restaurantListFooter {
+    background: white;
+    border-bottom-left-radius: 0.8rem;
+    border-bottom-right-radius: 0.8rem;
 }
 
 .restListHeader {
@@ -320,7 +359,7 @@
 .transitionClmn {
     margin: 1rem 0;
     width: 80%;
-    background: var(--dark-gray);
+   background: linear-gradient(45deg, rgb(71,75,79),rgb(89, 94, 99),rgb(89, 94, 99),rgb(118, 123, 128),rgb(152, 158, 163),rgba(255,255,255,0.5),rgb(71,75,79));
     border-top-right-radius: 0.8rem;
     border-bottom-right-radius: 0.8rem;
     transition: all 2s ease-in-out;

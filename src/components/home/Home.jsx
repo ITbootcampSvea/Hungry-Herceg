@@ -3,22 +3,21 @@ import ActivePolls from "./ActivePolls";
 import ActiveOrders from "./ActiveOrders";
 import "./home.css";
 import NavBar from "../NavBar/NavBar";
-import FinishedOrders from './FinishedOrders'
-// import FinishedOrders from "./FinishedOrders";
-
+// import FinishedOrders_Milos from "./FinishedOrders_Milos";
+import FinishedOrders from "./FinishedOrders";
 
 const Home = ({ history }) => {
-    
   return (
     <div className="wrapper">
       <NavBar history={history} />
-      <div>
+      <div className='activepollOrderWrapper'>
         <div className="active">
           <div>
-          <ActivePolls />
-          <ActiveOrders />
+            <ActivePolls />
+            <ActiveOrders />
+            {/* <FinishedOrders /> */}
           </div>
-       <FinishedOrders/>
+          {/* <FinishedOrders /> */}
         </div>
       </div>
     </div>

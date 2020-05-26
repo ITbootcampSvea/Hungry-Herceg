@@ -10,14 +10,19 @@ const getHeader = () => ({headers:{Authorization:"Bearer " + appStorage.getToken
 //Users
 
 export const logInUser = (username, password) => axios.post(baseURL+"/user/login", {username, password});
+export const getUserById = (id) => axios.get (baseURL+"/user/"+id)
 export const getUsersAll = () => axios.get(baseURL+"/user");
-export const getUserById = (id) => axios.get(baseURL+"/user/"+id);
+export const createUser = (username, password) => axios.post(baseURL+"/user", {username, password}, getHeader());
+export const deleteUserById = (id) => axios.delete(baseURL+"/user/"+id, getHeader());
 
 
 //Restaurants
 
 export const getRestaurantsAll = () => axios.get(baseURL+"/restaurant");
 export const getRestaurantByID = id => axios.get(baseURL+"/restaurant/"+id);
+export const createRestaurant = (name, address, tags, meals) => axios.post(baseURL+"/restaurant", {name, address, tags, meals}, getHeader());
+export const deleteRestaurantById = (id) => axios.delete(baseURL+"/restaurant/"+id, getHeader());
+export const updateMealToRestaurant = (id, meals) => axios.put(baseURL+"/restaurant/"+id, {meals}, getHeader());
 
 
  //Polls
@@ -41,3 +46,8 @@ export const endOrderById = (id) => axios.put(baseURL + "/order/"+id, {status:fa
 export const updateOrderItem = (id, quantity, note) => axios.put(baseURL + `/orderItem/${id}`, { quantity: quantity, note: note }, getHeader());
 export const createOrderItem = (orderItem) => axios.post(baseURL+"/orderItem", orderItem, getHeader());
 export const deleteOrderItemById = (id) =>  axios.delete(baseURL+"/orderItem/"+id, getHeader());
+
+//Meals
+
+export const createMeal = (restaurantId, name, price, tag) => axios.post(baseURL+"/meal", {restaurantId, name, price, tag}, getHeader()); 
+export const deleteMealById = (id) => axios.delete(baseURL+"/meal/"+id, getHeader());
