@@ -20,6 +20,9 @@ export const deleteUserById = (id) => axios.delete(baseURL+"/user/"+id, getHeade
 
 export const getRestaurantsAll = () => axios.get(baseURL+"/restaurant");
 export const getRestaurantByID = id => axios.get(baseURL+"/restaurant/"+id);
+export const createRestaurant = (name, address, tags, meals) => axios.post(baseURL+"/restaurant", {name, address, tags, meals}, getHeader());
+export const deleteRestaurantById = (id) => axios.delete(baseURL+"/restaurant/"+id, getHeader());
+export const updateMealToRestaurant = (id, meals) => axios.put(baseURL+"/restaurant/"+id, {meals}, getHeader());
 
 
  //Polls
@@ -28,5 +31,9 @@ export const createPoll = (name, duration, restaurants) => axios.post(baseURL+"/
 export const getAllPolls = () =>  axios.get(baseURL+"/poll");
 export const getPollById = (id) => axios.get(baseURL+"/poll/"+id);
 export const deletePollById = (id) =>  axios.delete(baseURL+"/poll/"+id, getHeader());
-export const endPollById = (id) => axios.put(baseURL + "/poll/"+id, {status:false},getHeader());
+export const endPollById = (id) => axios.put(baseURL + "/poll/"+id, {status:false}, getHeader());
 export const updateVotesByPollId = (id, votes) => axios.post(baseURL + `/poll/${id}/vote`, {restaurantId:votes}, getHeader());
+
+//Meals
+
+export const createMeal = (name, price, tag) => axios.post(baseURL+"/meal", {name, price, tag}, getHeader()); 
