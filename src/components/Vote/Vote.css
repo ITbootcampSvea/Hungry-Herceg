@@ -1,3 +1,9 @@
+
+.voteWrapper{
+    background: linear-gradient(to bottom, #222629 30%, #474B4F 70%);
+}
+
+
 .activeVote{
     margin: 0 10%;
     height: 100%;
@@ -16,7 +22,6 @@
 .voteCard{
     display: grid;
     grid-template-rows: 1fr 3fr;
-
     width: 60%;
     height: 60%;
     border-radius: 1rem;
@@ -25,7 +30,7 @@
 
 
 .voteHeader{
- background: white;
+    background: linear-gradient(45deg, rgb(168, 167, 167),white,rgb(168, 167, 167));
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     display: grid;
@@ -57,7 +62,7 @@
     display: grid;
     align-items: center;
     justify-items: center;
-    background: white;
+    background: linear-gradient(45deg, #222629,white,#222629);
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
 }
@@ -96,6 +101,7 @@
 
 .voteListWrapp{
     overflow-y: scroll;
+    max-height: 25rem;
 }
 
 

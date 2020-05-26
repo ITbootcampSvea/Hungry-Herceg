@@ -83,6 +83,7 @@ const CreateOrderItem = ({ history }) => {
     return (
         <div className='wrapper'>
             <NavBar history={history} />
+            <div className='mainPartWrapper'>
             <div className='orderWrapper'>
                 <div className='orderContent'>
                     <div className='smallerOrderDiv'>
@@ -119,6 +120,7 @@ const CreateOrderItem = ({ history }) => {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     );
 };

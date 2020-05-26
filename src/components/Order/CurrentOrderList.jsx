@@ -18,7 +18,9 @@ const CurrentOrderList = ({ orderedMeals, total, setTotal }) => {
 
     return (
         <div className='currentOrderWrapp'>
+               <div className='comboHedingWrapp'>
                 <h3>Current Order</h3>
+                </div>
                 <div className='currentOrderTxt'>
                     <div className='orderBold'>Meal</div>
                     <div className='orderBold'>Price</div>
@@ -26,7 +28,7 @@ const CurrentOrderList = ({ orderedMeals, total, setTotal }) => {
                     <div className='orderBold'>Note</div>
                     <div className='orderBold'>Actions</div>
                 </div>
-                {orderedMeals.map(orderedMeal => {
+          <div id="style-4" className='currOrderClmsWrapp'>{orderedMeals.map(orderedMeal => {
                     return (
                         <div key={orderedMeal.mealId} className='currentOrderTxt'>
                             <div>{orderedMeal.name}</div>
@@ -37,6 +39,7 @@ const CurrentOrderList = ({ orderedMeals, total, setTotal }) => {
                         </div>
                     )
                 })}
+                </div>
                 <div>Total price: <span className='orderBold'>{total}</span></div>
                 <button onClick={() => finishOrder(orderedMeals)} className='orderNowBtn'>ORDER NOW!</button>
         </div>

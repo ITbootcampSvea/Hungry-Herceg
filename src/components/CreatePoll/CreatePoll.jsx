@@ -179,6 +179,7 @@ export default function CreatePoll({ history }) {
     return (
         <div className='wrapper'>
             <NavBar history={history} />
+            <div className='mainPartWrapper'>
             <div className='activePoll'>
                 <div className='pollWrapper'>
                     <div className='newPollCard'>
@@ -197,15 +198,7 @@ export default function CreatePoll({ history }) {
                                     <label className='timeInfoLbl'>Minutes:</label><input className='NoInpPoll' type="number" min="15" max="59" defaultValue="15" name="minutes" onChange={(e) => handleEndTime(e)}
                                         onKeyDown={(e) => (e.key === '-' || e.key === '.') ? e.preventDefault() : null}></input>
                                 </div>
-                                <div className='creNewPollBtns'>
-                                    <div className='leftBtnDiv'>
-                                        <button className='leftBtnCreatePoll' onClick={(e) => handleCreatePoll(e)}>Create Poll</button>
-                                    </div>
-                                    <div className='rightBtnDiv'>
-                                        <button className='rightBtnCreatePoll' onClick={(e) => handleCancel(e)}>Cancel</button>
-                                    </div>
-                                </div>
-                                <div>
+                                <div className='gradientDiv'>
                                 </div>
                             </div>
                         </div>
@@ -255,12 +248,20 @@ export default function CreatePoll({ history }) {
                                     </div>)
                                 })}
                             </div>
-                            <div className='restaurantListFooter'></div>
+                            <div className='creNewPollBtns'>
+                                    <div className='leftBtnDiv'>
+                                        <button className='leftBtnCreatePoll' onClick={(e) => handleCreatePoll(e)}>Create Poll</button>
+                                    </div>
+                                    <div className='rightBtnDiv'>
+                                        <button className='rightBtnCreatePoll' onClick={(e) => handleCancel(e)}>Cancel</button>
+                                    </div>
+                                </div>
                         </div>
                        
                     </div>
                 </div>
             </div>
+        </div >
         </div >
     )
 }

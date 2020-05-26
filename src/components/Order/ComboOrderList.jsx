@@ -38,7 +38,9 @@ const ComboOrderList = ({
 
     return(
         <div className='comboOrderWrapp'>
-            <h3>Get your perfect combo</h3>
+          <div className='comboHedingWrapp'>
+          <h3>Get your perfect combo</h3>
+          </div>
             <input type="text" onChange={(e) => setBudget(e.target.value)} 
             placeholder='Enter your budget limit' className='basicOrderInput'/>       
             <div className='basicOrderTxt'>
@@ -47,7 +49,9 @@ const ComboOrderList = ({
                 <div className='orderBold'>Price</div>
                 <div className='orderBold'>Actions</div>
             </div>
+            <div className='comboRowWrapp' id="style-4">
                 {comboRow}
+                </div>
         </div>
     )
 }
