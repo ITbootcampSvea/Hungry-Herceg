@@ -12,12 +12,12 @@ const Home = ({ history }) => {
       <NavBar history={history} />
       <div className='activepollOrderWrapper'>
         <div className="active">
-          <div>
+          <div className='activeCardsWrapper'>
             <ActivePolls />
             <ActiveOrders />
             {/* <FinishedOrders /> */}
           </div>
-          {/* <FinishedOrders /> */}
+          <FinishedOrders />
         </div>
       </div>
     </div>

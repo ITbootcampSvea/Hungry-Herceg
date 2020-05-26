@@ -223,7 +223,9 @@ export default function Settings({history}) {
                         <div>
                             <div className='settSubheadingWrapp'> <h3 className='settSubheading'>Restaurants</h3></div>
                             <input className='settingsInput' type="text" placeholder="Search by name..." name="restaurantsearch" onChange={(e) => handleInput(e)} />
-                           <div id="style-4" className=' cetColmWrapper'> {getFilteredRestaurants(searchRestaurant, restaurants).map(el => { return <div className='settColm' key={el._id}><div> <label onClick={() => handleSelectRestaurant(el._id)} className='allRestLbl'>{el.name}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteRestaurant(el._id)}>Delete</button></div></div> })}</div>
+                           <div id="style-4" className=' cetColmWrapper'> {getFilteredRestaurants(searchRestaurant, restaurants).map(el => { return <div className='settColm' key={el._id}><div> 
+                            <label onClick={() => handleSelectRestaurant(el._id)} className={el._id === selected_id? 'allRestLbl selected': 'allRestLbl'}>{el.name}</label></div><div>
+                            <button className='settDelBtn' onClick={(e) => handleDeleteRestaurant(el._id)}>Delete</button></div></div> })}</div>
                         </div>
                     </div>
                 </div>
@@ -248,7 +250,7 @@ export default function Settings({history}) {
                         <div className='settSubheadingWrapp'> <h3 className='settSubheading'>Meals</h3></div>
                             <input className='settingsInput' type="text" placeholder="Search by name..." name="mealssearch" onChange={(e) => handleInput(e)} />
                         <div id="style-4" className='allSelectMealsWrapp'>  {selected_id !== null ? getFilteredMeals(searchMeals, getMeals(selected_id, restaurants)).map(el => {return <div className='selectedMealsWrapp' key={el._id} >
-                            <div><label className='settUsernameLbl'>{el.name}{' '}{el.price}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteRestaurant(el._id)}>Delete</button></div></div>}): null}</div>  
+                            <div><label className='settUsernameLbl'>{el.name}{' '}{el.price}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteMeal(el._id)}>Delete</button></div></div>}): null}</div>  
                         </div>
                     </div>
                     </div>
@@ -268,7 +270,8 @@ export default function Settings({history}) {
                         <div>
                             <div  className='settSubheadingWrapp'> <h3 className='settSubheading'>Users</h3></div>
                             <input className='settingsInput' type="text" placeholder="Search by name..." name="usersearch" onChange={(e) => handleInput(e)} />
-                           <div id="style-4" className='allFilterUsersWrapp'>{getFilteredUsers(searchUser, users).map(el => { return <div className='settColm' key={el._id}><div> <label className='settUsernameLbl '>{el.username}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteUser(el._id)}>Delete</button></div></div> })}</div>
+                           <div id="style-4" className='allFilterUsersWrapp'>{getFilteredUsers(searchUser, users).map(el => { return <div className='settColm' key={el._id}><div> 
+                            <label className='settUsernameLbl '>{el.username}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteUser(el._id)}>Delete</button></div></div> })}</div>
                         </div>
                     </div>
                     </div>
