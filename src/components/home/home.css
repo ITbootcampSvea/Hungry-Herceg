@@ -255,6 +255,11 @@
     background: linear-gradient(45deg, #222629,white,#222629);
 }
 
+.finishOrderRowWrapp{
+    overflow-y: scroll;
+    max-height: 10rem;
+}
+
 /*iPad*/
 
 @media (max-width:768px) {

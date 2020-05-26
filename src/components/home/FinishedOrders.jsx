@@ -134,7 +134,7 @@ class FinishedOrders extends React.Component {
               <label className='finishOrderLbl'>Action</label>
             </div>
           </div>
-          <div className="pollRowsWrapp">{ordersRow}</div>
+          <div id="style-4"className='finishOrderRowWrapp'>{ordersRow}</div>
         </div>
           </div>
       </div>
