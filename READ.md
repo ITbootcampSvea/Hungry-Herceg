@@ -5,8 +5,11 @@ Aplikacija Hungry-Herceg resava problem neusaglasenosti oko izbora restorana pri
 ## Preduslovi
 
 Potrebno je instalirati NODE.js
+
 Klonirati ovaj repozitorijum
+
 Inicijalizovati projekat komandom npm install
+
 Pokrenuti aplikaciju na lokalnom serveru komandom npm start
 
 
