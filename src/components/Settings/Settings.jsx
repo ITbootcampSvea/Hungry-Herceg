@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import './Settings.css'
 import { authService } from '../../services/auth.service';
-import { getRestaurantsAll, getUsersAll, createUser, deleteUserById, createRestaurant, deleteRestaurantById, createMeal } from '../../services/api.service';
+import { getRestaurantsAll, getUsersAll, createUser, deleteUserById, createRestaurant, deleteRestaurantById, createMeal, deleteMealById } from '../../services/api.service';
 import { useAlert } from 'react-alert';
 
 let mealName = '';
 let mealPrice = '';
-let mealsTags = '';
+let mealsTags = 'slano';
 let restaurantName = '';
 let restaurantAddress = '';
 let restaurantTags = [];
@@ -73,6 +73,7 @@ export default function Settings({history}) {
         e.preventDefault();
         if(selected_id){
             createMeal(selected_id, mealName, Number(mealPrice), mealsTags).then(res => {
+                console.log(mealsTags)
                 if(res.data.message === "Success"){
 
                 getRestaurantsAll().then(res => {
@@ -120,6 +121,17 @@ export default function Settings({history}) {
             }).catch(err => alert.error('Something went wrong!'+err))
     }
 
+    const handleDeleteMeal = (id) => {
+        deleteMealById(id).then(res => {
+            if(res.data.message === "Success"){
+
+                getRestaurantsAll().then(res => {
+                setRestaurants(res.data.data)
+                })
+            }
+            }).catch(err => alert.error('Something went wrong!'+err))
+    }
+
 
     const getFilteredRestaurants = (search, array) => {
         return array.filter(el => el.name.toLowerCase().includes(search.toLowerCase()));
@@ -147,9 +159,9 @@ export default function Settings({history}) {
         setMealsSectionSelected(!mealsSectionSelected)
     }
 
-    const resturantSectionStyle = restaurantSectionSelected ? { opacity: 1 } : { opacity: 0 };
-    const userSectionStyle = usersSectionSelected ? { opacity: 1 } : { opacity: 0 };
-    const mealSectionStyle = mealsSectionSelected ? { opacity: 1 } : { opacity: 0 };
+    const resturantSectionStyle = restaurantSectionSelected ? { display: "block" } : { display: "none" };
+    const userSectionStyle = usersSectionSelected ? { display: "block" } : { display: "none" };
+    const mealSectionStyle = mealsSectionSelected ? { display: "block" } : { display: "none" };
 
 
     const handleInput = (e) => {
@@ -220,14 +232,17 @@ export default function Settings({history}) {
                         <div className='createNewWrapp'> <h3 className='createNewHeading'>Create new meal</h3></div>
                         <input className='settingsInput' type="text" placeholder="Meal name" name="mealname" onChange={(e) => handleInput(e)} required></input>
                         <input className='settingsInput' type="number" placeholder="Meal price" name="mealprice" onChange={(e) => handleInput(e)} required></input>
-                        <input className='settingsInput' type="text" placeholder="Meal tags" name="mealtags" onChange={(e) => handleInput(e)}></input>
+                        <select className='settingsInput' placeholder="Meal tags" name="mealtags" onChange={(e) => handleInput(e)}>
+                            <option value="slano">slano</option>
+                            <option value="slatko">slatko</option>
+                        </select>
                         <input type="submit" value="Submit Meal" className='settSubmitBtn'/>
                         </form>
                         <div>
                         <div className='settSubheadingWrapp'> <h3 className='settSubheading'>Meals</h3></div>
                             <input className='settingsInput' type="text" placeholder="Search by name..." name="mealssearch" onChange={(e) => handleInput(e)} />
                             {selected_id !== null ? getFilteredMeals(searchMeals, getMeals(selected_id, restaurants)).map(el => {return <div className='selectedMealsWrapp' key={el._id} >
-                                <label className='settUsernameLbl'>{el.name}{' '}{el.price}</label><button className='settDelBtn' onClick={(e) => handleDeleteRestaurant(el._id)}>Delete</button></div>}): null}
+                                <label className='settUsernameLbl'>{el.name}{' '}{el.price}</label><button className='settDelBtn' onClick={(e) => handleDeleteMeal(el._id)}>Delete</button></div>}): null}
                         </div>
                     </div>
                     </div>
