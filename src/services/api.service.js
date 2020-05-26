@@ -10,7 +10,7 @@ const getHeader = () =>({headers:{Authorization:"Bearer " + appStorage.getToken(
 //Users
 
 export const logInUser = (username, password) => axios.post(baseURL+"/user/login", {username, password});
-export const getUserById = (id) => axios.get (baseURL+"/user/5ecbebe30f5eb03410b55d13")
+export const getUserById = (id) => axios.get (baseURL+"/user/"+id)
 export const getUsersAll = () => axios.get(baseURL+"/user");
 export const createUser = (username, password) => axios.post(baseURL+"/user", {username, password}, getHeader());
 export const deleteUserById = (id) => axios.delete(baseURL+"/user/"+id, getHeader());
