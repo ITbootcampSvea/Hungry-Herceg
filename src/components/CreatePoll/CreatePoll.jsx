@@ -152,7 +152,7 @@ export default function CreatePoll({ history }) {
             alert.error("Poll list must contain more than 2 and less than 15 items");
             return;
         }
-        if (duration < 900) {
+        if (duration < 15) {
             alert.error('Poll duration must be longer than 15 min!'); 
             return;
         }

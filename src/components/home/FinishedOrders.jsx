@@ -109,32 +109,34 @@ class FinishedOrders extends React.Component {
 
     return (
       <div className="active-polls">
-        <div className="poll-order-card">
+        <div className="finishedOrderCard">
           <img
-            className="pollCardicon"
-            src="./img/pollcard4.png"
+           className='certifyIcon'
+            src="/img/certificate.png"
             alt="pollicon"
           />
           <div className="card-heading">
             <h1>Finished Orders</h1>
           </div>
-
-          <div className="active-info header">
-            <div>
-              <label>Restaurant</label>
+          <div className='finshedOrderGradientWrapp'></div>
+          <div className='finishedOrderContent'>
+          <div className="finishOrderHeader">
+            <div className='finishedOrderFiled'>
+              <label className='finishOrderLbl'>Restaurant</label>
             </div>
-            <div>
-              <label>Poll Author</label>
+            <div className='finishedOrderFiled'>
+              <label className='finishOrderLbl'>Poll Author</label>
             </div>
-            <div>
-              <label>Status</label>
+            <div className='finishedOrderFiled'>
+              <label className='finishOrderLbl'>Status</label>
             </div>
-            <div>
-              <label>Action</label>
+            <div className='finishedOrderFiled'>
+              <label className='finishOrderLbl'>Action</label>
             </div>
           </div>
           <div className="pollRowsWrapp">{ordersRow}</div>
         </div>
+          </div>
       </div>
     );
   }
