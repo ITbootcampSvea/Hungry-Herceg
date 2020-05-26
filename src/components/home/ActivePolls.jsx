@@ -11,6 +11,7 @@ class ActivePolls extends React.Component {
   constructor(props) {
     super(props);
     this.countdown = null;
+    this.isSubscribed = true;
     this.state = {
       userName: appStorage.getUser(),
       userId: appStorage.getUserId(),
@@ -20,20 +21,24 @@ class ActivePolls extends React.Component {
   }
 
   componentDidMount() {
+    this.isSubscribed = true;
     this.setAllPolls();
     this.countdown = window.setInterval(() => this.setAllPolls(), 15000);
   }
 
   componentWillUnmount() {
+    this.isSubscribed = false;
     window.clearInterval(this.countdown);
   }
 
   setAllPolls = () => {
     getAllPolls()
       .then((res) => {
-        this.setState({ allPolls: res.data.data, loading: false });
+        if(this.isSubscribed){
+          this.setState({ allPolls: res.data.data, loading: false });
+        }
       })
-      .catch((err) => window.alert("Error occurred" + err));
+      .catch((err) => {if(this.isSubscribed){window.alert("Error occurred" + err)}});
   };
 
   render() {
