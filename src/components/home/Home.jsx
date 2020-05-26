@@ -4,7 +4,7 @@ import ActiveOrders from "./ActiveOrders";
 import "./home.css";
 import NavBar from "../NavBar/NavBar";
 // import FinishedOrders_Milos from "./FinishedOrders_Milos";
-import FinishedOrders from "./FinishedOrders";
+
 
 const Home = ({ history }) => {
   return (

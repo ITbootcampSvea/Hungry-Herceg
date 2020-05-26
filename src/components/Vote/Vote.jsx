@@ -11,11 +11,18 @@ let max = 3;
 export default function Vote({ history, match }) {
     const alert = useAlert()
 
+   
+
     const [restaurants, setRestaurants] = useState([]);
 
     const [pollName, setPollName] = useState("");
     const [endTime, setEndTime] = useState("");
     const [pollAuthor, setPollAuthor] = useState("");
+    let isoDateTime = new Date(endTime);
+    let localDateTime =
+      isoDateTime.toLocaleDateString() +
+      " " +
+      isoDateTime.toLocaleTimeString();
 
     useEffect(() => {
 
@@ -110,7 +117,7 @@ export default function Vote({ history, match }) {
 
                                     <div className='voteHeaderFiled'>
                                     <div className='voteCardFildes'><small className='voteFiledSmall'>End time</small></div>
-                                    <div className='voteCardFildes'><label className='voteFiledLbl'>{endTime}</label> </div>
+                                    <div className='voteCardFildes'><label className='voteFiledLbl'>{`${localDateTime}`}</label> </div>
                                     </div>
                             </div>
                             <div className='voteListWrapp' id="style-4">
