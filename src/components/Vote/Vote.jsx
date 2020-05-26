@@ -86,7 +86,7 @@ export default function Vote({ history, match }) {
                 else{
                     alert.error("Something went wrong");
                 }
-            })
+            }).catch(err=>alert.error("Something went wrong"+err))
         }
         else {
             alert.info("You neet to vote for at least one restaurant!"); 

@@ -52,7 +52,10 @@ export default function Settings({history}) {
                     setUsers(res.data.data)
                     })
                 }
-            }).catch(err => alert.error('Something went wrong!'+err))
+                else{
+                    alert.error(res.data.message)
+                }
+            }).catch(err => {alert.error('Something went wrong!' + err.message); console.log(err)})
         }
     }
 
@@ -81,6 +84,9 @@ export default function Settings({history}) {
                     })
                 }
             }).catch(err => alert.error('Something went wrong!'+err))
+        }
+        else{
+            alert.info("Please select restaurant first.");
         }
     }
 
