@@ -24,3 +24,4 @@ Aplikacija Hungry-Herceg resava problem neusaglasenosti oko izbora restorana pri
 
 This project is licensed under the MIT License 
 
+ 
