@@ -15,7 +15,7 @@ const Home = ({ history }) => {
           <div>
             <ActivePolls />
             <ActiveOrders />
-            <FinishedOrders />
+            {/* <FinishedOrders /> */}
           </div>
           {/* <FinishedOrders /> */}
         </div>

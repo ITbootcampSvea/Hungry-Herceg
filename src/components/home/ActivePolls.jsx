@@ -28,12 +28,13 @@ class ActivePolls extends React.Component {
       .catch((err) => window.alert("Error occurred" + err));
   };
 
+  
+
   render() {
-    let allPolls = this.state.allPolls;
+    let allActivePolls = this.state.allPolls.filter(el => el.status);
     let pollsRow = [];
-    if (allPolls.length > 0) {
-      allPolls.map((poll) => {
-        if (poll.status) {
+    if (allActivePolls.length > 0) {
+      allActivePolls.map((poll) => {
           if (poll.author === this.state.userName) {
             pollsRow.push(
               <div className="active-info">
@@ -111,8 +112,7 @@ class ActivePolls extends React.Component {
                 </div>
               </div>
             );
-          }
-        }
+          }  
       });
     } else {
       pollsRow = (
