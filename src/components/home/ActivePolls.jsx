@@ -21,7 +21,7 @@ class ActivePolls extends React.Component {
 
   componentDidMount() {
     this.setAllPolls();
-    this.countdown = window.setInterval(() => this.setAllPolls(), 15000);
+    this.countdown = window.setInterval(() => this.setAllPolls(), 100000);
   }
 
   componentWillUnmount() {
