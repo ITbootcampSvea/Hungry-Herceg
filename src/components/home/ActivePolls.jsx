@@ -28,11 +28,6 @@ class ActivePolls extends React.Component {
       .catch((err) => window.alert("Error occurred" + err));
   };
 
-  endPoll = (pollId) => {
-    //salje pobednicki restoran u niz ordera na backu
-    //refreshuje home stranicu, kako bismo na njoj odmah videli novi order
-  };
-
   render() {
     let allPolls = this.state.allPolls;
     let pollsRow = [];
@@ -40,7 +35,6 @@ class ActivePolls extends React.Component {
       allPolls.map((poll) => {
         if (poll.status) {
           if (poll.author === this.state.userName) {
-            console.log(poll);
             pollsRow.push(
               <div className="active-info">
                 <div>
@@ -50,9 +44,9 @@ class ActivePolls extends React.Component {
                   <label className="pollLblInfo">{poll.author}</label>
                 </div>
                 <div>
-                <div>
-                  <label className="pollLblInfo">{poll.ends}</label>
-                </div>
+                  <div>
+                    <label className="pollLblInfo">{poll.ends}</label>
+                  </div>
                 </div>
                 <div className="btn-icons">
                   <div>
@@ -124,9 +118,8 @@ class ActivePolls extends React.Component {
       pollsRow = (
         <div className="noActiveInfo">
           <div>
-          <label className="pollLblNoInfo">No Active Polls</label>
+            <label className="pollLblNoInfo">No Active Polls</label>
           </div>
-        
         </div>
       );
     }
