@@ -1,31 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { orders, polls, restaurants, users, meals } from "../../data";
 import { appStorage } from "../../services/storage.service";
 import { Link } from "react-router-dom";
-import { getAllOrders } from "../../services/api.service";
+import { getAllOrders, endOrderById } from "../../services/api.service";
 
 const ActiveOrders = () => {
 
+    const [loading,setLoading] = useState(true);
     const [activeOrders,setActiveOrders] = useState([]);
     //povlacenje podataka sa back-a
+    let interval;
     useEffect(() => {
-        getAllOrders().then(res => {
-            let orders = res.data.data;
-            setActiveOrders(orders.filter(el => el.status === true));
-        })
+        interval = setInterval(() => {
+            getAllOrders().then(res => {
+                let orders = res.data.data;
+                setActiveOrders(orders.filter(el => el.status === true));
+                setLoading(false);
+            });
+        },3000)
+        return () => clearInterval(interval);
     },[])
-    console.log(activeOrders);
+
     let user = appStorage.getUser();
 
+    //status order-a menja se u false
     const endOrder = (orderId) => {
-        //export podataka u excel
+        endOrderById(orderId);
     }
 
-    const deleteOrder = (orderId) => {
-        //brisanje ordera sa api-ja
+    const getEndTime = (createdAt) =>{
+        let isoDateTime = new Date(createdAt); 
+        isoDateTime.setMinutes(isoDateTime.getMinutes()+20);
+        return isoDateTime.toLocaleDateString() + " " + isoDateTime.toLocaleTimeString();
     }
-    
+
     return(
+        
         <div className="active-polls">
         <div className="poll-order-card">
             <img className="pollCardicon" src="./img/pollcard3.png" alt='pollicon' />
@@ -44,7 +53,7 @@ const ActiveOrders = () => {
                     <label className='orderInfoLbl'>Author</label>
                 </div>
                 <div>
-                    <label className='orderInfoLbl'>Remaining Time</label>
+                    <label className='orderInfoLbl'>Ends</label>
                 </div>
                 <div>
                     <label className='orderInfoLbl'>Status</label>
@@ -66,7 +75,7 @@ const ActiveOrders = () => {
                 
                 return(
                     
-                    <div className="active-info header order">
+                    <div key={order._id} className="active-info header order">
                     <div>
                         <label className='pollLblInfo'>{order.poll.name}</label>
                     </div>
@@ -77,22 +86,19 @@ const ActiveOrders = () => {
                         <label className='pollLblInfo'>{order.poll.author}</label>
                     </div>
                     <div>
-                        <label className='pollLblInfo'>{order.duration}</label>
+                        <label className='pollLblInfo'>{getEndTime(order.createdAt)}</label>
                     </div>
                     <div >
                     {userOrders.length === 0 ? <label className='pollLblInfo'>You didn't order yet</label>:<label className='pollLblInfo'>You ordered:{userOrders.map(orderItem => {
                                 return(
-                                    <li>{orderItem.quantity} x {orderItem.meal.name}</li>
+                                    <li key={orderItem._id}>{orderItem.quantity} x {orderItem.meal.name}</li>
                                 )
                             })} </label>}
                     </div>
                     <div className="btn-icons">
                     {user === order.poll.author ? <>
                             <div>
-                                <img src="./img/del.png" alt="icon" title="Delete" title='Delete order' onClick={() => deleteOrder(order.orderId)}/>
-                            </div>
-                            <div>
-                                <img src="./img/end1.png" alt="icon" title="End Poll" title='End order' onClick={() => endOrder(order.orderId)}/>
+                                <img src="./img/end1.png" alt="icon" title="End Poll" title='End order' onClick={() => endOrder(order._id)}/>
                             </div>
                             </>:<div></div>}
                             <div>
@@ -104,7 +110,7 @@ const ActiveOrders = () => {
                 ) 
             })} </> : <div className="noActiveInfo">
             <div>
-            <label className="pollLblNoInfo">No Active Orders</label>
+            <label className="pollLblNoInfo">{loading ? "Loading..." : "No Active Orders"}</label>
             </div>
           
           </div>}
@@ -113,6 +119,7 @@ const ActiveOrders = () => {
         </div>
         
     </div>
+
     )
 
 }
