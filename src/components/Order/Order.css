@@ -8,7 +8,7 @@
     0 6px var(--primary-black), 
     -7px 0 4px -3px rgba(153, 59, 52, 0.37), 
     7px 0 4px -3px rgba(153, 59, 52, 0.37);
-    height: 86vh;
+     height: 100%;
 }
 
 .orderContent {
@@ -216,4 +216,8 @@ width: 100%;
         width: 35rem;
         padding-left: 0.4rem;
     }
+}
+
+@media (max-width:1366px) {
+    
 }
