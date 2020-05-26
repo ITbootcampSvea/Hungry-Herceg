@@ -29,8 +29,8 @@ export default function CreatePoll({ history }) {
         getRestaurantsAll().then(res => {
           
             setRestaurants(res.data.data);
-            
-        }).catch(res=>alert.error('Something wrong happened. Try reload or contact support. Details:' + res ));
+
+        }).catch(res => alert.error('Something wrong happened. Try reload or contact support. Details:' + res));
     }, [])
 
 
@@ -173,7 +173,6 @@ export default function CreatePoll({ history }) {
             <div className='activePoll'>
                 <div className='pollWrapper'>
                     <div className='newPollCard'>
-
                         <div className='searchRest'>
                             <div className='createPollHeading'>
                                 <label className='headingCard'>Search Restaurants</label>
@@ -184,7 +183,7 @@ export default function CreatePoll({ history }) {
                             <div className='showAllBtnWrap'>
                                 {stateOverflow ? (<button className='showAllBtn' onClick={handleShowHide}>{!showAll ? "Show all >>>" : "Show less <<<"}</button>) : null}
                             </div>
-                            <div className='filteredListWrap'>
+                            <div id="style-6" className='filteredListWrap'>
                                 {filterList(restaurants, search, showAll).map((restaurant, index) => {
                                     return (<div className='filteredResColumn' key={"result" + index}>
                                         <div className='restNameWrapp'>
@@ -197,7 +196,6 @@ export default function CreatePoll({ history }) {
                                 })}
                             </div>
                         </div>
-
                         <div className='createPollInfo'>
                             <div className='createPollHeading'>
                                 <h3 className='headingCard'>Create New Poll</h3>
@@ -225,7 +223,6 @@ export default function CreatePoll({ history }) {
                             </div>
                         </div>
                     </div>
-
                     <div className='restListWrapp'>
                         <div className='restaurantList'>
                             <div className='restListHeader'>
@@ -239,20 +236,14 @@ export default function CreatePoll({ history }) {
                                         <div className='nameOfPickedRest'>
                                             <label className='choosenRest'>{restaurant.name}</label>
                                         </div>
-                                        <div className='removeImgWrapp'> 
+                                        <div className='removeImgWrapp'>
                                             <img src='/img/del.png' alt='del' className='removeBtn' title='Remove Restaurant' id={restaurant._id} onClick={handleRemove} />
                                         </div>
                                     </div>)
                                 })}
                             </div>
                         </div>
-
-
                     </div>
-
-
-
-
                 </div>
             </div>
         </div >
