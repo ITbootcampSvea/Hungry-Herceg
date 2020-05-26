@@ -1,13 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { appStorage } from "../../services/storage.service";
-import {
-  getAllPolls,
-  deletePollById,
-  endPollById,
-} from "../../services/api.service";
+import { getAllOrders } from "../../services/api.service";
 import axios from "axios";
-import { ExportToCsv } from 'export-to-csv';
+import { ExportToCsv } from "export-to-csv";
 
 class FinishedOrders extends React.Component {
   constructor(props) {
@@ -22,13 +18,10 @@ class FinishedOrders extends React.Component {
     this.setAllOrders();
   }
 
-  baseURL = "https://hungry-herceg.herokuapp.com";
-  getAllOrders = () => axios.get(this.baseURL + "/order");
-
   setAllOrders = () => {
-    this.getAllOrders()
+    getAllOrders()
       .then((res) => {
-        console.log(res.data.data);
+        
         this.setState({ allOrders: res.data.data });
       })
       .catch((err) => window.alert("Error occurred" + err));
@@ -38,37 +31,66 @@ class FinishedOrders extends React.Component {
     let allOrders = this.state.allOrders;
 
     let ordersRow = [];
-    let inactiveOrders=[];
 
     if (allOrders.length > 0) {
       allOrders.map((order) => {
-        if (order.status === true) {
-          let dataForExport = [
-            {
-              name:"Danko"
+        if (order.poll.status === false) {
+         
+          let orderItemList = order.orderItemList;
+          console.log(orderItemList)
+          let data = [];
+          let singleMealName = '';
+          let singleMealQuantity = '';
+          let singleMealPrice = '';
+          let singleMealNote = '';
+          orderItemList.map(orderItem=>{
+            let completedOrder = {
+              
+                mealName: orderItem.meal.name,
+                mealQuantity: orderItem.quantity,
+                mealPrice: orderItem.meal.price * singleMealQuantity,
+                mealNote: orderItem.note,
+                approved: true,
+                description: "Using content here"
             }
-          ]
+            data.push(completedOrder);
+            
+            
+          // singleMealName = orderItem.meal.name;
+          // singleMealQuantity = orderItem.quantity;
+          // singleMealPrice = orderItem.meal.price * singleMealQuantity;
+          
+          })
+          console.log(data)
+          
+          // let dataForExport = [
+          //   {
+          //     name:"Danko"
+          //   }
+          // ]
 
-          //bice ulogovani user iz app storage, ovo je mock da bi se videlo nesto
-          if (order.author === "pollAuthor") {
+          if (order.poll.author === this.state.userName) {
             ordersRow.push(
               <div className="active-info">
                 <div>
-                  <label className="pollLblInfo">
-                    {order.restaurantId[0].name}
-                  </label>
+                  <label className="pollLblInfo">{order.poll.name}</label>
                 </div>
                 <div>
-                  <label className="pollLblInfo">{order.pollId.author}</label>
+                  <label className="pollLblInfo">{order.poll.author}</label>
                 </div>
                 <div>
                   <div>
-                    <label className="pollLblInfo">Waiting for export</label>
+                    <label className="pollLblInfo">
+                      {order.restaurant.name}
+                    </label>
                   </div>
                 </div>
                 <div>
                   <div>
-                    <label className="pollLblInfo"><button>EXPORT NOW</button></label>
+                    <label className="pollLblInfo">
+                      <button
+                      >EXPORT NOW</button>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -77,20 +99,16 @@ class FinishedOrders extends React.Component {
             ordersRow.push(
               <div className="active-info">
                 <div>
-                  <label className="pollLblInfo">
-                    {order.restaurantId.name}
-                  </label>
+                  <label className="pollLblInfo">{order.poll.name}</label>
                 </div>
                 <div>
-                  <label className="pollLblInfo">{order.pollId.author}</label>
+                  <label className="pollLblInfo">{order.poll.author}</label>
                 </div>
                 <div>
-                  <label className="pollLblInfo">Waiting for export</label>
+                  <label className="pollLblInfo">{order.restaurant.name}</label>
                 </div>
                 <div>
-                  <label className="pollLblInfo">
-                    {order.restaurantId.name}
-                  </label>
+                  <label className="pollLblInfo">Order pending...</label>
                 </div>
               </div>
             );
@@ -111,32 +129,32 @@ class FinishedOrders extends React.Component {
       <div className="active-polls">
         <div className="finishedOrderCard">
           <img
-           className='certifyIcon'
+            className="certifyIcon"
             src="/img/certificate.png"
             alt="pollicon"
           />
           <div className="card-heading">
             <h1>Finished Orders</h1>
           </div>
-          <div className='finshedOrderGradientWrapp'></div>
-          <div className='finishedOrderContent'>
-          <div className="finishOrderHeader">
-            <div className='finishedOrderFiled'>
-              <label className='finishOrderLbl'>Restaurant</label>
+          <div className="finshedOrderGradientWrapp"></div>
+          <div className="finishedOrderContent">
+            <div className="finishOrderHeader">
+              <div className="finishedOrderFiled">
+                <label className="finishOrderLbl">Name</label>
+              </div>
+              <div className="finishedOrderFiled">
+                <label className="finishOrderLbl">Author</label>
+              </div>
+              <div className="finishedOrderFiled">
+                <label className="finishOrderLbl">Restaurant</label>
+              </div>
+              <div className="finishedOrderFiled">
+                <label className="finishOrderLbl">Action</label>
+              </div>
             </div>
-            <div className='finishedOrderFiled'>
-              <label className='finishOrderLbl'>Poll Author</label>
-            </div>
-            <div className='finishedOrderFiled'>
-              <label className='finishOrderLbl'>Status</label>
-            </div>
-            <div className='finishedOrderFiled'>
-              <label className='finishOrderLbl'>Action</label>
-            </div>
+            <div className="pollRowsWrapp">{ordersRow}</div>
           </div>
-          <div className="pollRowsWrapp">{ordersRow}</div>
         </div>
-          </div>
       </div>
     );
   }
