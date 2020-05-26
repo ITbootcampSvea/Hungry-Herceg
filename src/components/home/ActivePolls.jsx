@@ -29,7 +29,6 @@ class ActivePolls extends React.Component {
   }
 
   setAllPolls = () => {
-    this.setState({ loading: true });
     getAllPolls()
       .then((res) => {
         this.setState({ allPolls: res.data.data, loading: false });

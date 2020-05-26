@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
-import { orders, restaurants, users, meals } from "../../data";
 import BasicOrderList from "./BasicOrderList";
 import CurrentOrderList from "./CurrentOrderList";
 import ComboOrderList from "./ComboOrderList";
 import { appStorage } from "../../services/storage.service";
 import './Order.css'
-import { getOrderById, getUserById } from "../../services/api.service";
+import { getOrderById } from "../../services/api.service";
 
 const CreateOrderItem = ({ history }) => {
     let { id } = useParams();
     let user = appStorage.getUser();
-    const [order,setOrder] = useState({});
     const [restaurant,setRestaurant] = useState({});
     const [userOrders,setUserOrders] = useState([]);
     const [orderedMeals, setOrderedMeals] = useState([]);
@@ -23,7 +21,6 @@ const CreateOrderItem = ({ history }) => {
     //povlacenje podataka o order-u preko id-ja
     useEffect(() => {
         getOrderById(id).then(res => {
-            setOrder(res.data.data);
             setRestaurant(res.data.data.restaurant);
             setMeals(res.data.data.restaurant.meals);
             setFilteredMeals(res.data.data.restaurant.meals);
@@ -33,7 +30,7 @@ const CreateOrderItem = ({ history }) => {
                 sum += orderItem.quantity * orderItem.meal.price );
             setTotal(sum);
         });
-    },[refresh])
+    },[id,user,refresh])
         
 
     //filtriranje meal-ova
