@@ -31,11 +31,15 @@ class ActivePolls extends React.Component {
   
 
   render() {
+    
     let allActivePolls = this.state.allPolls.filter(el => el.status);
     let pollsRow = [];
     if (allActivePolls.length > 0) {
-      allActivePolls.map((poll) => {
+      allActivePolls.forEach((poll) => {
+        let isoDateTime = new Date(poll.ends);
+        let localDateTime = isoDateTime.toLocaleDateString() + " " + isoDateTime.toLocaleTimeString();
           if (poll.author === this.state.userName) {
+            console.log(poll.ends)
             pollsRow.push(
               <div className="active-info">
                 <div>
@@ -46,7 +50,7 @@ class ActivePolls extends React.Component {
                 </div>
                 <div>
                   <div>
-                    <label className="pollLblInfo">{poll.ends}</label>
+                    <label className="pollLblInfo">{`${localDateTime}`}</label>
                   </div>
                 </div>
                 <div className="btn-icons">
