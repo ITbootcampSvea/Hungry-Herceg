@@ -19,6 +19,7 @@ export const deleteUserById = (id) => axios.delete(baseURL+"/user/"+id, getHeade
 
 export const getRestaurantsAll = () => axios.get(baseURL+"/restaurant");
 export const getRestaurantByID = id => axios.get(baseURL+"/restaurant/"+id);
+export const createRestaurant = (name, address, tags, meals) => axios.post(baseURL+"/restaurant", {name, address, tags, meals}, getHeader());
 
 
  //Polls

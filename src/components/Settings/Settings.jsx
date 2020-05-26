@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './Settings.css'
 import { authService } from '../../services/auth.service';
-import { getRestaurantsAll, getUsersAll, createUser, deleteUserById } from '../../services/api.service';
+import { getRestaurantsAll, getUsersAll, createUser, deleteUserById, createRestaurant } from '../../services/api.service';
 import { useAlert } from 'react-alert';
 
 let mealName = '';
@@ -13,26 +13,6 @@ let username = '';
 let password = '';
 
 
-const testUsers = [
-    {
-        id: 0,
-        username: "Admin",
-        password: 1234,
-        history: [0, 0, 2, 1],
-    },
-    {
-        id: 1,
-        username: "Admin 2",
-        password: 1234,
-        history: [0, 0, 2, 1],
-    },
-    {
-        id: 2,
-        username: "Admin 3",
-        password: 1234,
-        history: [0, 0, 2, 1],
-    }
-]
 export default function Settings({history}) {
 
     const alert = useAlert();
@@ -73,7 +53,10 @@ export default function Settings({history}) {
     }
 
     const handleRestaurantTags = (e) => {
-        restaurantTags = e.target.value
+        restaurantTags = e.target.value.split(' ');
+        if(restaurantTags[restaurantTags.length - 1] === ''){
+            restaurantTags.pop()
+        }
     }
 
     const handleUserName = (e) => {
@@ -102,16 +85,17 @@ export default function Settings({history}) {
         }
     }
 
-    let newRestaurant = {
-        name: restaurantName,
-        address: restaurantAddress,
-        tags: [...restaurantTags]
-    }
 
-    const handleSubmitRestaurant = () => {
-    //     sendRestaurant(newRestaurant).then(res => {
-    //     console.log(res)
-    // })
+    const handleSubmitRestaurant = (e) => {
+        e.preventDefault()
+        createRestaurant(restaurantName, restaurantAddress, restaurantTags, []).then(res => {
+            if(res.data.message === "Success"){
+
+                getRestaurantsAll().then(res => {
+                setRestaurants(res.data.data)
+                })
+            }
+            }).catch(err => alert.error('Something went wrong!'+err))
     }
 
     const handleSubmitMeal = () => {
@@ -199,13 +183,13 @@ export default function Settings({history}) {
                         <div className='settHeaderIconWrapp'><img className='settHeaderIcon' src='/img/settRest.png' alt='logo' onClick={() => handleRestaurantSectionSelected()} /></div>
                     </div>
                     <div style={resturantSectionStyle} className='transitionWapper'>
-                        <div>
+                        <form onSubmit={(e) => handleSubmitRestaurant(e)}>
                             <div className='createNewWrapp'> <h3 className='createNewHeading'>Create new restaurant</h3></div>
-                            <input className='settingsInput' type="text" placeholder="Restaurant name" onChange={(e) => handleRestaurantName(e)}></input>
+                            <input className='settingsInput' type="text" placeholder="Restaurant name" onChange={(e) => handleRestaurantName(e)} required></input>
                             <input className='settingsInput' type="text" placeholder="Restaurant address" onChange={(e) => handleRestaurantAddress(e)}></input>
                             <input className='settingsInput' type="text" placeholder="Restaurant tags" onChange={(e) => handleRestaurantTags(e)}></input>
-                            <button className='settSubmitBtn' onClick={(e) => handleSubmitRestaurant(e)}>Submit Restaurant</button>
-                        </div>
+                            <input type="submit" value="Submit Restaurant" className='settSubmitBtn' />
+                        </form>
                         <div>
                             <div className='settSubheadingWrapp'> <h3 className='settSubheading'>Restaurants</h3></div>
                             <input className='settingsInput' type="text" placeholder="Search by name..." onChange={(e) => handleInputRestaurants(e)} />
