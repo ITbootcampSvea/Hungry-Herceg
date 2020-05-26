@@ -149,9 +149,14 @@ export default function CreatePoll({ history }) {
         }
 
         if (pollList.length < 2 || pollList.length > max) {
-            alert.error("Poll list must contain more than 2 and less then 15 items");
+            alert.error("Poll list must contain more than 2 and less than 15 items");
             return;
         }
+        if (duration < 900) {
+            alert.error('Poll duration must be longer than 15 min!'); 
+            return;
+        }
+
 
         const poll = {
             name: pollName,
