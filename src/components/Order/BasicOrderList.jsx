@@ -1,46 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import './Order.css'
 
 const BasicOrderList = ({filteredMeals,addOrderItems,filterMeals}) => {
-    
-    // const [filteredMeals,setFilteredMeals] = useState(meals);
-    
-    // const filterRestaurants = (input) => {
-    //     if (input.startsWith('#')) {
-    //         let filter = meals.filter(meal => {
-    //             if (meal.tags.find(tag => tag.toLowerCase().includes(input.toLowerCase()))) {
-    //                 return meal;
-    //             }
-    //         })
-    //         setFilteredMeals(filter);
-    //     } else {
-    //         let filter = meals.filter(meal => meal.name.toLowerCase().includes(input.toLowerCase()));
-    //         setFilteredMeals(filter);
-    //     }
-    // }
-
-    // const addOrderItem = (meal) => {
-    //     let alreadyOrdered = orderedMeals.find(orderedMeal => orderedMeal.mealId === meal.mealId && orderedMeal.name === meal.name);
-    //     if(alreadyOrdered){
-    //         let quantity = parseInt(alreadyOrdered.quantity);
-    //         alreadyOrdered.quantity = quantity += parseInt(document.querySelector(`#q${meal.mealId}`).value); 
-    //         setTotal(total + alreadyOrdered.price * parseInt(document.querySelector(`#q${meal.mealId}`).value))
-    //     } else {
-    //         let orderedMeal = {
-    //             user: appStorage.getUser(),
-    //             name: meal.name,
-    //             price: meal.price,
-    //             orderId: orderId,
-    //             mealId: meal.mealId,
-    //             quantity: document.querySelector(`#q${meal.mealId}`).value,
-    //             note: ''
-    //         }
-    //         setOrderedMeals([...orderedMeals,orderedMeal]);
-    //         setTotal(total + orderedMeal.price * orderedMeal.quantity);
-    //     }
-    // }
-
-    
 
 
     return (

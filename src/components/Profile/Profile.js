@@ -10,10 +10,8 @@ const Profile = ({ history }) => {
   const [userHistory, setUserHistory] = useState([]);
 
   const userId = appStorage.getUserId(); //dohvata id ulogovanog korisnika
-  console.log(userId);
 
-  const user123 = appStorage.getUser(); //dohvata username ulogovanog korisnika
-  console.log(user123);
+  const userName = appStorage.getUser(); //dohvata username ulogovanog korisnika
 
   //povlacenje sa servera i setovanje podataka za grafikon
   useEffect(() => {
@@ -98,7 +96,7 @@ const Profile = ({ history }) => {
                 <label className="welLbl">Welcome</label>
               </div>
               <div className="welcomeWrapÙsername">
-                <label className="userNmaeAvatarCardLbl">{user123}</label>
+                <label className="userNmaeAvatarCardLbl">{userName}</label>
               </div>
             </div>
           </div>

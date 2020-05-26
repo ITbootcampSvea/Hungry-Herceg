@@ -403,6 +403,7 @@
         display: grid;
         height: auto;
         grid-template-columns: none;
+        height: auto;
     }
     .newPollCard {
         grid-template-rows: 1fr 1fr;

@@ -71,6 +71,17 @@
     font-size: 1rem;
 }
 
+.finishOrderHeader{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.5fr ;
+    justify-items: center;
+    align-items: center;
+    color: var(--primary-black);
+    letter-spacing: 0.1rem;
+    text-transform: capitalize;
+    font-size: 1rem;
+}
+
 .mainPartWrapper {
     background: linear-gradient(to bottom, #222629 30%, #474B4F 70%);
 }
@@ -177,6 +188,10 @@
     filter: drop-shadow(0.1rem 0.1rem 0.1rem black);
 }
 
+
+
+/*---------------------------------------------------finishedordercards-----------------------------------------*/
+
 .finishedOrderWrapp {
     display: grid;
     align-items: center;
@@ -185,23 +200,21 @@
 
 .finishedOrderCard {
     position: relative;
-    height: 30rem;
-    width: 40rem;
+    height: 40rem;
+    width: 50rem;
     background: white;
     margin-right: 4rem;
     display: grid;
-    grid-template-rows: 1fr 3fr 1fr;
+    grid-template-rows: 1fr 1fr 3fr;
     border-radius: 1rem;
     box-shadow: 0.5rem 0.5rem 0.7rem black;
 }
 
-.finishedOrderHeader {
+.finishOrderHeader {
     display: grid;
     justify-items: center;
     align-items: center;
-    background: linear-gradient(to top right, #6B6E70, #474B4F);
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
+    grid-template-columns: 1fr 1fr 1fr 1.5fr;
 }
 
 .finishedOrderHeadeing {
@@ -218,6 +231,33 @@
     top: 16%;
     filter: drop-shadow(0.4rem 0.3rem 0.4rem rgba(243, 238, 238, 0.815));
     height: 8rem;
+}
+
+.finishedOrderFiled{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.finishOrderLbl{
+    color: var(--primary-black);
+    font-size: 1.5rem;
+    letter-spacing: 0.2rem;
+    font-weight: 600;
+}
+
+.finishedOrderContent{
+    display: grid;
+    grid-template-rows: 1fr 3fr;
+}
+
+.finshedOrderGradientWrapp{
+    background: linear-gradient(45deg, #222629,white,#222629);
+}
+
+.finishOrderRowWrapp{
+    overflow-y: scroll;
+    max-height: 10rem;
 }
 
 /*iPad*/
