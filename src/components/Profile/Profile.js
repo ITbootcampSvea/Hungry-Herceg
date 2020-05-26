@@ -10,10 +10,8 @@ const Profile = ({ history }) => {
   const [userHistory, setUserHistory] = useState([]);
 
   const userId = appStorage.getUserId(); //dohvata id ulogovanog korisnika
-  console.log(userId);
 
   const user123 = appStorage.getUser(); //dohvata username ulogovanog korisnika
-  console.log(user123);
 
   //povlacenje sa servera i setovanje podataka za grafikon
   useEffect(() => {
