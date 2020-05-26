@@ -99,7 +99,7 @@ class ActivePolls extends React.Component {
                 </div>
                 <div>
                   {userVoted ? (
-                    <p>"Ne mos opet glasati"</p>
+                  <img className='userUnvoteBtn'  src='/img/noVote.png' alt=' no vote' title='You can not vote twice !' />
                   ) : (
                     <Link to={`/vote/${poll._id}`} className="voteBtnLink">
                       <img src="./img/vote1.png" alt="icon" title="Vote" />
@@ -124,7 +124,7 @@ class ActivePolls extends React.Component {
               <div className="className='pollGuest'">
                 <div>
                   {userVoted ? (
-                    <p>"Ne mos opet glasati"</p>
+                   <img className='userUnvoteBtn'  src='/img/noVote.png' alt=' no vote' title='You can not vote twice !' />
                   ) : (
                     <Link to={`/vote/${poll._id}`} className="voteBtnLink">
                       <img
