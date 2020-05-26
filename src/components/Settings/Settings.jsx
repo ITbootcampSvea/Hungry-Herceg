@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import './Settings.css'
 import { authService } from '../../services/auth.service';
-import { getRestaurantsAll } from '../../services/api.service';
+import { getRestaurantsAll, getUsersAll, createUser, deleteUserById } from '../../services/api.service';
+import { useAlert } from 'react-alert';
 
 let mealName = '';
 let mealPrice = '';
@@ -34,21 +35,25 @@ const testUsers = [
 ]
 export default function Settings({history}) {
 
+    const alert = useAlert();
+
     const [restaurants, setRestaurants] = useState([]);
     const [users, setUsers] = useState([]);
-    // const [renderUsers, setRenderUsers] = useState([]);
     const [restaurantSectionSelected, setRestaurantSectionSelected] = useState(false);
     const [usersSectionSelected, setUsersSectionSelected] = useState(false);
     const [mealsSectionSelected, setMealsSectionSelected] = useState(false);
     const [selected_id, setSelected_id] = useState(null);
+    const [searchUser, setSearchUser] = useState('');
+    const [searchRestaurant, setSearchRestaurant] = useState('');
+
 
     useEffect(() => {
         getRestaurantsAll().then(res => {
         setRestaurants(res.data.data)
         })
-        // getAllUser().then(res => {
-        setUsers(testUsers)
-        // })
+        getUsersAll().then(res => {
+        setUsers(res.data.data)
+        })
     }, [])
 
     const handleMealName = (e) => {
@@ -79,10 +84,22 @@ export default function Settings({history}) {
         password = e.target.value
     }
 
-    const handleSubmitUser = () => {
-    //     sendUser(username, password).then(res => {
-    //     console.log(res)
-    // })
+    const handleSubmitUser = (e) => {
+        e.preventDefault()
+
+        if(username.trim() && password.trim()){
+
+            createUser(username, password).then(res => {
+                console.log(res.data)
+
+                if(res.data.message === "Success"){
+
+                    getUsersAll().then(res => {
+                    setUsers(res.data.data)
+                    })
+                }
+            }).catch(err => alert.error('Something went wrong!'+err))
+        }
     }
 
     let newRestaurant = {
@@ -118,23 +135,33 @@ export default function Settings({history}) {
     }
 
     const handleDeleteUser = (id) => {
-        setUsers(users.filter(el => el.id !== id))
+        deleteUserById(id).then(res => {
+            console.log(res.data)
+            if(res.data.message === "Success"){
+
+                getUsersAll().then(res => {
+                setUsers(res.data.data)
+                })
+            }
+            }).catch(err => alert.error('Something went wrong!'+err))
     }
 
     const handleInputRestaurants = (e) => {
-        if (e.target.value === '') {
-            return setRestaurants([]);
-        }
-        let filteredInputRestaurants = restaurants.filter(el => el.name.includes(e.target.value));
-        setRestaurants(filteredInputRestaurants)
+        setSearchRestaurant(e.target.value)
     }
-    const handleInputUsers = (e) => {
-        if (e.target.value === '') {
-            return setUsers([]);
-        }
-        let filteredInputUsers = testUsers.filter(el => el.username.includes(e.target.value));
-        setUsers(filteredInputUsers)
+
+    const getFilteredRestaurants = (search, array) => {
+        return array.filter(el => el.name.toLowerCase().includes(search.toLowerCase()));
     }
+
+    const handleInputUsers = (e) => {  
+        setSearchUser(e.target.value)  
+    }
+
+    const getFilteredUsers = (search, array) => {
+        return array.filter(el => el.username.toLowerCase().includes(search.toLowerCase()));
+    }
+
     const handleRestaurantSectionSelected = () => {
         setRestaurantSectionSelected(!restaurantSectionSelected)
     }
@@ -182,7 +209,7 @@ export default function Settings({history}) {
                         <div>
                             <div className='settSubheadingWrapp'> <h3 className='settSubheading'>Restaurants</h3></div>
                             <input className='settingsInput' type="text" placeholder="Search by name..." onChange={(e) => handleInputRestaurants(e)} />
-                            {restaurants.map(el => { return <div className='settColm' key={el._id}><div> <label onClick={() => handleSelectRestaurant(el._id)} className='settUsernameLbl allRestLbl'>{el.name}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteRestaurant(el._id)}>Delete</button></div></div> })}
+                            {getFilteredRestaurants(searchRestaurant, restaurants).map(el => { return <div className='settColm' key={el._id}><div> <label onClick={() => handleSelectRestaurant(el._id)} className='settUsernameLbl allRestLbl'>{el.name}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteRestaurant(el._id)}>Delete</button></div></div> })}
                         </div>
                     </div>
                 </div>
@@ -210,16 +237,16 @@ export default function Settings({history}) {
                         <div className='settHeaderIconWrapp'><img className='settHeaderIcon' src='/img/settUser.png' alt='logo' onClick={() => handleUserSectionSelected()} /></div>
                     </div>
                     <div style={userSectionStyle} className='transitionWapper'>
-                        <div>
+                        <form onSubmit={(e) => handleSubmitUser(e)}>
                             <div className='createNewWrapp'> <h3 className='createNewHeading'>Create new user</h3></div>
-                            <input className='settingsInput' type="text" placeholder="Username" onChange={(e) => handleUserName(e)}></input>
-                            <input className='settingsInput' type="text" placeholder="Password" onChange={(e) => handlePassword(e)}></input>
-                            <button className='settSubmitBtn' onClick={(e) => handleSubmitUser(e)}>Submit User</button>
-                        </div>
+                            <input className='settingsInput' type="text" placeholder="Username" onChange={(e) => handleUserName(e)} required></input>
+                            <input className='settingsInput' type="text" placeholder="Password" onChange={(e) => handlePassword(e)} required></input>
+                            <input type="submit" value="Submit user" className='settSubmitBtn' />
+                        </form>
                         <div>
                             <div className='settSubheadingWrapp'> <h3 className='settSubheading'>Users</h3></div>
                             <input className='settingsInput' type="text" placeholder="Search by name..." onChange={(e) => handleInputUsers(e)} />
-                            {users.map(el => { return <div className='settColm' key={el.id}><div> <label className='settUsernameLbl '>{el.username}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteUser(el.id)}>Delete</button></div></div> })}
+                            {getFilteredUsers(searchUser, users).map(el => { return <div className='settColm' key={el._id}><div> <label className='settUsernameLbl '>{el.username}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteUser(el._id)}>Delete</button></div></div> })}
                         </div>
                     </div>
                     </div>

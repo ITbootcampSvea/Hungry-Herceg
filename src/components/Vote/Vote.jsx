@@ -24,7 +24,6 @@ export default function Vote({ history, match }) {
          getPollById(id).then((res)=>{
              
              const {data} = res.data;
-             console.log(data.restaurants);
              
              
             if(data.status){
@@ -43,7 +42,6 @@ export default function Vote({ history, match }) {
     }, [])
 
 
-
     const handleVote = (e) => {
 
         if (e.target.className === 'vote') {
@@ -53,7 +51,7 @@ export default function Vote({ history, match }) {
                 e.target.className = 'voted';
                 e.target.innerHTML = "Unvote";
 
-                votedList.push(restaurants.find(el => el._id === e.target.id));
+                votedList.push(e.target.id);
             }
             else {
                 alert.info(`You can vote for ${max} restsaurants maximum.`); 
@@ -63,7 +61,7 @@ export default function Vote({ history, match }) {
         else {
             e.target.className = 'vote';
             e.target.innerHTML = "Vote";
-            votedList.splice(restaurants.indexOf(restaurants.find(el => el._id === e.target.id)), 1);
+            votedList.splice(votedList.indexOf(e.target.id), 1);
         }
 
     }
@@ -71,12 +69,10 @@ export default function Vote({ history, match }) {
     const confirmVotes = () => {
 
         const { id } = match.params;
-
+        
         if (votedList.length > 0) {
 
             updateVotesByPollId(id,votedList).then(res=>{
-                console.log(res);
-                
                 if (res.data.message === "Success"){
                     history.push("/home");
                 }
