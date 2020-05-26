@@ -31,7 +31,7 @@ export const createPoll = (name, duration, restaurants) => axios.post(baseURL+"/
 export const getAllPolls = () =>  axios.get(baseURL+"/poll");
 export const getPollById = (id) => axios.get(baseURL+"/poll/"+id);
 export const deletePollById = (id) =>  axios.delete(baseURL+"/poll/"+id, getHeader());
-export const endPollById = (id) => axios.put(baseURL + "/poll/"+id, {status:false},getHeader());
+export const endPollById = (id) => axios.post(baseURL + "/poll/"+id+"/endpol", getHeader());
 export const updateVotesByPollId = (id, votes) => axios.post(baseURL + `/poll/${id}/vote`, {restaurantIds:votes}, getHeader());
 
 
