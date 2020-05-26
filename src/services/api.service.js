@@ -37,3 +37,4 @@ export const updateVotesByPollId = (id, votes) => axios.post(baseURL + `/poll/${
 //Meals
 
 export const createMeal = (restaurantId, name, price, tag) => axios.post(baseURL+"/meal", {restaurantId, name, price, tag}, getHeader()); 
+export const deleteMealById = (id) => axios.delete(baseURL+"/meal/"+id, getHeader());
