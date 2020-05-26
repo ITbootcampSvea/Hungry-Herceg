@@ -9,7 +9,7 @@ const NavBar = () => {
     return (
         <div className="nav-bar">
             <div className="logo">
-                <img src="/img/hh.png" alt="logo" className="logo-icon" 
+                <img src="/img/logo192.png" alt="logo" className="logo-icon" 
                 onClick={() => history.push('/home') }/>
             </div>
             <div className="nav-fildes">

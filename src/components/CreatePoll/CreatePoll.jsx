@@ -182,30 +182,8 @@ export default function CreatePoll({ history }) {
             <div className='activePoll'>
                 <div className='pollWrapper'>
                     <div className='newPollCard'>
-                        <div className='searchRest'>
-                            <div className='createPollHeading'>
-                                <label className='headingCard'>Search Restaurants</label>
-                            </div>
-                            <div className='newPollInpDiv'>
-                                <input type="text" placeholder="Search" className='newPollInp' onInput={handleRestaurantName} />
-                            </div>
-                            <div className='showAllBtnWrap'>
-                                {stateOverflow ? (<button className='showAllBtn' onClick={handleShowHide}>{!showAll ? "Show all >>>" : "Show less <<<"}</button>) : null}
-                            </div>
-                            <div id="style-6" className='filteredListWrap'>
-                                {filterList(restaurants, search, showAll).map((restaurant, index) => {
-                                    return (<div className='filteredResColumn' key={"result" + index}>
-                                        <div className='restNameWrapp'>
-                                            <label className='restNameLbl'>{restaurant.name}</label>
-                                        </div>
-                                        <div className='restImgWrapp'>
-                                            <img src='/img/add-restaurant.png' alt='add' title='Add Restaurant' className='addRestImg' id={restaurant._id} onClick={handleAdd} />
-                                        </div>
-                                    </div>)
-                                })}
-                            </div>
-                        </div>
-                        <div className='createPollInfo'>
+                        <div className='createPollInfoWrapp' >
+                    <div className='createPollInfo'>
                             <div className='createPollHeading'>
                                 <h3 className='headingCard'>Create New Poll</h3>
                             </div>
@@ -231,15 +209,41 @@ export default function CreatePoll({ history }) {
                                 </div>
                             </div>
                         </div>
+                        </div>
+                        <div className='searchRestWrapp' >
+                        <div className='searchRest'>
+                            <div className='createPollHeading'>
+                                <label className='headingCard'>Search Restaurants</label>
+                            </div>
+                            <div className='newPollInpDiv'>
+                                <input type="text" placeholder="Search" className='newPollInp' onInput={handleRestaurantName} />
+                            </div>
+                            <div className='showAllBtnWrap'>
+                                {stateOverflow ? (<button className='showAllBtn' onClick={handleShowHide}>{!showAll ? "Show all >>>" : "Show less <<<"}</button>) : null}
+                            </div>
+                            <div id="style-6" className='filteredListWrap'>
+                                {filterList(restaurants, search, showAll).map((restaurant, index) => {
+                                    return (<div className='filteredResColumn' key={"result" + index}>
+                                        <div className='restNameWrapp'>
+                                            <label className='restNameLbl'>{restaurant.name}</label>
+                                        </div>
+                                        <div className='restImgWrapp'>
+                                            <img src='/img/add-restaurant.png' alt='add' title='Add Restaurant' className='addRestImg' id={restaurant._id} onClick={handleAdd} />
+                                        </div>
+                                    </div>)
+                                })}
+                            </div>
+                        </div>
+                        </div>
                     </div>
-                    <div className='restListWrapp'>
+                    <div  className='restListWrapp'>
                         <div className='restaurantList'>
                             <div className='restListHeader'>
                             </div>
                             <div className='restaurantsHeading'>
                                 <h1 className='restWord'>Restaurants</h1>
                             </div>
-                            <div className='pollListRestWrapp'>
+                            <div id="style-4" className='pollListRestWrapp'>
                                 {pollList.map((restaurant, index) => {
                                     return (<div className='transitionClmn' key={"picked" + index}>
                                         <div className='nameOfPickedRest'>
@@ -251,7 +255,9 @@ export default function CreatePoll({ history }) {
                                     </div>)
                                 })}
                             </div>
+                            <div className='restaurantListFooter'></div>
                         </div>
+                       
                     </div>
                 </div>
             </div>

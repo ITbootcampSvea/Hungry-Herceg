@@ -45,6 +45,14 @@
     border-bottom-right-radius: 1rem;
 }
 
+.voteCardInfoHeader{
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr ;
+    align-items: center;
+    justify-items: center;
+
+}
+
 .voteBtnWrapp{
     display: grid;
     align-items: center;
@@ -64,6 +72,37 @@
     width: 30%;
     letter-spacing: 0.2rem;
     text-transform: uppercase;
+}
+
+.voteHeaderFiled{
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+}
+
+.voteFiledSmall{
+    text-transform: capitalize;
+    letter-spacing: 0.2rem;
+    font-size: 1.4rem;
+    color: white;
+}
+
+.voteFiledLbl{
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    font-size: 2rem;
+    color:white;
+    font-weight: 600;
+}
+
+.voteListWrapp{
+    overflow-y: scroll;
+}
+
+
+.voteCardFildes{
+    display: grid;
+    align-items: center;
+    justify-items: center;
 }
 
 .voteBtn:hover{
