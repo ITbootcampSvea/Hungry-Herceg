@@ -4,8 +4,8 @@ import { createOrderItem, updateOrderItem, deleteOrderItemById } from '../../ser
 import { appStorage } from '../../services/storage.service';
 import { useAlert } from 'react-alert';
 
-const CurrentOrderList = ({ orderedMeals, setOrderedMeals, userOrders, total, setTotal, orderId, refresh, setRefresh }) => {
-    const alert = useAlert()
+const CurrentOrderList = ({ orderedMeals, setOrderedMeals, userOrders, total, setTotal, orderId, refresh, setRefresh, history }) => {
+    const alert = useAlert();
     //brisanje orderItem-a iz state-a
     const removeMeal = (orderedMeal) => {
         let index = orderedMeals.findIndex(el => el === orderedMeal);
@@ -35,7 +35,8 @@ const CurrentOrderList = ({ orderedMeals, setOrderedMeals, userOrders, total, se
                 }
             });
             setOrderedMeals([]);
-            alert.succes('Your order was successful')
+            alert.success('Your order was successful');
+            history.push('/home');
         } else {
             alert.error('Please choose your meals')
         }

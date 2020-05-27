@@ -14,7 +14,7 @@ const ComboOrderList = ({
     sweetMeals.forEach((sweetMeal) => {
       if (saltyMeal.price + sweetMeal.price <= budget) {
         comboRow.push(
-          <div className='basicOrderTxt'>
+          <div key={saltyMeal._id+sweetMeal._id} className='basicOrderTxt'>
             <div>{saltyMeal.name}</div>
             <div>{sweetMeal.name}</div>
             <div>{saltyMeal.price + sweetMeal.price}</div>

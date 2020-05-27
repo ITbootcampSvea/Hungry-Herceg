@@ -123,6 +123,7 @@ const CreateOrderItem = ({ history }) => {
             <div className='rightCardWrapp'>
                 <div className='rightCardContent' >
                 <CurrentOrderList
+                            history={history}
                             userOrders={userOrders}
                             orderedMeals={orderedMeals}
                             setOrderedMeals={setOrderedMeals}
