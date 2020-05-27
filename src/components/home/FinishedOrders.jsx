@@ -42,12 +42,14 @@ class FinishedOrders extends React.Component {
     if (allOrders.length > 0) {
        // eslint-disable-next-line array-callback-return
       allOrders.map((order, index) => {
+        if(order.restaurant !== "Doesnt exist"){
           let orderItemList = order.orderItemList;
 
           let data = [];
 
           if (orderItemList.length > 0) {
             orderItemList.forEach((orderItem) => {
+              if(orderItem.meal){
               let completedOrder = {
                 Name: orderItem.user,
                 Meal: orderItem.meal.name,
@@ -57,6 +59,7 @@ class FinishedOrders extends React.Component {
               };
 
               data.push(completedOrder);
+            }
             });
 
             if (order.poll.author === this.state.userName) {
@@ -112,6 +115,7 @@ class FinishedOrders extends React.Component {
               );
             }
           }
+        }
       });
     } else {
       ordersRow = (

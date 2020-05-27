@@ -20,7 +20,9 @@ const CreateOrderItem = ({ history }) => {
     const [refresh,setRefresh] = useState('');
     //povlacenje podataka o order-u preko id-ja
     useEffect(() => {
+        let isMounted = true;
         getOrderById(id).then(res => {
+            if(isMounted){
             setRestaurant(res.data.data.restaurant);
             setMeals(res.data.data.restaurant.meals);
             setFilteredMeals(res.data.data.restaurant.meals);
@@ -29,7 +31,9 @@ const CreateOrderItem = ({ history }) => {
             res.data.data.orderItemList.filter(orderItem => orderItem.user === user).forEach(orderItem => 
                 sum += orderItem.quantity * orderItem.meal.price );
             setTotal(sum);
+            }
         });
+        return () => {isMounted = false}
     },[id,user,refresh])
         
 
@@ -124,7 +128,6 @@ const CreateOrderItem = ({ history }) => {
             <div className='rightCardWrapp'>
                 <div className='rightCardContent' >
                 <CurrentOrderList
-                            history={history}
                             userOrders={userOrders}
                             orderedMeals={orderedMeals}
                             setOrderedMeals={setOrderedMeals}
