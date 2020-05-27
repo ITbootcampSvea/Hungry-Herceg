@@ -41,7 +41,7 @@ export default function Settings({history}) {
             setUsers(res.data.data)
             setLoading(false)
         })
-    }, [])
+    }, [selected_id])
 
 
     const handleSubmitUser = (e) => {
