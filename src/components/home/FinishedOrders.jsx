@@ -40,7 +40,7 @@ class FinishedOrders extends React.Component {
     let ordersRow = [];
 
     if (allOrders.length > 0) {
-      // eslint-disable-next-line array-callback-return
+       // eslint-disable-next-line array-callback-return
       allOrders.map((order, index) => {
           let orderItemList = order.orderItemList;
 
