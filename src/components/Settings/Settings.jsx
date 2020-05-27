@@ -244,7 +244,7 @@ export default function Settings({history}) {
                             <option value="slano">slano</option>
                             <option value="slatko">slatko</option>
                         </select>
-                        <input type="submit" value="Submit Meal" className='settSubmitBtn'/>
+                        <input type="submit" value="Submit Meal" className='settSubmitBtn submitMealsBtn'/>
                         </form>
                         <div>
                         <div className='settSubheadingWrapp'> <h3 className='settSubheading'>Meals</h3></div>
@@ -265,7 +265,7 @@ export default function Settings({history}) {
                             <div className='createNewWrapp'> <h3 className='createNewHeading'>Create new user</h3></div>
                             <input className='settingsInput' type="text" placeholder="Username" name="username" onChange={(e) => handleInput(e)} required></input>
                             <input className='settingsInput' type="text" placeholder="Password" name="password" onChange={(e) => handleInput(e)} required></input>
-                            <input type="submit" value="Submit user" className='settSubmitBtn' />
+                            <input type="submit" value="Submit user" className='settSubmitBtn submitUserBtn' />
                         </form>
                         <div>
                             <div  className='settSubheadingWrapp'> <h3 className='settSubheading'>Users</h3></div>
