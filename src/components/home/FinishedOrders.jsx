@@ -27,11 +27,16 @@ class FinishedOrders extends React.Component {
     window.clearTimeout(this.countdown);
     getFinishedOrders()
       .then((res) => {
-        if(this.isSubscribed){
-        this.setState({ allOrders: res.data.data, loading: false })
-        this.countdown = window.setTimeout(() => this.setAllOrders(), 2000);};
+        if (this.isSubscribed) {
+          this.setState({ allOrders: res.data.data, loading: false });
+          this.countdown = window.setTimeout(() => this.setAllOrders(), 2000);
+        }
       })
-      .catch((err) => {if(this.isSubscribed){this.countdown = window.setTimeout(() => this.setAllOrders(), 10000);}});
+      .catch((err) => {
+        if (this.isSubscribed) {
+          this.countdown = window.setTimeout(() => this.setAllOrders(), 10000);
+        }
+      });
   };
 
   render() {
@@ -41,76 +46,89 @@ class FinishedOrders extends React.Component {
 
     if (allOrders.length > 0) {
       allOrders.map((order, index) => {
-          let orderItemList = order.orderItemList;
+        let orderItemList = order.orderItemList;
 
-          let data = [];
+        let data = [];
 
-          if (orderItemList.length > 0) {
-            orderItemList.forEach((orderItem) => {
-              let completedOrder = {
-                Name: orderItem.user,
-                Meal: orderItem.meal.name,
-                Quantity: orderItem.quantity,
-                Price: orderItem.meal.price * orderItem.quantity,
-                Note: orderItem.note,
-              };
+        if (orderItemList.length > 0) {
+          orderItemList.forEach((orderItem) => {
+            let completedOrder = {
+              Name: orderItem.user,
+              Meal: orderItem.meal.name,
+              Quantity: orderItem.quantity,
+              Price: orderItem.meal.price * orderItem.quantity,
+              Note: orderItem.note,
+            };
 
-              data.push(completedOrder);
-            });
+            data.push(completedOrder);
+          });
 
-            if (order.poll.author === this.state.userName) {
-              ordersRow.push(
-                <div className="active-info actInfMargin" key={`my${index}`}>
-                  <div>
-                    <label className="pollLblInfo finLbl">{order.poll.name}</label>
-                  </div>
-                  <div>
-                    <label className="pollLblInfo finLbl">{order.poll.author}</label>
-                  </div>
-                  <div>
-                    <div>
-                      <label className="pollLblInfo finLbl">
-                        {order.restaurant.name}
-                      </label>
-                    </div>
-                  </div>
-                  <div>
-                    <div>
-                      <label className="pollLblInfo">
-                        <CSVLink className='excelCsvLink'
-                          style={{ color: "black",
-                        textDecoration:"none" }}
-                          filename={"my-file.csv"}
-                          data={data}
-                        >
-                      <img  className="userUnvoteBtn" src='/img/excel.png' alt='excel' title='Download Excel'/> 
-                        </CSVLink>
-                      </label>
-                    </div>
-                  </div>
+          if (order.poll.author === this.state.userName) {
+            ordersRow.push(
+              <div className="active-info actInfMargin" key={`my${index}`}>
+                <div>
+                  <label className="pollLblInfo finLbl">
+                    {order.poll.name}
+                  </label>
                 </div>
-              );
-            } else {
-              ordersRow.push(
-                <div className="active-info actInfMargin"  key={`s${index}`} >
-                  <div>
-                    <label className="pollLblInfo finLbl">{order.poll.name}</label>
-                  </div>
-                  <div>
-                    <label className="pollLblInfo finLbl">{order.poll.author}</label>
-                  </div>
+                <div>
+                  <label className="pollLblInfo finLbl">
+                    {order.poll.author}
+                  </label>
+                </div>
+                <div>
                   <div>
                     <label className="pollLblInfo finLbl">
                       {order.restaurant.name}
                     </label>
                   </div>
+                </div>
+                <div>
                   <div>
-                    <label className="pollLblInfo finLbl"></label>
+                    <label className="pollLblInfo">
+                      <CSVLink
+                        className="excelCsvLink"
+                        style={{ color: "black", textDecoration: "none" }}
+                        filename={"my-file.csv"}
+                        data={data}
+                      >
+                        <img
+                          className="userUnvoteBtn"
+                          src="/img/excel.png"
+                          alt="excel"
+                          title="Download Excel"
+                        />
+                      </CSVLink>
+                    </label>
                   </div>
                 </div>
-              );
-            }
+              </div>
+            );
+          } else {
+            ordersRow.push(
+              <div className="active-info actInfMargin" key={`s${index}`}>
+                <div>
+                  <label className="pollLblInfo finLbl">
+                    {order.poll.name}
+                  </label>
+                </div>
+                <div>
+                  <label className="pollLblInfo finLbl">
+                    {order.poll.author}
+                  </label>
+                </div>
+                <div>
+                  <label className="pollLblInfo finLbl">
+                    {order.restaurant.name}
+                  </label>
+                </div>
+                <div>
+                  <label className="pollLblInfo finLbl"></label>
+                </div>
+              </div>
+            );
           }
+        }
       });
     } else {
       ordersRow = (
@@ -153,7 +171,9 @@ class FinishedOrders extends React.Component {
                 <label className="finishOrderLbl">Action</label>
               </div>
             </div>
-            <div id="style-4" className="finishOrderRowWrapp ">{ordersRow}</div>
+            <div id="style-4" className="finishOrderRowWrapp ">
+              {ordersRow}
+            </div>
           </div>
           <div className="finshedOrderGradientWrapp finOrderFooter"></div>
         </div>
