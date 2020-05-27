@@ -36,6 +36,7 @@ const CreateOrderItem = ({ history }) => {
     //filtriranje meal-ova
     const filterMeals = (input) => {
         if(input.startsWith('#')) {
+            // eslint-disable-next-line array-callback-return
             let filter = meals.filter(meal => {
                 if(restaurant.tags.find(tag => tag.toLowerCase().includes(input.toLowerCase().substring(1))) ||
                     meal.tag.toLowerCase().includes(input.toLowerCase().substring(1))){

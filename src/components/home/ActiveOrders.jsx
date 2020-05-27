@@ -28,6 +28,7 @@ const ActiveOrders = () => {
         isSubscribed = true;
         getData();
         return () => {isSubscribed = false; clearTimeout(interval)};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     
@@ -79,6 +80,7 @@ const ActiveOrders = () => {
             { activeOrders.length !== 0 ? <>
             {activeOrders.map(order => {
 
+                // eslint-disable-next-line array-callback-return
                 let userOrders = order.orderItemList.filter(orderItem => {
                         if(orderItem.orderId && orderItem.user){
                            return orderItem.orderId === order._id && orderItem.user === user
@@ -110,7 +112,7 @@ const ActiveOrders = () => {
                     <div className="btn-icons">
                     {user === order.poll.author ? <>
                             <div className='actOrderIconWrapp'>
-                                <img className='actOrderIcon' src="./img/end1.png" alt="icon" title="End Poll" title='End order' onClick={() => endOrder(order._id)}/>
+                                <img className='actOrderIcon' src="./img/end1.png" alt="icon" title='End order' onClick={() => endOrder(order._id)}/>
                             </div>
                             </>:<div></div>}
                             <div className='actOrderIconWrapp'>
