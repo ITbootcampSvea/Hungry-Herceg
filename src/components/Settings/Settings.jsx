@@ -87,6 +87,7 @@ export default function Settings({history}) {
             setLoading(true)
             createMeal(selected_id, mealName, Number(mealPrice), mealsTags).then(res => {
                 if(res.data.message === "Success"){
+                    setLoading(true)
 
                 getRestaurantsAll().then(res => {
                     setRestaurants(res.data.data)
