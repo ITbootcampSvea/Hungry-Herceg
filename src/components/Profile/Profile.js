@@ -23,7 +23,13 @@ const Profile = ({ history }) => {
         setLoading(true);
         getUserById(userId).then((data) => {
           if (isMounted){
-            setUserHistory(data.data.data.history);
+            let orderItems = [];
+            data.data.data.history.forEach(el => { 
+              if(el.meal !== null){
+                orderItems.push(el)
+              }
+            })
+            setUserHistory(orderItems);
             setLoading(false);
           }
         });

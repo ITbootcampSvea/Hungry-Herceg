@@ -47,22 +47,35 @@ class FinishedOrders extends React.Component {
     if (allOrders.length > 0) {
       // eslint-disable-next-line array-callback-return
       allOrders.map((order, index) => {
-        let orderItemList = order.orderItemList;
+        if(order.restaurant !== "Doesnt exist"){
+          let orderItemList = order.orderItemList;
+          console.log(order)
 
         let data = [];
 
-        if (orderItemList.length > 0) {
-          orderItemList.forEach((orderItem) => {
-            let completedOrder = {
-              Name: orderItem.user,
-              Meal: orderItem.meal.name,
-              Quantity: orderItem.quantity,
-              Price: orderItem.meal.price * orderItem.quantity,
-              Note: orderItem.note,
-            };
+          if (orderItemList.length > 0) {
+            orderItemList.forEach((orderItem) => {
+              if(orderItem.meal){
+              let completedOrder = {
+                Restaurant: order.restaurant.name,
+                Name: orderItem.user,
+                Meal: orderItem.meal.name,
+                Quantity: orderItem.quantity,
+                Price: orderItem.meal.price * orderItem.quantity,
+                Note: orderItem.note,
+              };
 
-            data.push(completedOrder);
-          });
+              data.push(completedOrder);
+
+              
+            }
+            });
+
+            let isoDateTime = new Date(order.createdAt);
+              let localDateTime =
+              isoDateTime.toLocaleDateString() +
+              " " +
+              isoDateTime.toLocaleTimeString();
 
           if (order.poll.author === this.state.userName) {
             ordersRow.push(
@@ -90,7 +103,7 @@ class FinishedOrders extends React.Component {
                       <CSVLink
                         className="excelCsvLink"
                         style={{ color: "black", textDecoration: "none" }}
-                        filename={"my-file.csv"}
+                        filename={order.restaurant.name + ' ' + localDateTime + " - complete order" + ".csv"}
                         data={data}
                       >
                         <img
@@ -130,7 +143,7 @@ class FinishedOrders extends React.Component {
             );
           }
         }
-      });
+      }});
     } else {
       ordersRow = (
         <div className="noActiveInfo">

@@ -68,15 +68,17 @@ export default function Settings({history}) {
 
     const handleSubmitRestaurant = (e) => {
         e.preventDefault()
+        setLoading(true);
         createRestaurant(restaurantName, restaurantAddress, restaurantTags, []).then(res => {
             if(res.data.message === "Success"){
-                setLoading(false);
+                setLoading(true);
                 getRestaurantsAll().then(res => {
                 setRestaurants(res.data.data)
-                setLoading(true);
+                setLoading(false);
                 })
             }
-            }).catch(err => alert.error('Something went wrong!'+err))
+            setLoading(false);
+            }).catch(err => {alert.error('Something went wrong!'+err); setLoading(false)})
     }
 
     const handleSubmitMeal = (e) => {
@@ -85,6 +87,7 @@ export default function Settings({history}) {
             setLoading(true)
             createMeal(selected_id, mealName, Number(mealPrice), mealsTags).then(res => {
                 if(res.data.message === "Success"){
+                    setLoading(true)
 
                 getRestaurantsAll().then(res => {
                     setRestaurants(res.data.data)
@@ -103,13 +106,13 @@ export default function Settings({history}) {
 
 
     const handleDeleteRestaurant = (id) => {
+        setSelected_id(null)
         setLoading(true);
         deleteRestaurantById(id).then(res => {
             if(res.data.message === "Success"){
 
                 getRestaurantsAll().then(res => {
                 setRestaurants(res.data.data)
-                setSelected_id(null)
                 })
             }
             setLoading(false);

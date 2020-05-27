@@ -23,22 +23,24 @@ class ActivePolls extends React.Component {
   componentDidMount() {
     this.isSubscribed = true;
     this.setAllPolls();
-    this.countdown = window.setInterval(() => this.setAllPolls(), 100000);
+    this.countdown = window.setTimeout(() => this.setAllPolls(), 3000);
   }
 
   componentWillUnmount() {
     this.isSubscribed = false;
-    window.clearInterval(this.countdown);
+    window.clearTimeout(this.countdown);
   }
 
   setAllPolls = () => {
+    window.clearTimeout(this.countdown);
     getAllPolls()
       .then((res) => {
         if(this.isSubscribed){
           this.setState({ allPolls: res.data.data, loading: false });
+          this.countdown = window.setTimeout(() => this.setAllPolls(), 3000);
         }
       })
-      .catch((err) => {if(this.isSubscribed){window.alert("Error occurred" + err)}});
+      .catch((err) => {if(this.isSubscribed){window.alert("Error occurred" + err);this.countdown = window.setTimeout(() => this.setAllPolls(), 10000);}});
   };
 
   render() {
