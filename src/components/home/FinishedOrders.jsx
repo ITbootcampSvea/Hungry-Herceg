@@ -1,9 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { appStorage } from "../../services/storage.service";
 import { getAllOrders } from "../../services/api.service";
-import { ExportToCsv } from "export-to-csv";
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink } from "react-csv";
 
 class FinishedOrders extends React.Component {
   constructor(props) {
@@ -11,23 +9,28 @@ class FinishedOrders extends React.Component {
     this.state = {
       userName: appStorage.getUser(),
       allOrders: [],
+      loading: true,
     };
   }
 
   componentDidMount() {
     this.setAllOrders();
+    this.countdown = window.setInterval(() => this.setAllOrders(), 100000);
+  }
+
+  componentWillUnmount() {
+    window.clearInterval(this.countdown);
   }
 
   setAllOrders = () => {
     getAllOrders()
       .then((res) => {
-        this.setState({ allOrders: res.data.data });
+        this.setState({ allOrders: res.data.data, loading: false });
       })
       .catch((err) => window.alert("Error occurred" + err));
   };
 
   render() {
-    console.log(this.state.data);
     let allOrders = this.state.allOrders;
 
     let ordersRow = [];
@@ -36,63 +39,73 @@ class FinishedOrders extends React.Component {
       allOrders.map((order) => {
         if (order.poll.status === false) {
           let orderItemList = order.orderItemList;
-          console.log(orderItemList);
+
           let data = [];
-          
-          orderItemList.forEach((orderItem) => {
-            let completedOrder = {
-              mealName: orderItem.meal.name,
-              mealQuantity: orderItem.quantity,
-              mealPrice: orderItem.meal.price * orderItem.quantity,
-              mealNote: orderItem.note,
-            };
 
-            data.push(completedOrder);
-            console.log(data);
-          });
+          if (orderItemList.length > 0) {
+            orderItemList.forEach((orderItem) => {
+              let completedOrder = {
+                Name: orderItem.user,
+                Meal: orderItem.meal.name,
+                Quantity: orderItem.quantity,
+                Price: orderItem.meal.price * orderItem.quantity,
+                Note: orderItem.note,
+              };
 
-          if (order.poll.author === this.state.userName) {
-            ordersRow.push(
-              <div className="active-info">
-                <div>
-                  <label className="pollLblInfo">{order.poll.name}</label>
+              data.push(completedOrder);
+            });
+
+            if (order.poll.author === this.state.userName) {
+              ordersRow.push(
+                <div className="active-info">
+                  <div>
+                    <label className="pollLblInfo">{order.poll.name}</label>
+                  </div>
+                  <div>
+                    <label className="pollLblInfo">{order.poll.author}</label>
+                  </div>
+                  <div>
+                    <div>
+                      <label className="pollLblInfo">
+                        {order.restaurant.name}
+                      </label>
+                    </div>
+                  </div>
+                  <div>
+                    <div>
+                      <label className="pollLblInfo">
+                        <CSVLink
+                          style={{ color: "black" }}
+                          filename={"my-file.csv"}
+                          data={data}
+                        >
+                          EXPORT NOW
+                        </CSVLink>
+                      </label>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <label className="pollLblInfo">{order.poll.author}</label>
-                </div>
-                <div>
+              );
+            } else {
+              ordersRow.push(
+                <div className="active-info">
+                  <div>
+                    <label className="pollLblInfo">{order.poll.name}</label>
+                  </div>
+                  <div>
+                    <label className="pollLblInfo">{order.poll.author}</label>
+                  </div>
                   <div>
                     <label className="pollLblInfo">
                       {order.restaurant.name}
                     </label>
                   </div>
-                </div>
-                <div>
                   <div>
-                    <label className="pollLblInfo">
-                      <CSVLink style={{color:"black"}} filename={"my-file.csv"} data={data}>EXPORT NOW</CSVLink>
-                    </label>
+                    <label className="pollLblInfo"></label>
                   </div>
                 </div>
-              </div>
-            );
-          } else {
-            ordersRow.push(
-              <div className="active-info">
-                <div>
-                  <label className="pollLblInfo">{order.poll.name}</label>
-                </div>
-                <div>
-                  <label className="pollLblInfo">{order.poll.author}</label>
-                </div>
-                <div>
-                  <label className="pollLblInfo">{order.restaurant.name}</label>
-                </div>
-                <div>
-                  <label className="pollLblInfo"></label>
-                </div>
-              </div>
-            );
+              );
+            }
           }
         }
       });
@@ -100,7 +113,11 @@ class FinishedOrders extends React.Component {
       ordersRow = (
         <div className="noActiveInfo">
           <div>
-            <label className="pollLblNoInfo">No Pending Orders</label>
+            {this.state.loading ? (
+              <label className="pollLblNoInfo">Loading...</label>
+            ) : (
+              <label className="pollLblNoInfo">No orders pending</label>
+            )}
           </div>
         </div>
       );
