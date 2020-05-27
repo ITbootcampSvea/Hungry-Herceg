@@ -33,16 +33,6 @@ const NavBar = () => {
                         </Link>
                 </div>
 
-                <div className="nav-filed">
-                   
-                    <Link to='/home'>{/*---------uneti pravu routu----------*/}
-                        <div className="icon-wrapper">
-                            <img src="/img/stat1.png" alt="icon" className="nav-bar-icon" />
-                        </div>
-                        <div className="nav-text rest">
-                        Stats</div>
-                        </Link>
-                </div>
 
                 <div className="nav-filed rest">
                     <Link to='/profile'>
