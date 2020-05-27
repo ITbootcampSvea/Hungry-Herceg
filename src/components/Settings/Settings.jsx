@@ -105,13 +105,13 @@ export default function Settings({history}) {
 
 
     const handleDeleteRestaurant = (id) => {
+        setSelected_id(null)
         setLoading(true);
         deleteRestaurantById(id).then(res => {
             if(res.data.message === "Success"){
 
                 getRestaurantsAll().then(res => {
                 setRestaurants(res.data.data)
-                setSelected_id(null)
                 })
             }
             setLoading(false);
