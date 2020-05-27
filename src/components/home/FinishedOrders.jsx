@@ -1,13 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { appStorage } from "../../services/storage.service";
-import {
-  getAllPolls,
-  deletePollById,
-  endPollById,
-} from "../../services/api.service";
-import axios from "axios";
-import { ExportToCsv } from 'export-to-csv';
+import { getAllOrders } from "../../services/api.service";
+import { CSVLink } from "react-csv";
 
 class FinishedOrders extends React.Component {
   constructor(props) {
@@ -15,21 +9,23 @@ class FinishedOrders extends React.Component {
     this.state = {
       userName: appStorage.getUser(),
       allOrders: [],
+      loading: true,
     };
   }
 
   componentDidMount() {
     this.setAllOrders();
+    this.countdown = window.setInterval(() => this.setAllOrders(), 100000);
   }
 
-  baseURL = "https://hungry-herceg.herokuapp.com";
-  getAllOrders = () => axios.get(this.baseURL + "/order");
+  componentWillUnmount() {
+    window.clearInterval(this.countdown);
+  }
 
   setAllOrders = () => {
-    this.getAllOrders()
+    getAllOrders()
       .then((res) => {
-        console.log(res.data.data);
-        this.setState({ allOrders: res.data.data });
+        this.setState({ allOrders: res.data.data, loading: false });
       })
       .catch((err) => window.alert("Error occurred" + err));
   };
@@ -38,62 +34,78 @@ class FinishedOrders extends React.Component {
     let allOrders = this.state.allOrders;
 
     let ordersRow = [];
-    let inactiveOrders=[];
 
     if (allOrders.length > 0) {
       allOrders.map((order) => {
-        if (order.status === true) {
-          let dataForExport = [
-            {
-              name:"Danko"
-            }
-          ]
+        if (order.poll.status === false) {
+          let orderItemList = order.orderItemList;
 
-          //bice ulogovani user iz app storage, ovo je mock da bi se videlo nesto
-          if (order.author === "pollAuthor") {
-            ordersRow.push(
-              <div className="active-info">
-                <div>
-                  <label className="pollLblInfo">
-                    {order.restaurantId[0].name}
-                  </label>
-                </div>
-                <div>
-                  <label className="pollLblInfo">{order.pollId.author}</label>
-                </div>
-                <div>
+          let data = [];
+
+          if (orderItemList.length > 0) {
+            orderItemList.forEach((orderItem) => {
+              let completedOrder = {
+                Name: orderItem.user,
+                Meal: orderItem.meal.name,
+                Quantity: orderItem.quantity,
+                Price: orderItem.meal.price * orderItem.quantity,
+                Note: orderItem.note,
+              };
+
+              data.push(completedOrder);
+            });
+
+            if (order.poll.author === this.state.userName) {
+              ordersRow.push(
+                <div className="active-info">
                   <div>
-                    <label className="pollLblInfo">Waiting for export</label>
+                    <label className="pollLblInfo">{order.poll.name}</label>
+                  </div>
+                  <div>
+                    <label className="pollLblInfo">{order.poll.author}</label>
+                  </div>
+                  <div>
+                    <div>
+                      <label className="pollLblInfo">
+                        {order.restaurant.name}
+                      </label>
+                    </div>
+                  </div>
+                  <div>
+                    <div>
+                      <label className="pollLblInfo">
+                        <CSVLink
+                          style={{ color: "black" }}
+                          filename={"my-file.csv"}
+                          data={data}
+                        >
+                          EXPORT NOW
+                        </CSVLink>
+                      </label>
+                    </div>
                   </div>
                 </div>
-                <div>
+              );
+            } else {
+              ordersRow.push(
+                <div className="active-info">
                   <div>
-                    <label className="pollLblInfo"><button>EXPORT NOW</button></label>
+                    <label className="pollLblInfo">{order.poll.name}</label>
+                  </div>
+                  <div>
+                    <label className="pollLblInfo">{order.poll.author}</label>
+                  </div>
+                  <div>
+                    <label className="pollLblInfo">
+                      {order.restaurant.name}
+                    </label>
+                  </div>
+                  <div>
+                    <label className="pollLblInfo"></label>
                   </div>
                 </div>
-              </div>
-            );
-          } else {
-            ordersRow.push(
-              <div className="active-info">
-                <div>
-                  <label className="pollLblInfo">
-                    {order.restaurantId.name}
-                  </label>
-                </div>
-                <div>
-                  <label className="pollLblInfo">{order.pollId.author}</label>
-                </div>
-                <div>
-                  <label className="pollLblInfo">Waiting for export</label>
-                </div>
-                <div>
-                  <label className="pollLblInfo">
-                    {order.restaurantId.name}
-                  </label>
-                </div>
-              </div>
-            );
+              );
+            }
           }
         }
       });
@@ -101,7 +113,11 @@ class FinishedOrders extends React.Component {
       ordersRow = (
         <div className="noActiveInfo">
           <div>
-            <label className="pollLblNoInfo">No Pending Orders</label>
+            {this.state.loading ? (
+              <label className="pollLblNoInfo">Loading...</label>
+            ) : (
+              <label className="pollLblNoInfo">No orders pending</label>
+            )}
           </div>
         </div>
       );
@@ -111,32 +127,32 @@ class FinishedOrders extends React.Component {
       <div className="active-polls">
         <div className="finishedOrderCard">
           <img
-           className='certifyIcon'
+            className="certifyIcon"
             src="/img/certificate.png"
             alt="pollicon"
           />
           <div className="card-heading">
             <h1>Finished Orders</h1>
           </div>
-          <div className='finshedOrderGradientWrapp'></div>
-          <div className='finishedOrderContent'>
-          <div className="finishOrderHeader">
-            <div className='finishedOrderFiled'>
-              <label className='finishOrderLbl'>Restaurant</label>
+          <div className="finshedOrderGradientWrapp"></div>
+          <div className="finishedOrderContent">
+            <div className="finishOrderHeader">
+              <div className="finishedOrderFiled">
+                <label className="finishOrderLbl">Name</label>
+              </div>
+              <div className="finishedOrderFiled">
+                <label className="finishOrderLbl">Author</label>
+              </div>
+              <div className="finishedOrderFiled">
+                <label className="finishOrderLbl">Restaurant</label>
+              </div>
+              <div className="finishedOrderFiled">
+                <label className="finishOrderLbl">Action</label>
+              </div>
             </div>
-            <div className='finishedOrderFiled'>
-              <label className='finishOrderLbl'>Poll Author</label>
-            </div>
-            <div className='finishedOrderFiled'>
-              <label className='finishOrderLbl'>Status</label>
-            </div>
-            <div className='finishedOrderFiled'>
-              <label className='finishOrderLbl'>Action</label>
-            </div>
+            <div className="pollRowsWrapp">{ordersRow}</div>
           </div>
-          <div id="style-4"className='finishOrderRowWrapp'>{ordersRow}</div>
         </div>
-          </div>
       </div>
     );
   }

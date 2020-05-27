@@ -23,7 +23,7 @@ class ActivePolls extends React.Component {
   componentDidMount() {
     this.isSubscribed = true;
     this.setAllPolls();
-    this.countdown = window.setInterval(() => this.setAllPolls(), 15000);
+    this.countdown = window.setInterval(() => this.setAllPolls(), 100000);
   }
 
   componentWillUnmount() {
@@ -103,7 +103,12 @@ class ActivePolls extends React.Component {
                 </div>
                 <div>
                   {userVoted ? (
-                  <img className='userUnvoteBtn'  src='/img/noVote.png' alt=' no vote' title='You can not vote twice !' />
+                    <img
+                      className="userUnvoteBtn"
+                      src="/img/noVote.png"
+                      alt=" no vote"
+                      title="You can not vote twice !"
+                    />
                   ) : (
                     <Link to={`/vote/${poll._id}`} className="voteBtnLink">
                       <img src="./img/vote1.png" alt="icon" title="Vote" />
@@ -128,7 +133,12 @@ class ActivePolls extends React.Component {
               <div className="className='pollGuest'">
                 <div>
                   {userVoted ? (
-                   <img className='userUnvoteBtn'  src='/img/noVote.png' alt=' no vote' title='You can not vote twice !' />
+                    <img
+                      className="userUnvoteBtn"
+                      src="/img/noVote.png"
+                      alt=" no vote"
+                      title="You can not vote twice !"
+                    />
                   ) : (
                     <Link to={`/vote/${poll._id}`} className="voteBtnLink">
                       <img
