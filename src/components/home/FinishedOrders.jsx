@@ -48,6 +48,7 @@ class FinishedOrders extends React.Component {
 
           if (orderItemList.length > 0) {
             orderItemList.forEach((orderItem) => {
+              if(orderItem.meal){
               let completedOrder = {
                 Name: orderItem.user,
                 Meal: orderItem.meal.name,
@@ -57,6 +58,7 @@ class FinishedOrders extends React.Component {
               };
 
               data.push(completedOrder);
+            }
             });
 
             if (order.poll.author === this.state.userName) {
