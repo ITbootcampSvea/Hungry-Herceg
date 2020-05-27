@@ -368,6 +368,13 @@
 .header {
     font-size: 1.2rem;
 }
-
+.poll-icons img{
+    height: 3rem;
 }
-
+.btn-icons img {
+    height: 3rem;
+}
+.pollGuestIcon {
+    height: 3rem;
+}
+}
