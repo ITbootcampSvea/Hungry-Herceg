@@ -7,6 +7,7 @@ import "./Profile.css";
 
 
 const Profile = ({ history }) => {
+  const [loading,setLoading] = useState(true);
   const [userHistory, setUserHistory] = useState([]);
   
   const userId = appStorage.getUserId(); //dohvata id ulogovanog korisnika
@@ -19,10 +20,11 @@ const Profile = ({ history }) => {
   
     useEffect(() => {
        let isMounted = true;
-
+        setLoading(true);
         getUserById(userId).then((data) => {
           if (isMounted){
             setUserHistory(data.data.data.history);
+            setLoading(false);
           }
         });
 
@@ -142,6 +144,7 @@ const Profile = ({ history }) => {
         </div>
       </div>
     </div>
+    {loading?<div className="loader"/>:null }
     </div>
   );
 };
