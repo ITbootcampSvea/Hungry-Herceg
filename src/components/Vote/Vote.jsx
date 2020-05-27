@@ -11,7 +11,7 @@ let max = 3;
 export default function Vote({ history, match }) {
     const alert = useAlert()
 
-   
+    const [loading,setLoading] = useState(true);
 
     const [restaurants, setRestaurants] = useState([]);
 
@@ -31,7 +31,7 @@ export default function Vote({ history, match }) {
          getPollById(id).then((res)=>{
              
              const {data} = res.data;
-             
+            setLoading(false);
              
             if(data.status){
                 setPollName(data.name);
@@ -43,7 +43,7 @@ export default function Vote({ history, match }) {
                 alert.error("Poll is ended");
 
             }
-        }).catch(err=>{alert.error("Something went wrong"+err);  
+        }).catch(err=>{alert.error("Something went wrong"+err);setLoading(false);
         })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,15 +79,16 @@ export default function Vote({ history, match }) {
         const { id } = match.params;
         
         if (votedList.length > 0) {
-
+            setLoading(true);
             updateVotesByPollId(id,votedList).then(res=>{
+                setLoading(false)
                 if (res.data.message === "Success"){
                     history.push("/home");
                 }
                 else{
                     alert.error("Something went wrong");
                 }
-            }).catch(err=>alert.error("Something went wrong"+err))
+            }).catch(err=>{alert.error("Something went wrong"+err); setLoading(false)})
         }
         else {
             alert.info("You neet to vote for at least one restaurant!"); 
@@ -141,6 +142,7 @@ export default function Vote({ history, match }) {
                     </div>
                 </div>
             </div>
+            {loading?<div class="loader"/>:null }
         </div>
     )
 }

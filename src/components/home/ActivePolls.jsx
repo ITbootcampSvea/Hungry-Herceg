@@ -11,6 +11,7 @@ class ActivePolls extends React.Component {
   constructor(props) {
     super(props);
     this.countdown = null;
+    this.isSubscribed = true;
     this.state = {
       userName: appStorage.getUser(),
       userId: appStorage.getUserId(),
@@ -20,20 +21,24 @@ class ActivePolls extends React.Component {
   }
 
   componentDidMount() {
+    this.isSubscribed = true;
     this.setAllPolls();
-    this.countdown = window.setInterval(() => this.setAllPolls(), 15000);
+    this.countdown = window.setInterval(() => this.setAllPolls(), 100000);
   }
 
   componentWillUnmount() {
+    this.isSubscribed = false;
     window.clearInterval(this.countdown);
   }
 
   setAllPolls = () => {
     getAllPolls()
       .then((res) => {
-        this.setState({ allPolls: res.data.data, loading: false });
+        if(this.isSubscribed){
+          this.setState({ allPolls: res.data.data, loading: false });
+        }
       })
-      .catch((err) => window.alert("Error occurred" + err));
+      .catch((err) => {if(this.isSubscribed){window.alert("Error occurred" + err)}});
   };
 
   render() {
@@ -41,7 +46,7 @@ class ActivePolls extends React.Component {
     let pollsRow = [];
 
     if (allActivePolls.length > 0) {
-      allActivePolls.forEach((poll) => {
+      allActivePolls.forEach((poll, index) => {
         let restaurants = poll.restaurants;
         let userVoted =
           restaurants.filter((restaurant) => {
@@ -55,7 +60,7 @@ class ActivePolls extends React.Component {
           isoDateTime.toLocaleTimeString();
         if (poll.author === this.state.userName) {
           pollsRow.push(
-            <div className="active-info">
+            <div className="active-info" key={`my${index}`}>
               <div>
                 <label className="pollLblInfo">{poll.name}</label>
               </div>
@@ -67,7 +72,7 @@ class ActivePolls extends React.Component {
                   <label className="pollLblInfo">{`${localDateTime}`}</label>
                 </div>
               </div>
-              <div className="btn-icons">
+              <div className="poll-icons">
                 <div>
                   <img
                     src="./img/del.png"
@@ -98,7 +103,12 @@ class ActivePolls extends React.Component {
                 </div>
                 <div>
                   {userVoted ? (
-                  <img className='userUnvoteBtn'  src='/img/noVote.png' alt=' no vote' title='You can not vote twice !' />
+                    <img
+                      className="userUnvoteBtn"
+                      src="/img/noVote.png"
+                      alt=" no vote"
+                      title="You can not vote twice !"
+                    />
                   ) : (
                     <Link to={`/vote/${poll._id}`} className="voteBtnLink">
                       <img src="./img/vote1.png" alt="icon" title="Vote" />
@@ -110,7 +120,7 @@ class ActivePolls extends React.Component {
           );
         } else {
           pollsRow.push(
-            <div className="active-info">
+            <div className="active-info" key={`s${index}`}>
               <div>
                 <label className="pollLblInfo">{poll.name}</label>
               </div>
@@ -123,7 +133,12 @@ class ActivePolls extends React.Component {
               <div className="className='pollGuest'">
                 <div>
                   {userVoted ? (
-                   <img className='userUnvoteBtn'  src='/img/noVote.png' alt=' no vote' title='You can not vote twice !' />
+                    <img
+                      className="userUnvoteBtn"
+                      src="/img/noVote.png"
+                      alt=" no vote"
+                      title="You can not vote twice !"
+                    />
                   ) : (
                     <Link to={`/vote/${poll._id}`} className="voteBtnLink">
                       <img
@@ -183,7 +198,7 @@ class ActivePolls extends React.Component {
           </div>
           <div className="card-btn-wrapper">
             <button className="btn-green">
-              <Link to={"/createpoll"} className="creBtnLink">
+              <Link  to={"/createpoll"} className="creBtnLink">
                 Create New Poll
               </Link>
             </button>

@@ -10,14 +10,19 @@ const ActiveOrders = () => {
     //povlacenje podataka sa back-a
     let interval;
     useEffect(() => {
+
+        let isSubscribed = true;
+
         interval = setInterval(() => {
             getAllOrders().then(res => {
-                let orders = res.data.data;
-                setActiveOrders(orders.filter(el => el.status === true));
-                setLoading(false);
+                if(isSubscribed){
+                    let orders = res.data.data;
+                    setActiveOrders(orders.filter(el => el.status === true));
+                    setLoading(false);
+                }
             });
         },3000)
-        return () => clearInterval(interval);
+        return () => {isSubscribed = false; clearInterval(interval)};
     },[])
 
     let user = appStorage.getUser();
@@ -43,22 +48,22 @@ const ActiveOrders = () => {
             </div>
 
             <div className="active-info header order">
-                <div>
+                <div className='orderLblWrapper'>
                     <label className='orderLbl'>Name</label>
                 </div>
-                <div>
+                <div className='orderLblWrapper'>
                     <label className='orderInfoLbl'>Restaurant</label>
                 </div>
-                <div>
+                <div className='orderLblWrapper'>
                     <label className='orderInfoLbl'>Author</label>
                 </div>
-                <div>
+                <div className='orderLblWrapper'>
                     <label className='orderInfoLbl'>Ends</label>
                 </div>
-                <div>
+                <div className='orderLblWrapper'>
                     <label className='orderInfoLbl'>Status</label>
                 </div>
-                <div>
+                <div className='orderLblWrapper'>
                     <label className='orderInfoLbl'>Action</label>
                 </div>
             </div>
@@ -76,19 +81,19 @@ const ActiveOrders = () => {
                 return(
                     
                     <div key={order._id} className="active-info header order">
-                    <div>
+                    <div className='orderLblWrapper'>
                         <label className='pollLblInfo'>{order.poll.name}</label>
                     </div>
-                    <div>
+                    <div className='orderLblWrapper'>
                         <label className='pollLblInfo'>{order.restaurant ? order.restaurant.name : ''}</label>
                     </div>
-                    <div>
+                    <div className='orderLblWrapper'>
                         <label className='pollLblInfo'>{order.poll.author}</label>
                     </div>
-                    <div>
+                    <div className='orderLblWrapper'>
                         <label className='pollLblInfo'>{getEndTime(order.createdAt)}</label>
                     </div>
-                    <div >
+                    <div className='orderLblWrapper' >
                     {userOrders.length === 0 ? <label className='pollLblInfo'>You didn't order yet</label>:<label className='pollLblInfo'>You ordered:{userOrders.map(orderItem => {
                                 return(
                                     <li key={orderItem._id}>{orderItem.quantity} x {orderItem.meal.name}</li>
@@ -97,12 +102,12 @@ const ActiveOrders = () => {
                     </div>
                     <div className="btn-icons">
                     {user === order.poll.author ? <>
-                            <div>
-                                <img src="./img/end1.png" alt="icon" title="End Poll" title='End order' onClick={() => endOrder(order._id)}/>
+                            <div className='actOrderIconWrapp'>
+                                <img className='actOrderIcon' src="./img/end1.png" alt="icon" title="End Poll" title='End order' onClick={() => endOrder(order._id)}/>
                             </div>
                             </>:<div></div>}
-                            <div>
-                            <Link to={`/order/${order._id}`} className='voteBtnLink'><img src='./img/order.png'alt='logo' title='Go to Order'/></Link>
+                            <div className='actOrderIconWrapp'>
+                            <Link  to={`/order/${order._id}`} className='voteBtnLink'><img className='actOrderIcon' src='./img/order.png'alt='logo' title='Go to Order'/></Link>
                             </div>
                         </div>
                 </div>

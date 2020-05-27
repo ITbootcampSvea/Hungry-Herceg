@@ -3,7 +3,6 @@ import ActivePolls from "./ActivePolls";
 import ActiveOrders from "./ActiveOrders";
 import "./home.css";
 import NavBar from "../NavBar/NavBar";
-// import FinishedOrders_Milos from "./FinishedOrders_Milos";
 import FinishedOrders from "./FinishedOrders";
 
 const Home = ({ history }) => {
@@ -15,9 +14,8 @@ const Home = ({ history }) => {
           <div className='activeCardsWrapper'>
             <ActivePolls />
             <ActiveOrders />
-            {/* <FinishedOrders /> */}
           </div>
-          {/* <FinishedOrders /> */}
+          <FinishedOrders />
         </div>
       </div>
     </div>

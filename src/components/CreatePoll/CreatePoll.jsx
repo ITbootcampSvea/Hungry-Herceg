@@ -7,7 +7,7 @@ import { getRestaurantsAll, createPoll } from '../../services/api.service';
 
 let hours = 0;
 let minutes = 15;
-let duration = 15;
+let duration = 1;
 let pollName = '';
 
 let itemsToShow = 5;
@@ -17,7 +17,9 @@ let max = 15;
 
 
 export default function CreatePoll({ history }) {
+
     const alert = useAlert();
+    const [loading,setLoading] = useState(true);
 
     const [restaurants, setRestaurants] = useState([]);
 
@@ -27,12 +29,17 @@ export default function CreatePoll({ history }) {
     const [showAll, setShowAll] = useState(false);
     const [stateOverflow, setStateOverflow] = useState(false);
 
-    useEffect(() => {        
+    useEffect(() => {       
+        let isSubscribed = true; 
         getRestaurantsAll().then(res => {
-          
+          if(isSubscribed){
             setRestaurants(res.data.data);
+            setLoading(false);
+          }
             
         }).catch(res=>alert.error('Something wrong happened. Try reload or contact support. Details:' + res ));
+
+        return ()=>isSubscribed=false;
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -163,16 +170,20 @@ export default function CreatePoll({ history }) {
             duration: duration,
             restaurants: pollList.map(res => res._id),
         }
-        
+        setLoading(true);
         createPoll(poll.name,poll.duration,poll.restaurants).then(res=>{ 
+            setLoading(false);
             if(res.data.message === "Success"){
                 history.push("/home");
+                
             }
             else{
                 alert.error("Something went wrong");
             }
+            
         }).catch(err=>{
             alert.error("Something went wrong:" + err);
+            setLoading(false);
         })
     }
     const handleCancel = () => {
@@ -266,6 +277,7 @@ export default function CreatePoll({ history }) {
                     </div>
                 </div>
             </div>
+            {loading?<div class="loader"/>:null }
         </div >
         </div >
     )
