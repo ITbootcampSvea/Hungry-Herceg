@@ -7,7 +7,7 @@ import { getRestaurantsAll, createPoll } from '../../services/api.service';
 
 let hours = 0;
 let minutes = 15;
-let duration = 1;
+let duration = 15;
 let pollName = '';
 
 let itemsToShow = 5;
