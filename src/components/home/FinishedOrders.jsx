@@ -36,7 +36,7 @@ class FinishedOrders extends React.Component {
     let ordersRow = [];
 
     if (allOrders.length > 0) {
-      allOrders.map((order) => {
+      allOrders.map((order, index) => {
         if (order.poll.status === false) {
           let orderItemList = order.orderItemList;
 
@@ -57,7 +57,7 @@ class FinishedOrders extends React.Component {
 
             if (order.poll.author === this.state.userName) {
               ordersRow.push(
-                <div className="active-info">
+                <div className="active-info" key={`my${index}`}>
                   <div>
                     <label className="pollLblInfo">{order.poll.name}</label>
                   </div>
@@ -88,7 +88,7 @@ class FinishedOrders extends React.Component {
               );
             } else {
               ordersRow.push(
-                <div className="active-info">
+                <div className="active-info" key={`s${index}`}>
                   <div>
                     <label className="pollLblInfo">{order.poll.name}</label>
                   </div>

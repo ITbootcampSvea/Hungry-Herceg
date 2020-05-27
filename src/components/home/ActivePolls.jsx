@@ -46,7 +46,7 @@ class ActivePolls extends React.Component {
     let pollsRow = [];
 
     if (allActivePolls.length > 0) {
-      allActivePolls.forEach((poll) => {
+      allActivePolls.forEach((poll, index) => {
         let restaurants = poll.restaurants;
         let userVoted =
           restaurants.filter((restaurant) => {
@@ -60,7 +60,7 @@ class ActivePolls extends React.Component {
           isoDateTime.toLocaleTimeString();
         if (poll.author === this.state.userName) {
           pollsRow.push(
-            <div className="active-info">
+            <div className="active-info" key={`my${index}`}>
               <div>
                 <label className="pollLblInfo">{poll.name}</label>
               </div>
@@ -120,7 +120,7 @@ class ActivePolls extends React.Component {
           );
         } else {
           pollsRow.push(
-            <div className="active-info">
+            <div className="active-info" key={`s${index}`}>
               <div>
                 <label className="pollLblInfo">{poll.name}</label>
               </div>
