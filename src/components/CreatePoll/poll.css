@@ -77,7 +77,7 @@
     width: 80%;
     transition: all 0.7s ease-in-out;
     color: white;
-    font-size: 1rem;
+    font-size: 1.5rem;
     letter-spacing: 0.2rem;
     margin-top: 2rem;
     border-bottom: 0.2rem solid transparent;
@@ -391,6 +391,16 @@
     align-items: center;
     justify-items: right;
     margin-right: 1rem;
+}
+.loader{
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 100;
 }
 
 /*iPad*/

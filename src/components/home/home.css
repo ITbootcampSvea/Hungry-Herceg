@@ -324,16 +324,41 @@
 @media (max-width:768px) {
     .active {
         margin: 0;
+        grid-template-columns: none;
+        height: auto;
     }
     .poll-order-card {
         width: 70rem;
         margin-bottom: 2rem;
     }
-    .pollCardicon {
+    .pollCardicon,
+    .certifyIcon {
         display: none;
     }
 }
 
+/*Mobile telephone*/
+
+@media (max-width:500px) {
+    .poll-order-card,
+    .card-heading,
+    .finishedOrderCard {
+        width: 35rem;
+    }
+    .finishedOrderCard {
+        margin-right: 0;
+    }
+    .orderLbl {
+        margin-left: 0;
+        font-size: 1.3rem;
+    }
+    .orderInfoLbl {
+        font-size: 1.3rem;
+    }
+    .pollLblInfo {
+        font-size: 1.1rem;
+    }
+}
 /*laptop*/
 
 @media (min-width: 1030px) and (max-width: 1366px){
@@ -369,6 +394,13 @@
 .header {
     font-size: 1.2rem;
 }
-
+.poll-icons img{
+    height: 3rem;
 }
-
+.btn-icons img {
+    height: 3rem;
+}
+.pollGuestIcon {
+    height: 3rem;
+}
+}

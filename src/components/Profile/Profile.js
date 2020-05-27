@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useRef} from "react";
 import { getUserById } from "../../services/api.service";
 import { appStorage } from "../../services/storage.service";
 import { Polar } from "react-chartjs-2";
@@ -8,21 +8,34 @@ import "./Profile.css";
 
 const Profile = ({ history }) => {
   const [userHistory, setUserHistory] = useState([]);
-
+  
   const userId = appStorage.getUserId(); //dohvata id ulogovanog korisnika
-
+  
   const userName = appStorage.getUser(); //dohvata username ulogovanog korisnika
-
+  
+  //sprecavanje curenja memorije na asinhronoj komponenti
   //povlacenje sa servera i setovanje podataka za grafikon
-  useEffect(() => {
-    getUserById(userId).then((data) => {
-      setUserHistory(data.data.data.history);
-    });
-    //eslint-disable-next-line
-  }, []);
+  const useIsMounted = () => {
+    const isMounted = useRef(false);
+    useEffect(() => {
+      isMounted.current = true;
+      return () => (isMounted.current = false);
+    }, []);
+    return isMounted;
+  };
   
+  const isMounted = useIsMounted();
   
-
+    useEffect(() => {
+      if (isMounted.current) {
+        getUserById(userId).then((data) => {
+          setUserHistory(data.data.data.history);
+        });
+          }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isMounted]);
+  
+    
   //funkcija za sortiranje niza
   //sortira niz po imenu meal-a
   function compare(a, b) {
