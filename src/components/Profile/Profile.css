@@ -62,7 +62,7 @@
     display: grid;
     grid-template-rows: 1fr 1fr 0.4fr ;
     background: var(--dark-gray);
-    clip-path: polygon(0 0, 100% 10%, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 100%);
     width: 100%;
     height: 100%;
     border-bottom-left-radius: 1rem;
