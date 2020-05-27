@@ -10,14 +10,19 @@ const ActiveOrders = () => {
     //povlacenje podataka sa back-a
     let interval;
     useEffect(() => {
+
+        let isSubscribed = true;
+
         interval = setInterval(() => {
             getAllOrders().then(res => {
-                let orders = res.data.data;
-                setActiveOrders(orders.filter(el => el.status === true));
-                setLoading(false);
+                if(isSubscribed){
+                    let orders = res.data.data;
+                    setActiveOrders(orders.filter(el => el.status === true));
+                    setLoading(false);
+                }
             });
         },3000)
-        return () => clearInterval(interval);
+        return () => {isSubscribed = false; clearInterval(interval)};
     },[])
 
     let user = appStorage.getUser();
