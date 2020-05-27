@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { authService } from '../../services/auth.service'
 import './Login.css'
 import { useAlert } from 'react-alert'
@@ -11,6 +11,8 @@ let password = '';
 export default function LogIn({ history }) {
 
     const alert = useAlert()
+
+    const [loading,setLoading] = useState(false);
    
 
     if (authService.isLoged() && authService.isLoged()!=="Admin") history.push('/home');
@@ -19,14 +21,13 @@ export default function LogIn({ history }) {
     const handleLogin = (e) => {
         e.preventDefault();
         
-        
-
-
-        logInUser(username, password).then(res => {     
+       setLoading(true);
+        logInUser(username, password).then(res => {    
+            setLoading(false); 
             if (res.data.message === "Success") {   
                 const {token,userId,username} = res.data.data;    
                 authService.LogIn(username, userId, token);
-
+                
                 if (username === 'Admin') {
                     history.push("/settings");
                 }
@@ -37,7 +38,7 @@ export default function LogIn({ history }) {
             else {
                 alert.error('Wrong username or password!') 
             }
-        }).catch(err=>alert.error('Wrong username or password!'));
+        }).catch(err=>{alert.error('Wrong username or password!'); setLoading(false);});
 
     }
 
@@ -63,6 +64,7 @@ export default function LogIn({ history }) {
                     </form>
                 </div>
             </div>
+            {loading?<div className="loader"/>:null }
         </div>
     )
 }

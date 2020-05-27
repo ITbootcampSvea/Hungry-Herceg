@@ -15,19 +15,23 @@ class FinishedOrders extends React.Component {
 
   componentDidMount() {
     this.setAllOrders();
-    this.countdown = window.setInterval(() => this.setAllOrders(), 100000);
+    this.isSubscribed = true;
   }
 
   componentWillUnmount() {
-    window.clearInterval(this.countdown);
+    this.isSubscribed = false;
+    window.clearTimeout(this.countdown);
   }
 
   setAllOrders = () => {
+    window.clearTimeout(this.countdown);
     getAllOrders()
       .then((res) => {
-        this.setState({ allOrders: res.data.data, loading: false });
+        if(this.isSubscribed){
+        this.setState({ allOrders: res.data.data, loading: false })
+        this.countdown = window.setTimeout(() => this.setAllOrders(), 2000);};
       })
-      .catch((err) => window.alert("Error occurred" + err));
+      .catch((err) => {if(this.isSubscribed){this.countdown = window.setTimeout(() => this.setAllOrders(), 10000);}});
   };
 
   render() {

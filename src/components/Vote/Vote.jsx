@@ -142,7 +142,7 @@ export default function Vote({ history, match }) {
                     </div>
                 </div>
             </div>
-            {loading?<div class="loader"/>:null }
+            {loading?<div className="loader"/>:null }
         </div>
     )
 }
