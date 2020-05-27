@@ -6,8 +6,10 @@ const BasicOrderList = ({filteredMeals,addOrderItems,filterMeals}) => {
 
     return (
         <div className='basicOrderList'>
+            <div className='basicOrderInpWrapp'>
             <input type="text" onChange={(e) => filterMeals(e.target.value)}
                 className='basicOrderInput' placeholder='Enter a meal name or a meal tag' />
+                </div>
             <div className='basicOrderTxt'>
                     <div className='orderBold'>Meal</div>
                     <div className='orderBold'>Price</div>

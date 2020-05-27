@@ -115,7 +115,14 @@ const CreateOrderItem = ({ history }) => {
                             setTotal={setTotal}
                             addOrderItems={addOrderItems}
                         />
-                        <CurrentOrderList
+                        <div className='gradientCurrentOrderWrapper'></div>
+                    </div>
+           
+            </div>
+            
+            <div className='rightCardWrapp'>
+                <div className='rightCardContent' >
+                <CurrentOrderList
                             userOrders={userOrders}
                             orderedMeals={orderedMeals}
                             setOrderedMeals={setOrderedMeals}
@@ -125,8 +132,8 @@ const CreateOrderItem = ({ history }) => {
                             refresh={refresh}
                             setRefresh={setRefresh}
                         />
-                    </div>
                 </div>
+            </div>
             </div>
         </div>
         </div>
