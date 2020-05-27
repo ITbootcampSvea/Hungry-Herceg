@@ -111,6 +111,7 @@ const Profile = ({ history }) => {
               <div className="welcomeWrapÙsername">
                 <label className="userNmaeAvatarCardLbl">{userName}</label>
               </div>
+              <div className='profileGradientDiv'></div>
             </div>
           </div>
           <div className="chartWrapper">

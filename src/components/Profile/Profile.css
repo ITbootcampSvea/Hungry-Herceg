@@ -30,6 +30,13 @@
     justify-items: center;
 }
 
+.profileGradientDiv{
+    background: linear-gradient(45deg, #222629,white,#222629);
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    clip-path: polygon(0 0, 100% 20%, 100% 100%, 0 100%);
+}
+
 
 .avatarCard{
     position: relative;
@@ -53,13 +60,14 @@
 
 .avatarInfoWrapp{
     display: grid;
-    grid-template-rows: 1fr 1fr ;
+    grid-template-rows: 1fr 1fr 0.4fr ;
     background: var(--dark-gray);
-    clip-path: polygon(0 0, 100% 10%, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 100%);
     width: 100%;
     height: 100%;
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
+  
 }
 
 .welcomeWrap{
@@ -75,7 +83,7 @@
 }
 
 .welLbl{
-    color: var(--dark-green);
+    color: var(--light-green);
     font-size: 2rem;
     text-transform: lowercase;
     letter-spacing: 0.3rem;

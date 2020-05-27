@@ -262,6 +262,9 @@
 @media (max-width:768px) {
     .orderWrapper {
         margin: 0;
+        grid-template-columns: none;
+        grid-template-rows: 2fr 1fr;
+        align-items: center;
     }
     .smallerOrderDiv {
         width: 80%;
@@ -281,7 +284,7 @@
 
 @media (min-width: 1030px) and (max-width: 1366px) {
     .smallerOrderDiv {
-        width: 54%;
+        width: 45rem;
         height: 55.8rem;
         font-size: 1.5rem;
     }
@@ -306,7 +309,7 @@
     }
     .orderNowBtn {
         padding: 0.4rem;
-        font-size: 0.8rem;
+        font-size: 1.2rem;
     }
     .basicOrderTxtWrapp {
         overflow-y: scroll;
@@ -315,5 +318,11 @@
     }
     .basicOrderInput {
         padding: 1.1rem;
+    }
+    .rightCardWrapp {
+        width: 35rem;
+    }
+    .currentOrderWrapp {
+        width: 34rem;
     }
 }
