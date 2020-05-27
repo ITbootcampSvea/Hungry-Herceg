@@ -19,6 +19,7 @@ export default function Settings({history}) {
     const alert = useAlert();
 
     const [loading,setLoading] = useState(true);
+    const [reload, setReload] = useState(true);
 
     const [restaurants, setRestaurants] = useState([]);
     const [users, setUsers] = useState([]);
@@ -34,6 +35,7 @@ export default function Settings({history}) {
     useEffect(() => {
         setLoading(true)
         getRestaurantsAll().then(res => {
+     
             setRestaurants(res.data.data)
             setLoading(false)
         })
@@ -41,7 +43,7 @@ export default function Settings({history}) {
             setUsers(res.data.data)
             setLoading(false)
         })
-    }, [])
+    }, [reload])
 
 
     const handleSubmitUser = (e) => {
@@ -52,15 +54,13 @@ export default function Settings({history}) {
             createUser(username, password).then(res => {
 
                 if(res.data.message === "Success"){
-                    getUsersAll().then(res => {
-                    setUsers(res.data.data);
-                    setLoading(false);
-                    })
+                    setReload(!reload);
                 }
                 else{
                     alert.error(res.data.message)
-                    setLoading(false);
+                    
                 }
+                setLoading(false);
             }).catch(err => {alert.error('Something went wrong!' + err.message); setLoading(false);})
         }
     }
@@ -71,11 +71,7 @@ export default function Settings({history}) {
         setLoading(true);
         createRestaurant(restaurantName, restaurantAddress, restaurantTags, []).then(res => {
             if(res.data.message === "Success"){
-                setLoading(true);
-                getRestaurantsAll().then(res => {
-                setRestaurants(res.data.data)
-                setLoading(false);
-                })
+                setReload(!reload);
             }
             setLoading(false);
             }).catch(err => {alert.error('Something went wrong!'+err); setLoading(false)})
@@ -87,19 +83,13 @@ export default function Settings({history}) {
             setLoading(true)
             createMeal(selected_id, mealName, Number(mealPrice), mealsTags).then(res => {
                 if(res.data.message === "Success"){
-                    setLoading(true)
-
-                getRestaurantsAll().then(res => {
-                    setRestaurants(res.data.data)
-                    setLoading(false);
-                    })
+                    setReload(!reload);
                 }
                 setLoading(false);
             }).catch(err => {alert.error('Something went wrong!'+err);setLoading(false);})
         }
         else{
             alert.info("Please select restaurant first.");
-            setLoading(false);
         }
     }
 
@@ -110,10 +100,7 @@ export default function Settings({history}) {
         setLoading(true);
         deleteRestaurantById(id).then(res => {
             if(res.data.message === "Success"){
-
-                getRestaurantsAll().then(res => {
-                setRestaurants(res.data.data)
-                })
+                setReload(!reload);
             }
             setLoading(false);
         }).catch(err => {alert.error('Something went wrong!'+err); setLoading(false);})
@@ -121,9 +108,11 @@ export default function Settings({history}) {
 
 
     const getMeals = (id, rest) => {
-        return rest.find((el) => {
-            return el._id === id;
-        }).meals
+        if(id && rest){
+            return rest.find((el) => {
+                return el._id === id;
+            }).meals
+        }
     }
 
     const handleSelectRestaurant = (id) => {
@@ -136,9 +125,7 @@ export default function Settings({history}) {
         deleteUserById(id).then(res => {
             if(res.data.message === "Success"){
 
-                getUsersAll().then(res => {
-                setUsers(res.data.data)
-                })
+                setReload(!reload);
             }
             setLoading(false);
             }).catch(err => {alert.error('Something went wrong!'+err);setLoading(false);})
@@ -148,10 +135,7 @@ export default function Settings({history}) {
         setLoading(true);
         deleteMealById(id).then(res => {
             if(res.data.message === "Success"){
-
-                getRestaurantsAll().then(res => {
-                setRestaurants(res.data.data)
-                })
+                setReload(!reload);
             }
             setLoading(false);
             }).catch(err => {alert.error('Something went wrong!'+err);setLoading(false);})
@@ -159,18 +143,18 @@ export default function Settings({history}) {
 
 
     const getFilteredRestaurants = (search, array) => {
-        return array.filter(el => el.name.toLowerCase().includes(search.toLowerCase()));
+        return searchRestaurant !== ''? array.filter(el => el.name.toLowerCase().includes(search.toLowerCase())):array;
     }
 
 
     const getFilteredMeals = (search, array) => {
-        return array.filter(el => el.name.toLowerCase().includes(search.toLowerCase()));
+        return searchMeals !== ''? array.filter(el => el.name.toLowerCase().includes(search.toLowerCase())):array;
     }
 
 
     const getFilteredUsers = (search, array) => {
-        return array.filter(el => 
-            (el.username.toLowerCase().includes(search.toLowerCase()) && el.username !== "Admin"));
+        return searchUser !==""? array.filter(el => 
+            (el.username.toLowerCase().includes(search.toLowerCase()) && el.username !== "Admin")):array;
     }
 
     const handleRestaurantSectionSelected = () => {
