@@ -15,25 +15,21 @@ const Profile = ({ history }) => {
   
   //sprecavanje curenja memorije na asinhronoj komponenti
   //povlacenje sa servera i setovanje podataka za grafikon
-  const useIsMounted = () => {
-    const isMounted = useRef(false);
-    useEffect(() => {
-      isMounted.current = true;
-      return () => (isMounted.current = false);
-    }, []);
-    return isMounted;
-  };
-  
-  const isMounted = useIsMounted();
+
   
     useEffect(() => {
-      if (isMounted.current) {
+       let isMounted = true;
+
         getUserById(userId).then((data) => {
-          setUserHistory(data.data.data.history);
-        });
+          if (isMounted){
+            setUserHistory(data.data.data.history);
           }
+        });
+
+        return ()=> isMounted=false;
+          
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isMounted]);
+    }, []);
   
     
   //funkcija za sortiranje niza
