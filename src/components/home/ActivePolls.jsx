@@ -107,7 +107,7 @@ class ActivePolls extends React.Component {
                       className="userUnvoteBtn"
                       src="/img/noVote.png"
                       alt=" no vote"
-                      title="You can not vote twice !"
+                      title="You have already voted!"
                     />
                   ) : (
                     <Link to={`/vote/${poll._id}`} className="voteBtnLink">
