@@ -67,7 +67,7 @@ class ActivePolls extends React.Component {
                   <label className="pollLblInfo">{`${localDateTime}`}</label>
                 </div>
               </div>
-              <div className="btn-icons">
+              <div className="poll-icons">
                 <div>
                   <img
                     src="./img/del.png"
@@ -193,7 +193,7 @@ class ActivePolls extends React.Component {
           </div>
           <div className="card-btn-wrapper">
             <button className="btn-green">
-              <Link to={"/createpoll"} className="creBtnLink">
+              <Link  to={"/createpoll"} className="creBtnLink">
                 Create New Poll
               </Link>
             </button>

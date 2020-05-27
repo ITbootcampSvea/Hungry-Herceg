@@ -57,16 +57,16 @@ class FinishedOrders extends React.Component {
 
             if (order.poll.author === this.state.userName) {
               ordersRow.push(
-                <div className="active-info">
+                <div className="active-info actInfMargin">
                   <div>
-                    <label className="pollLblInfo">{order.poll.name}</label>
+                    <label className="pollLblInfo finLbl">{order.poll.name}</label>
                   </div>
                   <div>
-                    <label className="pollLblInfo">{order.poll.author}</label>
+                    <label className="pollLblInfo finLbl">{order.poll.author}</label>
                   </div>
                   <div>
                     <div>
-                      <label className="pollLblInfo">
+                      <label className="pollLblInfo finLbl">
                         {order.restaurant.name}
                       </label>
                     </div>
@@ -74,12 +74,13 @@ class FinishedOrders extends React.Component {
                   <div>
                     <div>
                       <label className="pollLblInfo">
-                        <CSVLink
-                          style={{ color: "black" }}
+                        <CSVLink className='excelCsvLink'
+                          style={{ color: "black",
+                        textDecoration:"none" }}
                           filename={"my-file.csv"}
                           data={data}
                         >
-                          EXPORT NOW
+                      <img  className="userUnvoteBtn" src='/img/excel.png' alt='excel' title='Download Excel'/> 
                         </CSVLink>
                       </label>
                     </div>
@@ -88,20 +89,20 @@ class FinishedOrders extends React.Component {
               );
             } else {
               ordersRow.push(
-                <div className="active-info">
+                <div className="active-info actInfMargin">
                   <div>
-                    <label className="pollLblInfo">{order.poll.name}</label>
+                    <label className="pollLblInfo finLbl">{order.poll.name}</label>
                   </div>
                   <div>
-                    <label className="pollLblInfo">{order.poll.author}</label>
+                    <label className="pollLblInfo finLbl">{order.poll.author}</label>
                   </div>
                   <div>
-                    <label className="pollLblInfo">
+                    <label className="pollLblInfo finLbl">
                       {order.restaurant.name}
                     </label>
                   </div>
                   <div>
-                    <label className="pollLblInfo"></label>
+                    <label className="pollLblInfo finLbl"></label>
                   </div>
                 </div>
               );
@@ -150,8 +151,9 @@ class FinishedOrders extends React.Component {
                 <label className="finishOrderLbl">Action</label>
               </div>
             </div>
-            <div className="pollRowsWrapp">{ordersRow}</div>
+            <div id="style-4" className="finishOrderRowWrapp ">{ordersRow}</div>
           </div>
+          <div className="finshedOrderGradientWrapp finOrderFooter"></div>
         </div>
       </div>
     );

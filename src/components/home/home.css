@@ -9,6 +9,11 @@
     color: white;
 }
 
+.creBtnLink:hover{
+    border-bottom: 0.3rem solid transparent;
+    color: white;
+}
+
 .active {
     height: 86vh;
     margin: 0 10%;
@@ -45,11 +50,19 @@
 .pollLblInfo {
     font-size: 1.5rem;
     font-weight: 500;
+    text-align: center;
 }
 
 .pollLblNoInfo {
     font-size: 2.5rem;
     font-weight: 500;
+}
+
+
+.orderLblWrapper{
+    display: grid;
+    align-items: center;
+    justify-items: center;
 }
 
 .pollCardicon {
@@ -62,7 +75,7 @@
 
 .active-info {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1.5fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     justify-items: center;
     align-items: center;
     color: var(--primary-black);
@@ -73,7 +86,7 @@
 
 .finishOrderHeader{
     display: grid;
-    grid-template-columns: 1fr 1fr 1.5fr ;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     justify-items: center;
     align-items: center;
     color: var(--primary-black);
@@ -166,19 +179,43 @@
 }
 
 .voteBtnLink:hover {
-    border-bottom: none;
+    border-bottom: 0.3rem solid transparent;
 }
 
 .btn-icons {
     display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.poll-icons{
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+}
+
+.poll-icons img{
+    height: 3.7rem;
+    cursor: pointer;
+    filter: drop-shadow(0.1rem 0.1rem 0.1rem black);
+    margin-right: 1.5rem;
 }
 
 .btn-icons img {
     height: 3.7rem;
     cursor: pointer;
-    margin-right: 3rem;
     filter: drop-shadow(0.1rem 0.1rem 0.1rem black);
+    margin-right: 1.5rem;
+}
+
+.actOrderIcon{
+    height: 3.7rem;
+    cursor: pointer;
+    filter: drop-shadow(0.1rem 0.1rem 0.1rem black);
+}
+
+.actOrderIconWrapp{
+    display: grid;
+    align-items: center;
+    justify-items: center;
 }
 
 .userUnvoteBtn {
@@ -205,7 +242,7 @@
     background: white;
     margin-right: 4rem;
     display: grid;
-    grid-template-rows: 1fr 1fr 3fr;
+    grid-template-rows: 1fr 1fr 3fr 0.2fr;
     border-radius: 1rem;
     box-shadow: 0.5rem 0.5rem 0.7rem black;
 }
@@ -214,7 +251,7 @@
     display: grid;
     justify-items: center;
     align-items: center;
-    grid-template-columns: 1fr 1fr 1fr 1.5fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .finishedOrderHeadeing {
@@ -253,11 +290,32 @@
 
 .finshedOrderGradientWrapp{
     background: linear-gradient(45deg, #222629,white,#222629);
+ 
+}
+
+.finOrderFooter{
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
 }
 
 .finishOrderRowWrapp{
     overflow-y: scroll;
-    max-height: 10rem;
+    max-height: 15rem;
+}
+
+.excelCsvLink:hover{
+ 
+    border-bottom: 0.3rem solid transparent;
+}
+
+.finLbl{
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+
+.actInfMargin{
+    margin: 1.5rem 0;
 }
 
 /*iPad*/
@@ -274,3 +332,42 @@
         display: none;
     }
 }
+
+/*laptop*/
+
+@media (min-width: 1030px) and (max-width: 1366px){
+
+    .poll-order-card {
+        height: 25rem;
+        width: 55rem;  
+    }
+  
+.finishedOrderCard {
+    height: 40rem;
+   width: 35rem; 
+}
+
+
+.pollCardicon {
+    height: 6.8rem;
+}
+
+.certifyIcon {
+    height: 6.8rem;
+}
+
+.orderInfoLbl {
+    font-size: 1.2rem;
+}
+
+.orderLbl {
+    font-size: 1.2rem;
+    margin-left: 3.8rem;
+}
+
+.header {
+    font-size: 1.2rem;
+}
+
+}
+
