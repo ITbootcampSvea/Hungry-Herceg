@@ -12,7 +12,7 @@ export default function LogIn({ history }) {
 
     const alert = useAlert()
 
-    const [loading,setLoading] = useState(true);
+    const [loading,setLoading] = useState(false);
    
 
     if (authService.isLoged() && authService.isLoged()!=="Admin") history.push('/home');
@@ -64,6 +64,7 @@ export default function LogIn({ history }) {
                     </form>
                 </div>
             </div>
+            {loading?<div class="loader"/>:null }
         </div>
     )
 }
