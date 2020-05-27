@@ -3,27 +3,35 @@ import { appStorage } from "../../services/storage.service";
 import { Link } from "react-router-dom";
 import { getAllOrders, endOrderById } from "../../services/api.service";
 
+let isSubscribed = false;
+
 const ActiveOrders = () => {
 
     const [loading,setLoading] = useState(true);
     const [activeOrders,setActiveOrders] = useState([]);
     //povlacenje podataka sa back-a
     let interval;
+    
+    const getData = ()=>{
+        clearTimeout(interval);
+        getAllOrders().then(res => {
+            if(isSubscribed){
+                let orders = res.data.data;
+                setActiveOrders(orders.filter(el => el.status === true));
+                setLoading(false);
+                interval = setTimeout(() => {getData()},2000);
+            }
+        }).catch((err) => {if(isSubscribed){interval = window.setTimeout(() => getData(), 10000);}});
+    }
+
     useEffect(() => {
 
-        let isSubscribed = true;
-
-        interval = setInterval(() => {
-            getAllOrders().then(res => {
-                if(isSubscribed){
-                    let orders = res.data.data;
-                    setActiveOrders(orders.filter(el => el.status === true));
-                    setLoading(false);
-                }
-            });
-        },3000)
-        return () => {isSubscribed = false; clearInterval(interval)};
+        isSubscribed = true;
+        getData();
+        return () => {isSubscribed = false; clearTimeout(interval)};
     },[])
+
+    
 
     let user = appStorage.getUser();
 
