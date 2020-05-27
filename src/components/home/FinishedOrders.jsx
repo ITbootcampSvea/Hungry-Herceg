@@ -19,15 +19,17 @@ class FinishedOrders extends React.Component {
   }
 
   componentWillUnmount() {
+    this.isSubscribed = false;
     window.clearInterval(this.countdown);
   }
 
   setAllOrders = () => {
     getAllOrders()
       .then((res) => {
-        this.setState({ allOrders: res.data.data, loading: false });
+        if(this.isSubscribed){
+        this.setState({ allOrders: res.data.data, loading: false })};
       })
-      .catch((err) => window.alert("Error occurred" + err));
+      .catch((err) => {if(this.isSubscribed){window.alert("Error occurred" + err)}});
   };
 
   render() {
