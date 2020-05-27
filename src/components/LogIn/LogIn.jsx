@@ -64,7 +64,7 @@ export default function LogIn({ history }) {
                     </form>
                 </div>
             </div>
-            {loading?<div class="loader"/>:null }
+            {loading?<div className="loader"/>:null }
         </div>
     )
 }

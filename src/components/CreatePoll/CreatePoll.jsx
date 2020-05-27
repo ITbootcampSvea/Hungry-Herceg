@@ -277,7 +277,7 @@ export default function CreatePoll({ history }) {
                     </div>
                 </div>
             </div>
-            {loading?<div class="loader"/>:null }
+            {loading?<div className="loader"/>:null }
         </div >
         </div >
     )
