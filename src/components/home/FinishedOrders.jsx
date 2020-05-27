@@ -42,6 +42,7 @@ class FinishedOrders extends React.Component {
     if (allOrders.length > 0) {
       // eslint-disable-next-line array-callback-return
       allOrders.map((order, index) => {
+        if(order.restaurant !== "Doesnt exist"){
           let orderItemList = order.orderItemList;
 
           let data = [];
@@ -114,6 +115,7 @@ class FinishedOrders extends React.Component {
               );
             }
           }
+        }
       });
     } else {
       ordersRow = (
