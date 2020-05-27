@@ -10,7 +10,7 @@ let minutes = 15;
 let duration = 15;
 let pollName = '';
 
-let itemsToShow = 5;
+let itemsToShow = 4;
 let overflow = false;
 
 let max = 15;
