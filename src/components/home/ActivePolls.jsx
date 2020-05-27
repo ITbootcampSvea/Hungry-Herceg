@@ -115,11 +115,16 @@ class ActivePolls extends React.Component {
                     alt="icon"
                     title="Delete"
                     onClick={() => {
-                      deletePollById(poll._id).then((res) => {
-                        if (res.data.message === "Success") {
-                          this.setAllPolls();
-                        }
-                      });
+                      if (
+                        window.confirm(
+                          "Are you sure you wish to delete this poll?"
+                        )
+                      )
+                        deletePollById(poll._id).then((res) => {
+                          if (res.data.message === "Success") {
+                            this.setAllPolls();
+                          }
+                        });
                     }}
                   />
                 </div>
