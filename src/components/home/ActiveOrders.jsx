@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { appStorage } from "../../services/storage.service";
 import { Link } from "react-router-dom";
-import { getAllOrders, endOrderById } from "../../services/api.service";
+import { endOrderById, getActiveOrders } from "../../services/api.service";
 
 let isSubscribed = false;
 
@@ -14,10 +14,9 @@ const ActiveOrders = () => {
     
     const getData = ()=>{
         clearTimeout(interval);
-        getAllOrders().then(res => {
+        getActiveOrders().then(res => {
             if(isSubscribed){
-                let orders = res.data.data;
-                setActiveOrders(orders.filter(el => el.status === true));
+                setActiveOrders(res.data.data);
                 setLoading(false);
                 interval = setTimeout(() => {getData()},2000);
             }

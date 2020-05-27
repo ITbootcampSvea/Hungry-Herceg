@@ -2,7 +2,7 @@ import axios from 'axios';
 import { appStorage } from './storage.service';
 
 
-const baseURL = "https://hungry-herceg.herokuapp.com";
+const baseURL = "https://hungry-herceg-server.herokuapp.com";
 
 const getHeader = () => ({headers:{Authorization:"Bearer " + appStorage.getToken()}}); // generise objekat header sa tokenom
 
@@ -38,6 +38,8 @@ export const updateVotesByPollId = (id, votes) => axios.post(baseURL + `/poll/${
 //Orders 
 
 export const getAllOrders = () =>  axios.get(baseURL+"/order");
+export const getActiveOrders = () =>  axios.get(baseURL+"/order?status=true");
+export const getFinishedOrders = () =>  axios.get(baseURL+"/order?status=false");
 export const getOrderById = (id) => axios.get(baseURL+"/order/"+id);
 export const deleteOrderById = (id) =>  axios.delete(baseURL+"/order/"+id, getHeader());
 export const endOrderById = (id) => axios.put(baseURL + "/order/"+id, {status:false},getHeader());

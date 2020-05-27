@@ -38,7 +38,8 @@ export default function LogIn({ history }) {
             else {
                 alert.error('Wrong username or password!') 
             }
-        }).catch(err=>{alert.error('Wrong username or password!'); setLoading(false);});
+        }).catch(err=>{alert.error('Wrong username or password!'); console.log(err);
+         setLoading(false);});
 
     }
 

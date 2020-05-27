@@ -1,6 +1,6 @@
 import React from "react";
 import { appStorage } from "../../services/storage.service";
-import { getAllOrders } from "../../services/api.service";
+import { getFinishedOrders } from "../../services/api.service";
 import { CSVLink } from "react-csv";
 
 class FinishedOrders extends React.Component {
@@ -25,7 +25,7 @@ class FinishedOrders extends React.Component {
 
   setAllOrders = () => {
     window.clearTimeout(this.countdown);
-    getAllOrders()
+    getFinishedOrders()
       .then((res) => {
         if(this.isSubscribed){
         this.setState({ allOrders: res.data.data, loading: false })
@@ -41,7 +41,6 @@ class FinishedOrders extends React.Component {
 
     if (allOrders.length > 0) {
       allOrders.map((order, index) => {
-        if (order.poll.status === false) {
           let orderItemList = order.orderItemList;
 
           let data = [];
@@ -112,7 +111,6 @@ class FinishedOrders extends React.Component {
               );
             }
           }
-        }
       });
     } else {
       ordersRow = (

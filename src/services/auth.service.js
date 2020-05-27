@@ -21,6 +21,8 @@ export const authService = {
     LogOut : ()=>{
         loged = null;
         appStorage.removeUser();
+        appStorage.removeToken();
+        appStorage.removeUserId();
         return loged;
     },
     
