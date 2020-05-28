@@ -27,11 +27,11 @@
 
 .poll-order-card {
     position: relative;
-    height: 35rem;
-    width: 50rem;
+    height: 80%;
+    width: 90%;
     background: white;
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 3fr;
     border-radius: 1rem;
     box-shadow: 0.5rem 0.5rem 0.7rem black;
     margin: 2rem 0;
@@ -43,7 +43,7 @@
 }
 
 .orderInfoLbl {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     font-weight: 700;
 }
 
@@ -67,21 +67,48 @@
 
 .pollCardicon {
     position: absolute;
-    height: 10rem;
+    height: 7rem;
     left: -5%;
-    top: 20%;
+    top: -10%;
     filter: drop-shadow(0.4rem 0.3rem 0.4rem rgba(243, 238, 238, 0.815));
 }
 
-.active-info {
+.active-polls-info {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 2fr 1fr 0.3fr;
     justify-items: center;
     align-items: center;
     color: var(--primary-black);
     letter-spacing: 0.1rem;
     text-transform: capitalize;
     font-size: 1rem;
+}
+
+.active-orders-info {
+    display: grid;
+    grid-template-rows: 1fr 3fr 0.3fr;
+    justify-items: center;
+    align-items: center;
+    color: var(--primary-black);
+    letter-spacing: 0.1rem;
+    text-transform: capitalize;
+    font-size: 1rem;
+}
+
+.active-polls {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.active-orders {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    justify-items: center;
+    align-items: center;
 }
 
 .activeCardsWrapper {
@@ -90,38 +117,34 @@
     justify-items: center;
     align-items: center;
     width: 100%;
-}
-
-.finishOrderHeader{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    justify-items: center;
-    align-items: center;
-    color: var(--primary-black);
-    letter-spacing: 0.1rem;
-    text-transform: capitalize;
-    font-size: 1rem;
+    height: 100%;
 }
 
 .mainPartWrapper {
     background: linear-gradient(to bottom, #222629 30%, #474B4F 70%);
 }
 
-.order {
+.pollsHeaderWrapp {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1.5fr;
-    justify-items: center;
-    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 100%
 }
 
-.orderLbl {
-    margin-left: 3.5rem;
+.ordersHeaderWrapp {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.pollsHeadingWrapp {
+    display: grid;
+    align-items: center;
+    justify-items: center;
 }
 
 .header {
     text-transform: uppercase;
     font-weight: 700;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
 }
 
 .card-heading {
@@ -146,21 +169,20 @@
     display: grid;
     justify-items: center;
     align-items: center;
+    width: 100%;
 }
 
 .btn-green {
     width: 40%;
     background: var(--dark-green);
     color: white;
-    margin: 0.2rem 0;
     outline: none;
     border: none;
-    border-radius: 0.6rem;
+    border-radius: 0.4rem;
     letter-spacing: 0.25rem;
-    padding: 1rem;
+    padding: 0.3rem;
     cursor: pointer;
     font-weight: 300;
-    font-size: 1.4rem;
     transition: all 0.6s ease-in-out;
 }
 
@@ -241,15 +263,30 @@
     display: grid;
     align-items: center;
     justify-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.fnshOrdWrapp {
+    height: 100%;
+    width: 100%;
+}
+
+.finish-orders {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    align-items: center;
+    justify-items: center;
 }
 
 .finishedOrderCard {
     position: relative;
-    height: 40rem;
-    width: 50rem;
+    height: 80%;
+    width: 45%;
     background: white;
     display: grid;
-    grid-template-rows: 1fr 1fr 3fr 0.2fr;
+    grid-template-rows: 1fr 3fr;
     border-radius: 1rem;
     box-shadow: 0.5rem 0.5rem 0.7rem black;
 }
@@ -258,7 +295,13 @@
     display: grid;
     justify-items: center;
     align-items: center;
+    grid-template-rows: 1fr 3fr 0.3fr;
+}
+
+.finishOrderHdrWrapp {
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 98%;
 }
 
 .finishedOrderHeadeing {
@@ -271,10 +314,23 @@
 
 .certifyIcon {
     position: absolute;
-    left: -10%;
-    top: 16%;
+    left: -5%;
+    top: -10%;
     filter: drop-shadow(0.4rem 0.3rem 0.4rem rgba(243, 238, 238, 0.815));
-    height: 8rem;
+    height: 7rem;
+}
+
+.finishedOrderContent {
+    background: white;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    width: 98%;
+}
+
+.finishRow {
+    display: grid;
+    justify-items: center;
+    align-items: center;
 }
 
 .finishedOrderFiled{
@@ -287,32 +343,39 @@
     color: var(--primary-black);
     font-size: 1.5rem;
     letter-spacing: 0.2rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
 }
 
-.finishedOrderContent{
-    display: grid;
-    grid-template-rows: 1fr 3fr;
-}
-
-.finshedOrderGradientWrapp{
+/* .finshedOrderGradientWrapp{
     background: linear-gradient(45deg, #222629,white,#222629);
  
-}
+} */
 
-.finOrderFooter{
+/* .finOrderFooter{
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
-}
+} */
 
 .finishOrderRowWrapp{
     overflow-y: scroll;
-    max-height: 15rem;
+    max-height: 10rem;
+}
+
+.finishOrderRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.homePageGradient {
+    width: 100%;
+    height: 100%;
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    background: linear-gradient(45deg, #222629,white,#222629);
 }
 
 .excelCsvLink:hover{
- 
     border-bottom: 0.3rem solid transparent;
 }
 
@@ -322,10 +385,16 @@
     text-align: center;
 }
 
-
-.actInfMargin{
-    margin: 1.5rem 0;
+.finishExcelBtn {
+    height: 3.7rem;
+    cursor: pointer;
+    filter: drop-shadow(0.1rem 0.1rem 0.1rem black);
 }
+
+
+/* .actInfMargin{
+    margin: 1.5rem 0;
+} */
 
 /*iPad*/
 
@@ -372,18 +441,12 @@
     }
 }
 /*laptop*/
-
+/* 
 @media (min-width: 1030px) and (max-width: 1366px){
 .poll-order-card {
     height: 25rem;
     width: 49rem;  
 }
-  
-.finishedOrderCard {
-    height: 40rem;
-    width: 49rem; 
-}
-
 
 .pollCardicon {
     height: 6.8rem;
@@ -414,4 +477,4 @@
 .pollGuestIcon {
     height: 3rem;
 }
-}
+} */

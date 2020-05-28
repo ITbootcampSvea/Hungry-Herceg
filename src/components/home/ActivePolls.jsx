@@ -89,10 +89,10 @@ class ActivePolls extends React.Component {
                       title="You have already voted!"
                     />
                   ) : (
-                    <Link to={`/vote/${poll._id}`} className="voteBtnLink">
-                      <img src="./img/vote1.png" alt="icon" title="Vote" />
-                    </Link>
-                  )}
+                      <Link to={`/vote/${poll._id}`} className="voteBtnLink">
+                        <img src="./img/vote1.png" alt="icon" title="Vote" />
+                      </Link>
+                    )}
                 </div>
 
                 <div>
@@ -153,15 +153,15 @@ class ActivePolls extends React.Component {
                       title="You can not vote twice !"
                     />
                   ) : (
-                    <Link to={`/vote/${poll._id}`} className="voteBtnLink">
-                      <img
-                        src="./img/vote1.png"
-                        alt="icon"
-                        title="Vote"
-                        className="pollGuestIcon"
-                      />
-                    </Link>
-                  )}
+                      <Link to={`/vote/${poll._id}`} className="voteBtnLink">
+                        <img
+                          src="./img/vote1.png"
+                          alt="icon"
+                          title="Vote"
+                          className="pollGuestIcon"
+                        />
+                      </Link>
+                    )}
                 </div>
               </div>
             </div>
@@ -192,30 +192,36 @@ class ActivePolls extends React.Component {
             <h1>Active Polls</h1>
           </div>
 
-          <div className="active-info header">
-            <div>
-              <label>Name</label>
+          <div className="active-polls-info header">
+            <div className='pollsHeaderWrapp'>
+              <div className='pollsHeadingWrapp'>
+                <label>Name</label>
+              </div>
+              <div className='pollsHeadingWrapp'>
+                <label>Author</label>
+              </div>
+              <div className='pollsHeadingWrapp'>
+                <label>Ends</label>
+              </div>
+              <div className='pollsHeadingWrapp'>
+                <label>Action</label>
+              </div>
             </div>
-            <div>
-              <label>Author</label>
+
+            <div id="style-4" className="pollRowsWrapp">
+              {pollsRow}
             </div>
-            <div>
-              <label>Ends</label>
-            </div>
-            <div>
-              <label>Action</label>
-            </div>
-          </div>
-          <div id="style-4" className="pollRowsWrapp">
-            {pollsRow}
-          </div>
-          <div className="card-btn-wrapper">
-            <button className="btn-green">
-              <Link to={"/createpoll"} className="creBtnLink">
-                Create New Poll
+            <div className="card-btn-wrapper">
+              <button className="btn-green">
+                <Link to={"/createpoll"} className="creBtnLink">
+                  Create New Poll
               </Link>
-            </button>
+              </button>
+            </div>
+
+          <div className='homePageGradient'></div>
           </div>
+
         </div>
       </div>
     );

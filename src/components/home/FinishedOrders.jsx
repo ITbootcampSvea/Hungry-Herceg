@@ -76,27 +76,23 @@ class FinishedOrders extends React.Component {
 
             if (order.poll.author === this.state.userName) {
               ordersRow.push(
-                <div className="active-info actInfMargin" key={`my${index}`}>
-                  <div>
+                <div className='finishOrderRow' key={`my${index}`}>
+                  <div className='finishRow'>
                     <label className="pollLblInfo finLbl">
                       {order.poll.name}
                     </label>
                   </div>
-                  <div>
+                  <div className='finishRow'>
                     <label className="pollLblInfo finLbl">
                       {order.poll.author}
                     </label>
                   </div>
-                  <div>
-                    <div>
+                  <div className='finishRow'>
                       <label className="pollLblInfo finLbl">
                         {order.restaurant.name}
                       </label>
-                    </div>
                   </div>
-                  <div>
-                    <div>
-                      <label className="pollLblInfo">
+                  <div className='finishRow'>
                         <CSVLink
                           className="excelCsvLink"
                           style={{ color: "black", textDecoration: "none" }}
@@ -110,36 +106,34 @@ class FinishedOrders extends React.Component {
                           data={data}
                         >
                           <img
-                            className="userUnvoteBtn"
+                            className="finishExcelBtn"
                             src="/img/excel.png"
                             alt="excel"
                             title="Download Excel"
                           />
                         </CSVLink>
-                      </label>
-                    </div>
                   </div>
                 </div>
               );
             } else {
               ordersRow.push(
-                <div className="active-info actInfMargin" key={`s${index}`}>
-                  <div>
+                <div className='finishOrderRow' key={`s${index}`}>
+                  <div className='finishRow'>
                     <label className="pollLblInfo finLbl">
                       {order.poll.name}
                     </label>
                   </div>
-                  <div>
+                  <div className='finishRow'>
                     <label className="pollLblInfo finLbl">
                       {order.poll.author}
                     </label>
                   </div>
-                  <div>
+                  <div className='finishRow'>
                     <label className="pollLblInfo finLbl">
                       {order.restaurant.name}
                     </label>
                   </div>
-                  <div>
+                  <div className='finishRow'>
                     <label className="pollLblInfo finLbl"></label>
                   </div>
                 </div>
@@ -163,7 +157,7 @@ class FinishedOrders extends React.Component {
     }
 
     return (
-      <div className="active-polls">
+      <div className="finish-orders">
         <div className="finishedOrderCard">
           <img
             className="certifyIcon"
@@ -173,9 +167,8 @@ class FinishedOrders extends React.Component {
           <div className="card-heading">
             <h1>Finished Orders</h1>
           </div>
-          <div className="finshedOrderGradientWrapp"></div>
-          <div className="finishedOrderContent">
             <div className="finishOrderHeader">
+              <div className='finishOrderHdrWrapp'>
               <div className="finishedOrderFiled">
                 <label className="finishOrderLbl">Name</label>
               </div>
@@ -188,12 +181,16 @@ class FinishedOrders extends React.Component {
               <div className="finishedOrderFiled">
                 <label className="finishOrderLbl">Action</label>
               </div>
-            </div>
+              </div>
+
+              <div className="finishedOrderContent">
             <div id="style-4" className="finishOrderRowWrapp ">
               {ordersRow}
             </div>
           </div>
-          <div className="finshedOrderGradientWrapp finOrderFooter"></div>
+
+          <div className='homePageGradient'></div>
+            </div>
         </div>
       </div>
     );
