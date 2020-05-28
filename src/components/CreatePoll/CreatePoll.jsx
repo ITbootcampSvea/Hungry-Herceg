@@ -11,7 +11,7 @@ let duration = 15;
 let pollName = '';
 
 // let itemsToShow = 4;
-let overflow = false;
+// let overflow = false;
 
 let max = 15;
 
