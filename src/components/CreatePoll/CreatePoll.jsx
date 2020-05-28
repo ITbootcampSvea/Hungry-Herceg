@@ -156,7 +156,7 @@ export default function CreatePoll({ history }) {
         }
 
         if (pollList.length < 2 || pollList.length > max) {
-            alert.error("Poll list must contain more than 2 and less than 15 items");
+            alert.error("Restaurants must contain more than 2 and less than 15 items");
             return;
         }
         if (duration < 1) {
@@ -206,7 +206,10 @@ export default function CreatePoll({ history }) {
                             </div>
                             <div className='createPollContent'>
                                 <div className='newPollInpDiv' >
+                                    <div className='newPollInputWrapper'>
+                                    <small className='newPollSmall'>Poll Name</small>
                                     <input type="text" onChange={(e) => handlePollName(e)} className='newPollInp' placeholder='Enter Poll Name' ></input>
+                                    </div>
                                 </div>
                                 <div className='createPollDurationWrapp'>
                                     <label className='timeInfoLbl'>Hours:</label><input className='NoInpPoll' type="number" min="0" max="24" defaultValue="0" name="hours" onChange={(e) => handleEndTime(e)}

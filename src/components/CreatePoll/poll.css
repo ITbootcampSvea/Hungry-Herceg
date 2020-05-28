@@ -49,6 +49,20 @@
     display: grid;
 }
 
+.newPollSmall{
+    color: white;
+    letter-spacing: 0.3rem;
+    margin-top: 1.5rem;
+    font-size: large;
+}
+
+.newPollInputWrapper{
+    width: 100%;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
 .headingCard {
     font-size: 2.5rem;
     font-weight: 600;
