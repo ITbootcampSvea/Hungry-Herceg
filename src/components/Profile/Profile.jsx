@@ -125,9 +125,10 @@ const Profile = ({ history }) => {
               <Polar
                 width={20}
                 height={20}
-                options={{ plugins: {
-                  colorschemes: {
-                      scheme: 'tableau.Tableau20'
+                options={{ maintainAspectRatio: false ,
+                           plugins: {
+                           colorschemes: {
+                           scheme: 'tableau.Tableau20'
                   }
                }}}
                 data={{
