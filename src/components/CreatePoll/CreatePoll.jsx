@@ -10,7 +10,7 @@ let minutes = 15;
 let duration = 15;
 let pollName = '';
 
-let itemsToShow = 4;
+// let itemsToShow = 4;
 let overflow = false;
 
 let max = 15;
@@ -26,8 +26,8 @@ export default function CreatePoll({ history }) {
 
     const [pollList, setPollList] = useState([]);
     const [search, setSearch] = useState("");
-    const [showAll, setShowAll] = useState(false);
-    const [stateOverflow, setStateOverflow] = useState(false);
+    // const [showAll, setShowAll] = useState(false);
+    // const [stateOverflow, setStateOverflow] = useState(false);
 
     useEffect(() => {       
         let isSubscribed = true; 
@@ -115,20 +115,20 @@ export default function CreatePoll({ history }) {
         
         });
 
-        overflow = arr.length > itemsToShow;
+        // overflow = arr.length > itemsToShow;
 
         if (!showAll) {
-            arr = arr.slice(0, itemsToShow);
+            //arr = arr.slice(0, itemsToShow);
         }
 
-        if (overflow !== stateOverflow) {
-            setStateOverflow(overflow);
-        }
+        // if (overflow !== stateOverflow) {
+        //     setStateOverflow(overflow);
+        // }
         return arr;
     }
-    const handleShowHide = () => {
-        setShowAll(!showAll);
-    }
+    // const handleShowHide = () => {
+    //     setShowAll(!showAll);
+    // }
 
 
 
@@ -231,10 +231,10 @@ export default function CreatePoll({ history }) {
                                 <input type="text" placeholder="Search" className='newPollInp' onInput={handleRestaurantName} />
                             </div>
                             <div className='showAllBtnWrap'>
-                                {stateOverflow ? (<button className='showAllBtn' onClick={handleShowHide}>{!showAll ? "Show all >>>" : "Show less <<<"}</button>) : null}
+                                {/* {stateOverflow ? (<button className='showAllBtn' onClick={handleShowHide}>{!showAll ? "Show all >>>" : "Show less <<<"}</button>) : null} */}
                             </div>
                             <div id="style-6" className='filteredListWrap'>
-                                {filterList(restaurants, search, showAll).map((restaurant, index) => {
+                                {filterList(restaurants, search, "state show all goes here").map((restaurant, index) => {
                                     return (<div className='filteredResColumn' key={"result" + index}>
                                         <div className='restNameWrapp'>
                                             <label className='restNameLbl'>{restaurant.name}</label>
