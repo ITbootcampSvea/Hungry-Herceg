@@ -281,6 +281,7 @@
     font-size: 1.5rem;
     letter-spacing: 0.2rem;
     font-weight: 600;
+    text-transform: uppercase;
 }
 
 .finishedOrderContent{
@@ -335,6 +336,10 @@
     .certifyIcon {
         display: none;
     }
+    .finishedOrderCard {
+        margin-right: 0;
+        width: 70rem;
+    }
 }
 
 /*Mobile telephone*/
@@ -362,15 +367,14 @@
 /*laptop*/
 
 @media (min-width: 1030px) and (max-width: 1366px){
-
-    .poll-order-card {
-        height: 25rem;
-        width: 55rem;  
-    }
+.poll-order-card {
+    height: 25rem;
+    width: 55rem;  
+}
   
 .finishedOrderCard {
     height: 40rem;
-   width: 35rem; 
+    width: 35rem; 
 }
 
 
