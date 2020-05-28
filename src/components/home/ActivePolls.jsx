@@ -67,20 +67,20 @@ class ActivePolls extends React.Component {
           isoDateTime.toLocaleTimeString();
         if (poll.author === this.state.userName) {
           pollsRow.push(
-            <div className="active-info" key={`my${index}`}>
-              <div>
+            <div className="activePollRow" key={`my${index}`}>
+              <div className='activeRow'>
                 <label className="pollLblInfo">{poll.name}</label>
               </div>
-              <div>
+              <div className='activeRow'>
                 <label className="pollLblInfo">{poll.author}</label>
               </div>
-              <div>
+              <div className='activeRow'>
                 <div>
                   <label className="pollLblInfo">{`${localDateTime}`}</label>
                 </div>
-              </div>
+              </div >
               <div className="poll-icons">
-                <div>
+                <div className='pollIconWrapp' >
                   {userVoted ? (
                     <img
                       className="userUnvoteBtn"
@@ -90,13 +90,13 @@ class ActivePolls extends React.Component {
                     />
                   ) : (
                       <Link to={`/vote/${poll._id}`} className="voteBtnLink">
-                        <img src="./img/vote1.png" alt="icon" title="Vote" />
+                        <img   className="activePollBtnIcons" src="./img/vote1.png" alt="icon" title="Vote" />
                       </Link>
                     )}
                 </div>
 
-                <div>
-                  <img
+                <div className='pollIconWrapp'>
+                  <img className="activePollBtnIcons"
                     src="./img/end1.png"
                     alt="icon"
                     title="End Poll"
@@ -109,8 +109,9 @@ class ActivePolls extends React.Component {
                     }
                   />
                 </div>
-                <div>
+                <div className='pollIconWrapp'>
                   <img
+                  className="activePollBtnIcons"
                     src="./img/del.png"
                     alt="icon"
                     title="Delete"
@@ -147,7 +148,7 @@ class ActivePolls extends React.Component {
                 <div>
                   {userVoted ? (
                     <img
-                      className="userUnvoteBtn"
+                    className="activePollBtnIcons"
                       src="/img/noVote.png"
                       alt=" no vote"
                       title="You can not vote twice !"
@@ -155,6 +156,7 @@ class ActivePolls extends React.Component {
                   ) : (
                       <Link to={`/vote/${poll._id}`} className="voteBtnLink">
                         <img
+                        className="activePollBtnIcons"
                           src="./img/vote1.png"
                           alt="icon"
                           title="Vote"

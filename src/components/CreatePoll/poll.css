@@ -27,7 +27,7 @@
 
 .createPollContent {
     display: grid;
-    grid-template-rows: 1fr 1fr 0.2fr;
+    grid-template-rows: 1fr 0.5fr 0.2fr;
     background: var(--dark-gray);
     border-bottom-left-radius: 0.8rem;
     border-bottom-right-radius: 0.8rem;
@@ -52,7 +52,6 @@
 .newPollSmall{
     color: white;
     letter-spacing: 0.3rem;
-    margin-top: 1.5rem;
     font-size: large;
 }
 
@@ -102,7 +101,7 @@
     letter-spacing: 0.3rem;
     font-size: 1.2rem;
     text-transform: uppercase;
-    opacity: 0.6;
+    opacity: 0.2;
 }
 
 .NoInpPoll {
