@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getUserById } from "../../services/api.service";
 import { appStorage } from "../../services/storage.service";
 import { Polar } from "react-chartjs-2";
+import "chartjs-plugin-colorschemes";
 import NavBar from "../NavBar/NavBar";
 import "./Profile.css";
 
@@ -16,8 +17,6 @@ const Profile = ({ history }) => {
   
   //sprecavanje curenja memorije na asinhronoj komponenti
   //povlacenje sa servera i setovanje podataka za grafikon
-
-  
     useEffect(() => {
        let isMounted = true;
         setLoading(true);
@@ -123,26 +122,21 @@ const Profile = ({ history }) => {
               <Polar
                 width={20}
                 height={20}
-                options={{ maintainAspectRatio: false }}
+                options={{ maintainAspectRatio: false ,
+                           plugins: {
+                           colorschemes: {
+                           scheme: 'tableau.Tableau20'
+                  }
+               }}}
                 data={{
                   labels: labels,
                   datasets: [
                     {
                       label: "# of Votes",
                       data: Object.values(counts),
-                      backgroundColor: [
-                        "rgb(153,58,52)",
-                        "rgb(204,77,67)",
-                        "#61892F",
-                        "white",
-                        "rgb(204,77,67)",
-                        "rgba(153, 102, 255, 0.2)",
-                        "rgba(255, 159, 64, 0.2)",
-                      ],
-
                       borderWidth: 1,
-                    },
-                  ],
+                    }
+                  ]
                 }}
               />
             </div>

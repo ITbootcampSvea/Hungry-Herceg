@@ -18,7 +18,7 @@
     height: 86vh;
     margin: 0 10%;
     display: grid;
-    grid-template-columns: 2.5fr 1fr;
+    grid-template-rows: 1fr 1fr;
     background: var(--primary-black);
     justify-items: center;
     align-items: center;
@@ -28,7 +28,7 @@
 .poll-order-card {
     position: relative;
     height: 35rem;
-    width: 85rem;
+    width: 50rem;
     background: white;
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr;
@@ -82,6 +82,14 @@
     letter-spacing: 0.1rem;
     text-transform: capitalize;
     font-size: 1rem;
+}
+
+.activeCardsWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
 }
 
 .finishOrderHeader{
@@ -240,7 +248,6 @@
     height: 40rem;
     width: 50rem;
     background: white;
-    margin-right: 4rem;
     display: grid;
     grid-template-rows: 1fr 1fr 3fr 0.2fr;
     border-radius: 1rem;
@@ -281,6 +288,7 @@
     font-size: 1.5rem;
     letter-spacing: 0.2rem;
     font-weight: 600;
+    text-transform: uppercase;
 }
 
 .finishedOrderContent{
@@ -335,6 +343,10 @@
     .certifyIcon {
         display: none;
     }
+    .finishedOrderCard {
+        margin-right: 0;
+        width: 70rem;
+    }
 }
 
 /*Mobile telephone*/
@@ -362,15 +374,14 @@
 /*laptop*/
 
 @media (min-width: 1030px) and (max-width: 1366px){
-
-    .poll-order-card {
-        height: 25rem;
-        width: 55rem;  
-    }
+.poll-order-card {
+    height: 25rem;
+    width: 49rem;  
+}
   
 .finishedOrderCard {
     height: 40rem;
-   width: 35rem; 
+    width: 49rem; 
 }
 
 
