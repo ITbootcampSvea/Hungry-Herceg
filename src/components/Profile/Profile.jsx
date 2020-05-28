@@ -17,13 +17,10 @@ const Profile = ({ history }) => {
   
   //sprecavanje curenja memorije na asinhronoj komponenti
   //povlacenje sa servera i setovanje podataka za grafikon
-
-  
     useEffect(() => {
        let isMounted = true;
         setLoading(true);
         getUserById(userId).then((data) => {
-          console.log(data.data.data.history)
           if (isMounted){
             let orderItems = [];
             data.data.data.history.forEach(el => { 
