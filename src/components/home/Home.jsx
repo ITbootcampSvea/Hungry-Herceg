@@ -15,7 +15,9 @@ const Home = ({ history }) => {
             <ActivePolls />
             <ActiveOrders />
           </div>
+          <div className='fnshOrdWrapp'>
           <FinishedOrders />
+          </div>
         </div>
       </div>
     </div>
