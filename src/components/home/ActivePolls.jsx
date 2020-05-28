@@ -23,22 +23,29 @@ class ActivePolls extends React.Component {
   componentDidMount() {
     this.isSubscribed = true;
     this.setAllPolls();
-    this.countdown = window.setInterval(() => this.setAllPolls(), 100000);
+    this.countdown = window.setTimeout(() => this.setAllPolls(), 3000);
   }
 
   componentWillUnmount() {
     this.isSubscribed = false;
-    window.clearInterval(this.countdown);
+    window.clearTimeout(this.countdown);
   }
 
   setAllPolls = () => {
+    window.clearTimeout(this.countdown);
     getAllPolls()
       .then((res) => {
-        if(this.isSubscribed){
+        if (this.isSubscribed) {
           this.setState({ allPolls: res.data.data, loading: false });
+          this.countdown = window.setTimeout(() => this.setAllPolls(), 3000);
         }
       })
-      .catch((err) => {if(this.isSubscribed){window.alert("Error occurred" + err)}});
+      .catch((err) => {
+        if (this.isSubscribed) {
+          window.alert("Error occurred" + err);
+          this.countdown = window.setTimeout(() => this.setAllPolls(), 10000);
+        }
+      });
   };
 
   render() {
@@ -74,19 +81,20 @@ class ActivePolls extends React.Component {
               </div>
               <div className="poll-icons">
                 <div>
-                  <img
-                    src="./img/del.png"
-                    alt="icon"
-                    title="Delete"
-                    onClick={() => {
-                      deletePollById(poll._id).then((res) => {
-                        if (res.data.message === "Success") {
-                          this.setAllPolls();
-                        }
-                      });
-                    }}
-                  />
+                  {userVoted ? (
+                    <img
+                      className="userUnvoteBtn"
+                      src="/img/noVote.png"
+                      alt=" no vote"
+                      title="You have already voted!"
+                    />
+                  ) : (
+                    <Link to={`/vote/${poll._id}`} className="voteBtnLink">
+                      <img src="./img/vote1.png" alt="icon" title="Vote" />
+                    </Link>
+                  )}
                 </div>
+
                 <div>
                   <img
                     src="./img/end1.png"
@@ -102,18 +110,23 @@ class ActivePolls extends React.Component {
                   />
                 </div>
                 <div>
-                  {userVoted ? (
-                    <img
-                      className="userUnvoteBtn"
-                      src="/img/noVote.png"
-                      alt=" no vote"
-                      title="You can not vote twice !"
-                    />
-                  ) : (
-                    <Link to={`/vote/${poll._id}`} className="voteBtnLink">
-                      <img src="./img/vote1.png" alt="icon" title="Vote" />
-                    </Link>
-                  )}
+                  <img
+                    src="./img/del.png"
+                    alt="icon"
+                    title="Delete"
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          "Are you sure you wish to delete this poll?"
+                        )
+                      )
+                        deletePollById(poll._id).then((res) => {
+                          if (res.data.message === "Success") {
+                            this.setAllPolls();
+                          }
+                        });
+                    }}
+                  />
                 </div>
               </div>
             </div>
@@ -198,7 +211,7 @@ class ActivePolls extends React.Component {
           </div>
           <div className="card-btn-wrapper">
             <button className="btn-green">
-              <Link  to={"/createpoll"} className="creBtnLink">
+              <Link to={"/createpoll"} className="creBtnLink">
                 Create New Poll
               </Link>
             </button>

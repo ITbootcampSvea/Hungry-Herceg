@@ -110,14 +110,15 @@ const ActiveOrders = () => {
                             })} </label>}
                     </div>
                     <div className="btn-icons">
-                    {user === order.poll.author ? <>
+                    
+                            <div className='actOrderIconWrapp'>
+                            <Link  to={`/order/${order._id}`} className='voteBtnLink'><img className='actOrderIcon' src='./img/order.png'alt='logo' title='Go to Order'/></Link>
+                            </div>
+                            {user === order.poll.author ? <>
                             <div className='actOrderIconWrapp'>
                                 <img className='actOrderIcon' src="./img/end1.png" alt="icon" title='End order' onClick={() => endOrder(order._id)}/>
                             </div>
                             </>:<div></div>}
-                            <div className='actOrderIconWrapp'>
-                            <Link  to={`/order/${order._id}`} className='voteBtnLink'><img className='actOrderIcon' src='./img/order.png'alt='logo' title='Go to Order'/></Link>
-                            </div>
                         </div>
                 </div>
                 

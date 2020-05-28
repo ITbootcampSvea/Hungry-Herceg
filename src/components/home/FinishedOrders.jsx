@@ -27,11 +27,16 @@ class FinishedOrders extends React.Component {
     window.clearTimeout(this.countdown);
     getFinishedOrders()
       .then((res) => {
-        if(this.isSubscribed){
-        this.setState({ allOrders: res.data.data, loading: false })
-        this.countdown = window.setTimeout(() => this.setAllOrders(), 2000);};
+        if (this.isSubscribed) {
+          this.setState({ allOrders: res.data.data, loading: false });
+          this.countdown = window.setTimeout(() => this.setAllOrders(), 2000);
+        }
       })
-      .catch((err) => {if(this.isSubscribed){this.countdown = window.setTimeout(() => this.setAllOrders(), 10000);}});
+      .catch((err) => {
+        if (this.isSubscribed) {
+          this.countdown = window.setTimeout(() => this.setAllOrders(), 10000);
+        }
+      });
   };
 
   render() {
@@ -42,34 +47,45 @@ class FinishedOrders extends React.Component {
     if (allOrders.length > 0) {
        // eslint-disable-next-line array-callback-return
       allOrders.map((order, index) => {
-        if(order.restaurant !== "Doesnt exist"){
+        if (order.restaurant !== "Doesnt exist") {
           let orderItemList = order.orderItemList;
 
           let data = [];
 
           if (orderItemList.length > 0) {
             orderItemList.forEach((orderItem) => {
-              if(orderItem.meal){
-              let completedOrder = {
-                Name: orderItem.user,
-                Meal: orderItem.meal.name,
-                Quantity: orderItem.quantity,
-                Price: orderItem.meal.price * orderItem.quantity,
-                Note: orderItem.note,
-              };
+              if (orderItem.meal) {
+                let completedOrder = {
+                  Restaurant: order.restaurant.name,
+                  Name: orderItem.user,
+                  Meal: orderItem.meal.name,
+                  Quantity: orderItem.quantity,
+                  Price: orderItem.meal.price * orderItem.quantity,
+                  Note: orderItem.note,
+                };
 
-              data.push(completedOrder);
-            }
+                data.push(completedOrder);
+              }
             });
+
+            let isoDateTime = new Date(order.createdAt);
+            let localDateTime =
+              isoDateTime.toLocaleDateString() +
+              " " +
+              isoDateTime.toLocaleTimeString();
 
             if (order.poll.author === this.state.userName) {
               ordersRow.push(
                 <div className="active-info actInfMargin" key={`my${index}`}>
                   <div>
-                    <label className="pollLblInfo finLbl">{order.poll.name}</label>
+                    <label className="pollLblInfo finLbl">
+                      {order.poll.name}
+                    </label>
                   </div>
                   <div>
-                    <label className="pollLblInfo finLbl">{order.poll.author}</label>
+                    <label className="pollLblInfo finLbl">
+                      {order.poll.author}
+                    </label>
                   </div>
                   <div>
                     <div>
@@ -81,13 +97,24 @@ class FinishedOrders extends React.Component {
                   <div>
                     <div>
                       <label className="pollLblInfo">
-                        <CSVLink className='excelCsvLink'
-                          style={{ color: "black",
-                        textDecoration:"none" }}
-                          filename={"my-file.csv"}
+                        <CSVLink
+                          className="excelCsvLink"
+                          style={{ color: "black", textDecoration: "none" }}
+                          filename={
+                            order.restaurant.name +
+                            " " +
+                            localDateTime +
+                            " - complete order" +
+                            ".csv"
+                          }
                           data={data}
                         >
-                      <img  className="userUnvoteBtn" src='/img/excel.png' alt='excel' title='Download Excel'/> 
+                          <img
+                            className="userUnvoteBtn"
+                            src="/img/excel.png"
+                            alt="excel"
+                            title="Download Excel"
+                          />
                         </CSVLink>
                       </label>
                     </div>
@@ -96,12 +123,16 @@ class FinishedOrders extends React.Component {
               );
             } else {
               ordersRow.push(
-                <div className="active-info actInfMargin"  key={`s${index}`} >
+                <div className="active-info actInfMargin" key={`s${index}`}>
                   <div>
-                    <label className="pollLblInfo finLbl">{order.poll.name}</label>
+                    <label className="pollLblInfo finLbl">
+                      {order.poll.name}
+                    </label>
                   </div>
                   <div>
-                    <label className="pollLblInfo finLbl">{order.poll.author}</label>
+                    <label className="pollLblInfo finLbl">
+                      {order.poll.author}
+                    </label>
                   </div>
                   <div>
                     <label className="pollLblInfo finLbl">
@@ -158,7 +189,9 @@ class FinishedOrders extends React.Component {
                 <label className="finishOrderLbl">Action</label>
               </div>
             </div>
-            <div id="style-4" className="finishOrderRowWrapp ">{ordersRow}</div>
+            <div id="style-4" className="finishOrderRowWrapp ">
+              {ordersRow}
+            </div>
           </div>
           <div className="finshedOrderGradientWrapp finOrderFooter"></div>
         </div>
