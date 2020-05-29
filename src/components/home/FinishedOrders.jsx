@@ -78,17 +78,17 @@ class FinishedOrders extends React.Component {
               ordersRow.push(
                 <div className='finishOrderRow' key={`my${index}`}>
                   <div className='finishRow'>
-                    <label className="pollLblInfo finLbl">
+                    <label className="finLbl">
                       {order.poll.name}
                     </label>
                   </div>
                   <div className='finishRow'>
-                    <label className="pollLblInfo finLbl">
+                    <label className="finLbl">
                       {order.poll.author}
                     </label>
                   </div>
                   <div className='finishRow'>
-                      <label className="pollLblInfo finLbl">
+                      <label className="finLbl">
                         {order.restaurant.name}
                       </label>
                   </div>
@@ -119,22 +119,22 @@ class FinishedOrders extends React.Component {
               ordersRow.push(
                 <div className='finishOrderRow' key={`s${index}`}>
                   <div className='finishRow'>
-                    <label className="pollLblInfo finLbl">
+                    <label className="finLbl">
                       {order.poll.name}
                     </label>
                   </div>
                   <div className='finishRow'>
-                    <label className="pollLblInfo finLbl">
+                    <label className="finLbl">
                       {order.poll.author}
                     </label>
                   </div>
                   <div className='finishRow'>
-                    <label className="pollLblInfo finLbl">
+                    <label className="finLbl">
                       {order.restaurant.name}
                     </label>
                   </div>
                   <div className='finishRow'>
-                    <label className="pollLblInfo finLbl"></label>
+                    <label className="finLbl"></label>
                   </div>
                 </div>
               );

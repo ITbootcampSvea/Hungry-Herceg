@@ -101,7 +101,6 @@
     display: grid;
     grid-template-rows: 1fr 3fr 0.3fr;
     justify-items: center;
-    align-items: center;
     color: var(--primary-black);
     letter-spacing: 0.1rem;
     text-transform: capitalize;
@@ -348,6 +347,7 @@
     display: grid;
     justify-items: center;
     align-items: center;
+    height: 2.7rem;
 }
 
 .finishedOrderFiled{
@@ -367,7 +367,7 @@
 
 .finishOrderRowWrapp{
     overflow-y: scroll;
-    max-height: 15rem;
+    max-height: 12rem;
 }
 
 .finishOrderRow {
@@ -394,7 +394,7 @@
 }
 
 .finishExcelBtn {
-    height: 3.7rem;
+    height: 2.7rem;
     cursor: pointer;
     filter: drop-shadow(0.1rem 0.1rem 0.1rem black);
 }

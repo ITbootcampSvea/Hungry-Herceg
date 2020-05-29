@@ -104,7 +104,7 @@ const ActiveOrders = () => {
                                             <label className='activeLblinfo'>{getEndTime(order.createdAt)}</label>
                                         </div>
                                         <div className='orderLblWrapper' >
-                                            {userOrders.length === 0 ? <label className='activeLblinfo'>You didn't order yet</label> : <label className='activeLblinfo'>You ordered:{userOrders.map(orderItem => {
+                                            {userOrders.length === 0 ? <label className='activeLblinfo'>No Order Yet</label> : <label className='activeLblinfo'>You ordered:{userOrders.map(orderItem => {
                                                 return (
                                                     <li key={orderItem._id}>{orderItem.quantity} x {orderItem.meal.name}</li>
                                                 )
