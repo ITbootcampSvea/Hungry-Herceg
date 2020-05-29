@@ -198,16 +198,14 @@ export default function CreatePoll({ history }) {
             <div className='mainPartWrapper'>
             <div className='activePoll'>
                 <div className='pollWrapper'>
-                    <div className='newPollCard'>
-                        <div className='createPollInfoWrapp' >
-                    <div className='createPollInfo'>
-                            <div className='createPollHeading'>
-                                <h3 className='headingCard'>Create New Poll</h3>
-                            </div>
+                    <div className='createPollHeading'><div>
+                                <h1 className='restWord'>Create New Poll</h1>
+                            </div></div>
                             <div className='createPollContent'>
+                            <div className='pollContentLeft'>
+                                <div className='firstDiv'>
                                 <div className='newPollInpDiv' >
                                     <div className='newPollInputWrapper'>
-                                    <small className='newPollSmall'>Poll Name</small>
                                     <input type="text" onChange={(e) => handlePollName(e)} className='newPollInp' placeholder='Enter Poll Name' ></input>
                                     </div>
                                 </div>
@@ -217,23 +215,14 @@ export default function CreatePoll({ history }) {
                                     <label className='timeInfoLbl'>Minutes:</label><input className='NoInpPoll' type="number" min="15" max="59" defaultValue="15" name="minutes" onChange={(e) => handleEndTime(e)}
                                         onKeyDown={(e) => (e.key === '-' || e.key === '.') ? e.preventDefault() : null}></input>
                                 </div>
-                                <div className='gradientDiv'>
                                 </div>
+                                <div className='secondDiv'>
+                                <div className='newPollInpDiv'>
+                                <input type="text" placeholder="Search Restaurants or Tags" className='newPollInp' onInput={handleRestaurantName} />
                             </div>
-                        </div>
-                        </div>
-                        <div className='searchRestWrapp' >
-                        <div className='searchRest'>
-                            <div className='createPollHeading'>
-                                <label className='headingCard'>Search Restaurants</label>
-                            </div>
-                            <div className='newPollInpDiv'>
-                                <input type="text" placeholder="Search" className='newPollInp' onInput={handleRestaurantName} />
-                            </div>
-                            <div className='showAllBtnWrap'>
-                                {/* {stateOverflow ? (<button className='showAllBtn' onClick={handleShowHide}>{!showAll ? "Show all >>>" : "Show less <<<"}</button>) : null} */}
-                            </div>
-                            <div id="style-6" className='filteredListWrap'>
+                                </div>
+                                <div className='thirdDiv' >
+                                <div id="style-6" className='filteredListWrap'>
                                 {filterList(restaurants, search, "state show all goes here").map((restaurant, index) => {
                                     return (<div className='filteredResColumn' key={"result" + index}>
                                         <div className='restNameWrapp'>
@@ -245,10 +234,10 @@ export default function CreatePoll({ history }) {
                                     </div>)
                                 })}
                             </div>
-                        </div>
-                        </div>
-                    </div>
-                    <div  className='restListWrapp'>
+                                </div>
+                            </div>
+                            <div className='pollContentRight'>
+                            <div  className='restListWrapp'>
                         <div className='restaurantList'>
                             <div className='restListHeader'>
                             </div>
@@ -267,7 +256,16 @@ export default function CreatePoll({ history }) {
                                     </div>)
                                 })}
                             </div>
-                            <div className='creNewPollBtns'>
+                           
+                        </div>
+                       
+                    </div>
+                            </div>
+                      
+                        </div>
+                        
+                        <div className='createPollFooter'>
+                        <div className='creNewPollBtns'>
                                     <div className='leftBtnDiv'>
                                         <button className='leftBtnCreatePoll' onClick={(e) => handleCreatePoll(e)}>Create Poll</button>
                                     </div>
@@ -275,9 +273,7 @@ export default function CreatePoll({ history }) {
                                         <button className='rightBtnCreatePoll' onClick={(e) => handleCancel(e)}>Cancel</button>
                                     </div>
                                 </div>
-                        </div>
-                       
-                    </div>
+                        </div>      
                 </div>
             </div>
             {loading?<div className="loader"/>:null }
