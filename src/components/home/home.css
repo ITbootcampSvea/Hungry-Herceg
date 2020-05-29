@@ -400,89 +400,41 @@
 }
 
 
-/* .actInfMargin{
-    margin: 1.5rem 0;
-} */
-
 /*iPad*/
 
 @media (max-width:768px) {
+    .wrapper {
+        height: auto;
+    }
     .active {
         margin: 0;
         grid-template-columns: none;
-        height: auto;
+        grid-template-rows: 2fr 1fr;
+        height: 100%;
     }
-    .poll-order-card {
-        width: 70rem;
-        margin-bottom: 2rem;
+    .activeCardsWrapper {
+        grid-template-columns: none;
+        grid-template-rows: 1fr 1fr;
     }
+    
     .pollCardicon,
     .certifyIcon {
-        display: none;
+        left: -3%;
     }
     .finishedOrderCard {
-        margin-right: 0;
-        width: 70rem;
+        width: 90%;
+    }
+    .finishOrderRowWrapp,
+    .pollRowsWrapp {
+        max-height: 15rem;
     }
 }
 
 /*Mobile telephone*/
 
 @media (max-width:500px) {
-    .poll-order-card,
-    .card-heading,
-    .finishedOrderCard {
-        width: 35rem;
+    .pollCardicon,
+    .certifyIcon {
+        display: none;
     }
-    .finishedOrderCard {
-        margin-right: 0;
-    }
-    .orderLbl {
-        margin-left: 0;
-        font-size: 1.3rem;
-    }
-    .orderInfoLbl {
-        font-size: 1.3rem;
-    }
-    .pollLblInfo {
-        font-size: 1.1rem;
-    }
-}
-/*laptop*/
-/* 
-@media (min-width: 1030px) and (max-width: 1366px){
-.poll-order-card {
-    height: 25rem;
-    width: 49rem;  
-}
-
-.pollCardicon {
-    height: 6.8rem;
-}
-
-.certifyIcon {
-    height: 6.8rem;
-}
-
-.orderInfoLbl {
-    font-size: 1.2rem;
-}
-
-.orderLbl {
-    font-size: 1.2rem;
-    margin-left: 3.8rem;
-}
-
-.header {
-    font-size: 1.2rem;
-}
-.poll-icons img{
-    height: 3rem;
-}
-.btn-icons img {
-    height: 3rem;
-}
-.pollGuestIcon {
-    height: 3rem;
-}
-} */
+} 

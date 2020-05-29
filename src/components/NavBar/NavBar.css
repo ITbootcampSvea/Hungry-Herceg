@@ -92,8 +92,7 @@ a:hover {
         display: grid;
         grid-template-rows: 1fr 1fr;
         grid-template-columns: none;
-        margin: 0 1rem 12rem 1rem;
-        justify-content: center;
+        margin: 0 1rem 5rem 1rem;
         align-items: center;
     }
     .nav-fildes {
@@ -102,5 +101,12 @@ a:hover {
     }
     .nav-filed {
         padding-left: 1.6rem;
+    }
+}
+
+/*Mobile telephone*/
+@media (max-width:500px) {
+    .nav-bar {
+        margin: 0 1rem 9rem 1rem;
     }
 }
