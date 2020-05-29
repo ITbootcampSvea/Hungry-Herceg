@@ -19,7 +19,7 @@ let max = 15;
 export default function CreatePoll({ history }) {
 
     const alert = useAlert();
-    const [loading,setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     const [restaurants, setRestaurants] = useState([]);
 
@@ -29,18 +29,18 @@ export default function CreatePoll({ history }) {
     // const [showAll, setShowAll] = useState(false);
     // const [stateOverflow, setStateOverflow] = useState(false);
 
-    useEffect(() => {       
-        let isSubscribed = true; 
+    useEffect(() => {
+        let isSubscribed = true;
         getRestaurantsAll().then(res => {
-          if(isSubscribed){
-            setRestaurants(res.data.data);
-            setLoading(false);
-          }
-            
-        }).catch(res=>alert.error('Something wrong happened. Try reload or contact support. Details:' + res ));
+            if (isSubscribed) {
+                setRestaurants(res.data.data);
+                setLoading(false);
+            }
 
-        return ()=>isSubscribed=false;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        }).catch(res => alert.error('Something wrong happened. Try reload or contact support. Details:' + res));
+
+        return () => isSubscribed = false;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -51,8 +51,8 @@ export default function CreatePoll({ history }) {
 
 
     const handleAdd = (e) => { // move restorant from search list to poll list
-        
-        if (pollList.length < max){
+
+        if (pollList.length < max) {
             const { id } = e.target;
             let tempArr = restaurants;
             setPollList([...pollList, restaurants.find((restaurant, index) => {
@@ -65,7 +65,7 @@ export default function CreatePoll({ history }) {
 
             })]);
         }
-        else{
+        else {
             alert.error("Nubmer of restaurants must be less that " + max);
         }
 
@@ -97,22 +97,22 @@ export default function CreatePoll({ history }) {
     const filterList = (restaurants, search, showAll) => {
 
         let arr = customSort(restaurants).filter(el => {
-            
-            if (search.startsWith("#")){
+
+            if (search.startsWith("#")) {
 
                 for (let i = 0; i < el.tags.length; i++) {
-                    if(el.tags[i].startsWith(search.slice(1,search.length))){
+                    if (el.tags[i].startsWith(search.slice(1, search.length))) {
                         return true;
                     }
-                      
+
                 }
                 return false;
             }
 
-            else{
+            else {
                 return el.name.toLowerCase().includes(search.toLowerCase());
             }
-        
+
         });
 
         // overflow = arr.length > itemsToShow;
@@ -151,7 +151,7 @@ export default function CreatePoll({ history }) {
 
     const handleCreatePoll = () => {
         if (pollName.trim().length < 1) {
-            alert.error('Plese enter poll name'); 
+            alert.error('Plese enter poll name');
             return;
         }
 
@@ -160,7 +160,7 @@ export default function CreatePoll({ history }) {
             return;
         }
         if (duration < 1) {
-            alert.error('Poll duration must be longer than 15 min!'); 
+            alert.error('Poll duration must be longer than 15 min!');
             return;
         }
 
@@ -171,17 +171,17 @@ export default function CreatePoll({ history }) {
             restaurants: pollList.map(res => res._id),
         }
         setLoading(true);
-        createPoll(poll.name,poll.duration,poll.restaurants).then(res=>{ 
+        createPoll(poll.name, poll.duration, poll.restaurants).then(res => {
             setLoading(false);
-            if(res.data.message === "Success"){
+            if (res.data.message === "Success") {
                 history.push("/home");
-                
+
             }
-            else{
+            else {
                 alert.error("Something went wrong");
             }
-            
-        }).catch(err=>{
+
+        }).catch(err => {
             alert.error("Something went wrong:" + err);
             setLoading(false);
         })
@@ -196,88 +196,86 @@ export default function CreatePoll({ history }) {
         <div className='wrapper'>
             <NavBar history={history} />
             <div className='mainPartWrapper'>
-            <div className='activePoll'>
-                <div className='pollWrapper'>
-                    <div className='createPollHeading'><div>
-                                <h1 className='restWord'>Create New Poll</h1>
-                            </div></div>
-                            <div className='createPollContent'>
+                <div className='activePoll'>
+                    <div className='pollWrapper'>
+                        <div className='createPollHeading'><div>
+                            <h1 className='restWord'>Create New Poll</h1>
+                        </div></div>
+                        <div className='createPollContent'>
                             <div className='pollContentLeft'>
                                 <div className='firstDiv'>
-                                <div className='newPollInpDiv' >
-                                    <div className='newPollInputWrapper'>
-                                    <input type="text" onChange={(e) => handlePollName(e)} className='newPollInp' placeholder='Enter Poll Name' ></input>
+                                    <div className='newPollInpDiv' >
+                                        <div className='newPollInputWrapper'>
+                                            <input type="text" onChange={(e) => handlePollName(e)} className='newPollInp' placeholder='Enter Poll Name' ></input>
+                                        </div>
+                                    </div>
+                                    <div className='createPollDurationWrapp'>
+                                        <label className='timeInfoLbl'>Hours:</label><input className='NoInpPoll' type="number" min="0" max="24" defaultValue="0" name="hours" onChange={(e) => handleEndTime(e)}
+                                            onKeyDown={(e) => (e.key === '-' || e.key === '.') ? e.preventDefault() : null}></input>
+                                        <label className='timeInfoLbl'>Minutes:</label><input className='NoInpPoll' type="number" min="15" max="59" defaultValue="15" name="minutes" onChange={(e) => handleEndTime(e)}
+                                            onKeyDown={(e) => (e.key === '-' || e.key === '.') ? e.preventDefault() : null}></input>
                                     </div>
                                 </div>
-                                <div className='createPollDurationWrapp'>
-                                    <label className='timeInfoLbl'>Hours:</label><input className='NoInpPoll' type="number" min="0" max="24" defaultValue="0" name="hours" onChange={(e) => handleEndTime(e)}
-                                        onKeyDown={(e) => (e.key === '-' || e.key === '.') ? e.preventDefault() : null}></input>
-                                    <label className='timeInfoLbl'>Minutes:</label><input className='NoInpPoll' type="number" min="15" max="59" defaultValue="15" name="minutes" onChange={(e) => handleEndTime(e)}
-                                        onKeyDown={(e) => (e.key === '-' || e.key === '.') ? e.preventDefault() : null}></input>
-                                </div>
-                                </div>
-                                <div className='secondDiv'>
-                                <div className='newPollInpDiv'>
-                                <input type="text" placeholder="Search Restaurants or Tags" className='newPollInp' onInput={handleRestaurantName} />
-                            </div>
+                                <div className='secondDiv alignedWrapper'>
+                                    <div className='newPollInpDiv'>
+                                        <input type="text" placeholder="Search Restaurants or Tags" className='newPollInp' onInput={handleRestaurantName} />
+                                    </div>
                                 </div>
                                 <div className='thirdDiv' >
-                                <div id="style-6" className='filteredListWrap'>
-                                {filterList(restaurants, search, "state show all goes here").map((restaurant, index) => {
-                                    return (<div className='filteredResColumn' key={"result" + index}>
-                                        <div className='restNameWrapp'>
-                                            <label className='restNameLbl'>{restaurant.name}</label>
-                                        </div>
-                                        <div className='restImgWrapp'>
-                                            <img src='/img/add-restaurant.png' alt='add' title='Add Restaurant' className='addRestImg' id={restaurant._id} onClick={handleAdd} />
-                                        </div>
-                                    </div>)
-                                })}
-                            </div>
+                                    <div id="style-6" className='filteredListWrap alignedWrapper'>
+                                        {filterList(restaurants, search, "state show all goes here").map((restaurant, index) => {
+                                            return (<div className='filteredResColumn' key={"result" + index}>
+                                                <div className='restNameWrapp'>
+                                                    <label className='restNameLbl'>{restaurant.name}</label>
+                                                </div>
+                                                <div className='restImgWrapp'>
+                                                    <img src='/img/add-restaurant.png' alt='add' title='Add Restaurant' className='addRestImg' id={restaurant._id} onClick={handleAdd} />
+                                                </div>
+                                            </div>)
+                                        })}
+                                    </div>
                                 </div>
                             </div>
                             <div className='pollContentRight'>
-                            <div  className='restListWrapp'>
-                        <div className='restaurantList'>
-                            <div className='restListHeader'>
-                            </div>
-                            <div className='restaurantsHeading'>
-                                <h1 className='restWord'>Restaurants</h1>
-                            </div>
-                            <div id="style-4" className='pollListRestWrapp'>
-                                {pollList.map((restaurant, index) => {
-                                    return (<div className='transitionClmn' key={"picked" + index}>
-                                        <div className='nameOfPickedRest'>
-                                            <label className='choosenRest'>{restaurant.name}</label>
+                                <div className='restListWrapp'>
+                                    <div className='restaurantList'>
+                                        <div className='restaurantsHeading'>
+                                            <h1 className='restaurantListTop'>Restaurants</h1>
                                         </div>
-                                        <div className='removeImgWrapp'>
-                                            <img src='/img/del.png' alt='del' className='removeBtn' title='Remove Restaurant' id={restaurant._id} onClick={handleRemove} />
+                                        <div id="style-4" className='pollListRestWrapp'>
+                                            {pollList.map((restaurant, index) => {
+                                                return (<div className='transitionClmn' key={"picked" + index}>
+                                                    <div className='nameOfPickedRest'>
+                                                        <label className='restNameLbl'>{restaurant.name}</label>
+                                                    </div>
+                                                    <div className='removeImgWrapp'>
+                                                        <img src='/img/del.png' alt='del' className='removeBtn' title='Remove Restaurant' id={restaurant._id} onClick={handleRemove} />
+                                                    </div>
+                                                </div>)
+                                            })}
                                         </div>
-                                    </div>)
-                                })}
-                            </div>
-                           
-                        </div>
-                       
-                    </div>
-                            </div>
-                      
-                        </div>
-                        
-                        <div className='createPollFooter'>
-                        <div className='creNewPollBtns'>
-                                    <div className='leftBtnDiv'>
-                                        <button className='leftBtnCreatePoll' onClick={(e) => handleCreatePoll(e)}>Create Poll</button>
+
                                     </div>
-                                    <div className='rightBtnDiv'>
-                                        <button className='rightBtnCreatePoll' onClick={(e) => handleCancel(e)}>Cancel</button>
-                                    </div>
+
                                 </div>
-                        </div>      
+                            </div>
+
+                        </div>
+
+                        <div className='createPollFooter'>
+                            <div className='creNewPollBtns'>
+                                <div className='leftBtnDiv'>
+                                    <button className='leftBtnCreatePoll' onClick={(e) => handleCreatePoll(e)}>Create Poll</button>
+                                </div>
+                                <div className='rightBtnDiv'>
+                                    <button className='rightBtnCreatePoll' onClick={(e) => handleCancel(e)}>Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            {loading?<div className="loader"/>:null }
-        </div >
+                {loading ? <div className="loader" /> : null}
+            </div >
         </div >
     )
 }

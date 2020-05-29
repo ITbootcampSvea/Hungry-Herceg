@@ -1,12 +1,16 @@
 .pollWrapper {
     width: 95%;
-    height: 90%;
+    height: 95%;
     display: grid;
-    grid-template-rows: 2fr 3fr 0.8fr;
+    grid-template-rows: 1fr 3fr 0.8fr;
     background: white;
     border-radius: 1rem;
     box-shadow: 0.5rem 0.5rem 0.7rem black;
  
+}
+
+.mainPartWrapper {
+    height: 86vh;
 }
 
 .activePoll {
@@ -61,6 +65,7 @@
     align-items: center;
     justify-items: center;
     display: grid;
+    width: 100%;
 }
 
 
@@ -80,14 +85,13 @@
     border: none;
     outline: none;
     text-align: center;
-    border-bottom: 0.1rem solid var(--dark-green);
+    border-bottom: 0.2rem solid var(--dark-green);
     padding: 1.5rem;
-    width: 80%;
+    width: 60%;
     transition: all 0.7s ease-in-out;
     color: var(--primary-black);
     font-size: 1.5rem;
     letter-spacing: 0.2rem;
-    border-bottom: 0.2rem solid transparent;
 }
 
 .newPollInp::placeholder {
@@ -99,15 +103,15 @@
 }
 
 .NoInpPoll {
-    border: none;
+    border: 0.1rem solid var(--light-green);
     outline: none;
     color: var(--light-green);
-    border-radius: 0.2rem;
+    border-radius: 0.3rem;
     padding: 0.5rem;
     width: 20%;
     font-weight: 600;
     font-size: 1.2rem;
-    margin-right: 2rem;
+    margin-right: 1rem;
 }
 
 .timeInfoLbl {
@@ -213,26 +217,28 @@
     background: var(--light-green);
 }
 
+.filteredListWrap {
+    overflow-y: scroll;
+    max-height: 13rem; /*ok za laptop*/
+    direction: rtl;
+    width: 100%;
+}
+
 .filteredResColumn {
     display: grid;
     grid-template-columns: 2fr 1fr;
+    width: 80%;
 }
 
-.filteredListWrap {
-    overflow-y: scroll;
-    max-height: 25rem;
-    direction: rtl;
-}
 
 /*----------------------------scrollbar-------------------------------------------*/
 
 .pollListRestWrapp {
     background: white;
     overflow-y: scroll;
-    max-height: 30rem;
+    max-height: 28rem; /*ok za laptop*/
     width: 98%;
     display: grid;
-    justify-items: right;
 }
 
 #style-6::-webkit-scrollbar-track {
@@ -283,7 +289,7 @@
 /*-----------------------------------------------------------------------------------------*/
 
 .addRestImg {
-    height: 3.5rem;
+    height: 3rem;
     cursor: pointer;
     margin: 0.5rem 1.5rem 0.5rem 0;
     filter: drop-shadow(0.1rem 0.1rem 0.15rem black);
@@ -297,16 +303,17 @@
 
 .restImgWrapp {
     display: grid;
-    justify-items: right;
+    justify-items: center;
     align-items: center;
 }
 
 .restNameLbl {
     color: var(--primary-black);
-    letter-spacing: 0.4rem;
-    font-size: 1.2rem;
+    letter-spacing: 0.2rem;
+    font-size: 1.5rem;
     text-transform: uppercase;
     font-weight: 400;
+    text-align: center;
 }
 
 .restListWrapp {
@@ -336,12 +343,21 @@
 }
 
 .restWord {
-    font-size: 2.5rem;
+    font-size: 3.8rem;
     letter-spacing: 0.2rem;
     text-transform: uppercase;
     color: var(--primary-black);
     font-family: 'Amatic SC', cursive;
     font-weight: bolder;
+}
+
+.restaurantListTop {
+    font-size: 1.5rem;
+    letter-spacing: 0.4rem;
+    text-transform: uppercase;
+    color: var(--light-gray);
+    font-weight: 600;
+    padding: 2rem;
 }
 
 .transitionClmn {
@@ -352,7 +368,7 @@
 }
 
 .removeBtn {
-    height: 5rem;
+    height: 4rem;
     cursor: pointer;
     filter: drop-shadow(0.1rem 0.1rem 0.15rem black);
 }
@@ -373,8 +389,7 @@
 .removeImgWrapp {
     display: grid;
     align-items: center;
-    justify-items: right;
-    margin-right: 1rem;
+    justify-items: center;
 }
 .loader{
     position: fixed;
