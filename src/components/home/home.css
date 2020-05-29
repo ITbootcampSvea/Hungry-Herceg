@@ -54,8 +54,8 @@
     font-weight: 700;
 }
 
-.pollLblInfo {
-    font-size: 1.5rem;
+.activeLblinfo {
+    font-size: 1.4rem;
     font-weight: 500;
     text-align: center;
 }
@@ -244,18 +244,10 @@
     height: 2.7rem;
     cursor: pointer;
     filter: drop-shadow(0.1rem 0.1rem 0.1rem black);
-   
-}
-
-.btn-icons img {
-    height: 3.7rem;
-    cursor: pointer;
-    filter: drop-shadow(0.1rem 0.1rem 0.1rem black);
-    margin-right: 1.5rem;
 }
 
 .actOrderIcon{
-    height: 3.7rem;
+    height: 2.7rem;
     cursor: pointer;
     filter: drop-shadow(0.1rem 0.1rem 0.1rem black);
 }
@@ -264,6 +256,22 @@
     display: grid;
     align-items: center;
     justify-items: center;
+}
+
+.activeRow {
+    text-align: center;
+}
+
+.userUnvoteBtn {
+    height: 2.7rem;
+    cursor: pointer;
+    filter: drop-shadow(0.1rem 0.1rem 0.1rem black);
+}
+
+.activeOrdersContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    margin: 1rem 0;
 }
 
 

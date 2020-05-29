@@ -69,14 +69,14 @@ class ActivePolls extends React.Component {
           pollsRow.push(
             <div className="activePollRow" key={`my${index}`}>
               <div className='activeRow'>
-                <label className="pollLblInfo">{poll.name}</label>
+                <label className="activeLblinfo">{poll.name}</label>
               </div>
               <div className='activeRow'>
-                <label className="pollLblInfo">{poll.author}</label>
+                <label className="activeLblinfo">{poll.author}</label>
               </div>
               <div className='activeRow'>
                 <div>
-                  <label className="pollLblInfo">{`${localDateTime}`}</label>
+                  <label className="activeLblinfo">{`${localDateTime}`}</label>
                 </div>
               </div >
               <div className="poll-icons">
@@ -136,13 +136,13 @@ class ActivePolls extends React.Component {
           pollsRow.push(
             <div className="active-info" key={`s${index}`}>
               <div>
-                <label className="pollLblInfo">{poll.name}</label>
+                <label className="activeLblinfo">{poll.name}</label>
               </div>
               <div>
-                <label className="pollLblInfo">{poll.author}</label>
+                <label className="activeLblinfo">{poll.author}</label>
               </div>
               <div>
-                <label className="pollLblInfo">{`${localDateTime}`}</label>
+                <label className="activeLblinfo">{`${localDateTime}`}</label>
               </div>
               <div className="className='pollGuest'">
                 <div>

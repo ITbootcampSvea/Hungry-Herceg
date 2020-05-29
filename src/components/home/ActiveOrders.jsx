@@ -55,8 +55,8 @@ const ActiveOrders = () => {
                     <h1>Active Orders</h1>
                 </div>
 
-                <div className="active-orders-info header">
-                    <div className='ordersHeaderWrapp'>
+                <div className="active-orders-info">
+                    <div className='ordersHeaderWrapp header'>
                         <div className='orderLblWrapper'>
                             <label className='orderLbl'>Name</label>
                         </div>
@@ -90,21 +90,21 @@ const ActiveOrders = () => {
 
                                 return (
 
-                                    <div key={order._id} className="active-info header order">
+                                    <div key={order._id} className="activeOrdersContent">
                                         <div className='orderLblWrapper'>
-                                            <label className='pollLblInfo'>{order.poll.name}</label>
+                                            <label className='activeLblinfo'>{order.poll.name}</label>
                                         </div>
                                         <div className='orderLblWrapper'>
-                                            <label className='pollLblInfo'>{order.restaurant ? order.restaurant.name : ''}</label>
+                                            <label className='activeLblinfo'>{order.restaurant ? order.restaurant.name : ''}</label>
                                         </div>
                                         <div className='orderLblWrapper'>
-                                            <label className='pollLblInfo'>{order.poll.author}</label>
+                                            <label className='activeLblinfo'>{order.poll.author}</label>
                                         </div>
                                         <div className='orderLblWrapper'>
-                                            <label className='pollLblInfo'>{getEndTime(order.createdAt)}</label>
+                                            <label className='activeLblinfo'>{getEndTime(order.createdAt)}</label>
                                         </div>
                                         <div className='orderLblWrapper' >
-                                            {userOrders.length === 0 ? <label className='pollLblInfo'>You didn't order yet</label> : <label className='pollLblInfo'>You ordered:{userOrders.map(orderItem => {
+                                            {userOrders.length === 0 ? <label className='activeLblinfo'>You didn't order yet</label> : <label className='activeLblinfo'>You ordered:{userOrders.map(orderItem => {
                                                 return (
                                                     <li key={orderItem._id}>{orderItem.quantity} x {orderItem.meal.name}</li>
                                                 )
