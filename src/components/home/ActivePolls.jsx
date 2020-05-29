@@ -194,8 +194,8 @@ class ActivePolls extends React.Component {
             <h1>Active Polls</h1>
           </div>
 
-          <div className="active-polls-info header">
-            <div className='pollsHeaderWrapp'>
+          <div className="active-polls-info">
+            <div className='pollsHeaderWrapp header'>
               <div className='pollsHeadingWrapp'>
                 <label>Name</label>
               </div>

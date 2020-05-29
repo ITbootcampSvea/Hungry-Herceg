@@ -101,7 +101,6 @@
     display: grid;
     grid-template-rows: 1fr 3fr 0.3fr;
     justify-items: center;
-    align-items: center;
     color: var(--primary-black);
     letter-spacing: 0.1rem;
     text-transform: capitalize;
@@ -348,6 +347,7 @@
     display: grid;
     justify-items: center;
     align-items: center;
+    height: 2.7rem;
 }
 
 .finishedOrderFiled{
@@ -367,7 +367,7 @@
 
 .finishOrderRowWrapp{
     overflow-y: scroll;
-    max-height: 15rem;
+    max-height: 12rem;
 }
 
 .finishOrderRow {
@@ -394,95 +394,47 @@
 }
 
 .finishExcelBtn {
-    height: 3.7rem;
+    height: 2.7rem;
     cursor: pointer;
     filter: drop-shadow(0.1rem 0.1rem 0.1rem black);
 }
 
 
-/* .actInfMargin{
-    margin: 1.5rem 0;
-} */
-
 /*iPad*/
 
 @media (max-width:768px) {
+    .wrapper {
+        height: auto;
+    }
     .active {
         margin: 0;
         grid-template-columns: none;
-        height: auto;
+        grid-template-rows: 2fr 1fr;
+        height: 100%;
     }
-    .poll-order-card {
-        width: 70rem;
-        margin-bottom: 2rem;
+    .activeCardsWrapper {
+        grid-template-columns: none;
+        grid-template-rows: 1fr 1fr;
     }
+    
     .pollCardicon,
     .certifyIcon {
-        display: none;
+        left: -3%;
     }
     .finishedOrderCard {
-        margin-right: 0;
-        width: 70rem;
+        width: 90%;
+    }
+    .finishOrderRowWrapp,
+    .pollRowsWrapp {
+        max-height: 15rem;
     }
 }
 
 /*Mobile telephone*/
 
 @media (max-width:500px) {
-    .poll-order-card,
-    .card-heading,
-    .finishedOrderCard {
-        width: 35rem;
+    .pollCardicon,
+    .certifyIcon {
+        display: none;
     }
-    .finishedOrderCard {
-        margin-right: 0;
-    }
-    .orderLbl {
-        margin-left: 0;
-        font-size: 1.3rem;
-    }
-    .orderInfoLbl {
-        font-size: 1.3rem;
-    }
-    .pollLblInfo {
-        font-size: 1.1rem;
-    }
-}
-/*laptop*/
-/* 
-@media (min-width: 1030px) and (max-width: 1366px){
-.poll-order-card {
-    height: 25rem;
-    width: 49rem;  
-}
-
-.pollCardicon {
-    height: 6.8rem;
-}
-
-.certifyIcon {
-    height: 6.8rem;
-}
-
-.orderInfoLbl {
-    font-size: 1.2rem;
-}
-
-.orderLbl {
-    font-size: 1.2rem;
-    margin-left: 3.8rem;
-}
-
-.header {
-    font-size: 1.2rem;
-}
-.poll-icons img{
-    height: 3rem;
-}
-.btn-icons img {
-    height: 3rem;
-}
-.pollGuestIcon {
-    height: 3rem;
-}
-} */
+} 
