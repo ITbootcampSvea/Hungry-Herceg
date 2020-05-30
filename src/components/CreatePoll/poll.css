@@ -2,11 +2,9 @@
     width: 95%;
     height: 95%;
     display: grid;
-    grid-template-rows: 1fr 3fr 0.8fr;
-    background: white;
+    grid-template-rows: 1fr 3fr 0.6fr;
     border-radius: 1rem;
     box-shadow: 0.5rem 0.5rem 0.7rem black;
- 
 }
 
 .mainPartWrapper {
@@ -22,31 +20,58 @@
     align-items: center;
     box-shadow: 0 -6px var(--primary-black), 0 6px var(--primary-black), -7px 0 4px -3px rgba(153, 59, 52, 0.37), 7px 0 4px -3px rgba(153, 59, 52, 0.37);
 }
-.pollContentLeft{
+
+.pollContentLeft {
     display: grid;
-    grid-template-rows: 1fr 1fr auto;
+    grid-template-rows: 1fr 1fr 27rem;
 }
 
-.createPollFooter{
+.createPollFooter {
     width: 100%;
     display: grid;
     align-items: center;
     justify-items: center;
+    background: linear-gradient(-45deg, white, rgba(168, 147, 125, 0.863), rgba(168, 147, 125, 0.863), white);
+    background-size: 400% 400%;
+    animation: Change 30s ease-in-out infinite;
+    border-bottom-left-radius: 0.8rem;
+    border-bottom-right-radius: 0.8rem;
 }
 
-
-
-.alignedWrapper{
+.alignedWrapper {
     display: grid;
     align-items: center;
     justify-items: center;
 }
 
-
+.alignedWrapperFix {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    overflow-y: scroll;
+    max-height: 25rem;
+    /*ok za laptop*/
+    width: 98%;
+}
 
 .createPollContent {
     display: grid;
- grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    background: white;
+}
+
+/*----------------------------animation-----------------------------------*/
+
+@keyframes Change {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .createPollHeading {
@@ -55,7 +80,6 @@
     background-position: center;
     border-top-left-radius: 0.8rem;
     border-top-right-radius: 0.8rem;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 80%);
     display: grid;
     align-items: center;
     justify-items: center;
@@ -68,17 +92,12 @@
     width: 100%;
 }
 
-
-
-.newPollInputWrapper{
+.newPollInputWrapper {
     width: 100%;
     display: grid;
     align-items: center;
     justify-items: center;
 }
-
-
-
 
 .newPollInp {
     background: transparent;
@@ -118,25 +137,23 @@
     color: var(--primary-black);
     font-size: 1.5rem;
     letter-spacing: 0.2rem;
+    font-weight: 600;
 }
 
 .newPollInp:hover {
     border-bottom: 0.2rem solid var(--light-green);
 }
 
-
-
 .creNewPollBtns {
     width: 50%;
     display: grid;
     grid-template-columns: 2fr 1fr;
-    background: white;
     border-bottom-left-radius: 0.8rem;
     border-bottom-right-radius: 0.8rem;
 }
 
-.gradientDiv{
-    background: linear-gradient(45deg, #222629,white,#222629);
+.gradientDiv {
+    background: linear-gradient(45deg, #222629, white, #222629);
     border-bottom-left-radius: 0.8rem;
     border-bottom-right-radius: 0.8rem;
 }
@@ -167,7 +184,7 @@
     color: white;
     letter-spacing: 0.1rem;
     cursor: pointer;
-   border-radius: 0.3rem;
+    border-radius: 0.3rem;
 }
 
 .leftBtnCreatePoll:hover {
@@ -189,8 +206,6 @@
 .rightBtnCreatePoll:hover {
     background: #101113;
 }
-
-
 
 .showAllBtnWrap {
     display: grid;
@@ -218,27 +233,28 @@
 }
 
 .filteredListWrap {
-    overflow-y: scroll;
-    max-height: 13rem; /*ok za laptop*/
     direction: rtl;
     width: 100%;
+    margin-bottom: 1.5rem;
 }
 
 .filteredResColumn {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    width: 80%;
+    grid-template-columns: auto 1fr;
+    width: 60%;
 }
-
 
 /*----------------------------scrollbar-------------------------------------------*/
 
 .pollListRestWrapp {
     background: white;
     overflow-y: scroll;
-    max-height: 28rem; /*ok za laptop*/
+    max-height: 28rem;
+    /*ok za laptop*/
     width: 98%;
     display: grid;
+    align-items: center;
+    justify-items: center;
 }
 
 #style-6::-webkit-scrollbar-track {
@@ -297,13 +313,13 @@
 
 .restNameWrapp {
     display: grid;
-    justify-items: center;
+    justify-items: left;
     align-items: center;
 }
 
 .restImgWrapp {
     display: grid;
-    justify-items: center;
+    justify-items: right;
     align-items: center;
 }
 
@@ -312,7 +328,7 @@
     letter-spacing: 0.2rem;
     font-size: 1.5rem;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 600;
     text-align: center;
 }
 
@@ -320,7 +336,6 @@
     display: grid;
     justify-items: center;
     align-items: center;
-    
 }
 
 .restaurantList {
@@ -333,13 +348,10 @@
     border-bottom-right-radius: 0.8rem;
 }
 
-
-
 .restaurantsHeading {
     display: grid;
     justify-items: center;
     align-items: center;
-    background: white;
 }
 
 .restWord {
@@ -361,7 +373,7 @@
 }
 
 .transitionClmn {
-    width: 100%;
+    width: 80%;
     transition: all 2s ease-in-out;
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -374,7 +386,7 @@
 }
 
 .nameOfPickedRest {
-    justify-items: center;
+    justify-items: left;
     align-items: center;
     display: grid;
 }
@@ -391,10 +403,11 @@
     align-items: center;
     justify-items: center;
 }
-.loader{
+
+.loader {
     position: fixed;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
     background-color: black;

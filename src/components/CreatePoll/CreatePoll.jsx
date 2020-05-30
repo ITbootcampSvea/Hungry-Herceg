@@ -222,17 +222,20 @@ export default function CreatePoll({ history }) {
                                     </div>
                                 </div>
                                 <div className='thirdDiv' >
-                                    <div id="style-6" className='filteredListWrap alignedWrapper'>
+                                    <div  className='filteredListWrap'>
+                                        <div id="style-6" className='alignedWrapperFix'>
                                         {filterList(restaurants, search, "state show all goes here").map((restaurant, index) => {
                                             return (<div className='filteredResColumn' key={"result" + index}>
+                                                 <div className='restImgWrapp'>
+                                                    <img src='/img/add-restaurant.png' alt='add' title='Add Restaurant' className='addRestImg' id={restaurant._id} onClick={handleAdd} />
+                                                </div>
                                                 <div className='restNameWrapp'>
                                                     <label className='restNameLbl'>{restaurant.name}</label>
                                                 </div>
-                                                <div className='restImgWrapp'>
-                                                    <img src='/img/add-restaurant.png' alt='add' title='Add Restaurant' className='addRestImg' id={restaurant._id} onClick={handleAdd} />
-                                                </div>
+                                              
                                             </div>)
                                         })}
+                                    </div>
                                     </div>
                                 </div>
                             </div>
