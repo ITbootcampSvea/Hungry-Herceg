@@ -46,6 +46,8 @@ export default function Vote({ history, match }) {
         }).catch(err=>{alert.error("Something went wrong"+err);setLoading(false);
         })
 
+        return ()=>votedList=[];
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
