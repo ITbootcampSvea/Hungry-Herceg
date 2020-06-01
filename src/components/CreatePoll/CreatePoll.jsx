@@ -39,7 +39,7 @@ export default function CreatePoll({ history }) {
 
         }).catch(res => alert.error('Something wrong happened. Try reload or contact support. Details:' + res));
 
-        return () => isSubscribed = false;
+        return () => {isSubscribed = false; hours = 0; minutes = 15; duration = 15; pollName = '';};
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
