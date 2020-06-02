@@ -411,10 +411,28 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: black;
-    opacity: 0.5;
+    background-color: rgba(0, 0, 0, 0.411);
     z-index: 100;
+    display: grid;
+    align-items: center;
+    justify-items: center;
 }
+
+.spiner{
+    border: 1.6rem solid var(--dark-green); /* Light grey */
+    border-top: 1.6rem solid var(--light-green); /* Blue */
+    border-radius: 50%;
+    width: 12rem;
+    height: 12rem;
+    animation: spin 2s linear infinite;
+}
+
+/*------------------------------spinerAnimation-----------------------------------*/
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
 /*iPad*/
 
