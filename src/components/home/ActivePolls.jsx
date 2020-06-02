@@ -7,6 +7,10 @@ import {
   endPollById,
 } from "../../services/api.service";
 
+import DialogBox from '../DialogBox/DialogBox';
+
+let ID = "";
+
 class ActivePolls extends React.Component {
   constructor(props) {
     super(props);
@@ -17,7 +21,8 @@ class ActivePolls extends React.Component {
       userId: appStorage.getUserId(),
       allPolls: [],
       loading: true,
-      isClicked: false
+      isClicked: false,
+      showDialog: false
     };
   }
 
@@ -49,6 +54,13 @@ class ActivePolls extends React.Component {
       });
   };
 
+  deletePoll(){
+    deletePollById(ID).then((res) => {
+      if (res.data.message === "Success") {
+        this.setAllPolls();
+      }
+    });
+  }
 
   render() {
     let allActivePolls = this.state.allPolls.filter((el) => el.status);
@@ -122,16 +134,8 @@ class ActivePolls extends React.Component {
                     alt="icon"
                     title="Delete"
                     onClick={() => {
-                      if (
-                        window.confirm(
-                          "Are you sure you wish to delete this poll?"
-                        )
-                      )
-                        deletePollById(poll._id).then((res) => {
-                          if (res.data.message === "Success") {
-                            this.setAllPolls();
-                          }
-                        });
+                        ID = poll._id;
+                        this.setState({showDialog:true})
                     }}
                   />
                 </div>
@@ -231,6 +235,11 @@ class ActivePolls extends React.Component {
           </div>
 
         </div>
+        {this.state.showDialog?<DialogBox title="Delete poll"
+                               message="Are you sure you want to delete this poll?"
+                               onYes={()=>{this.setState({showDialog:false}); this.deletePoll()}}
+                               onNo={()=>{this.setState({showDialog:false})}}
+                               />:null}
       </div>
     );
   }
