@@ -43,7 +43,7 @@ export default function Vote({ history, match }) {
                 alert.error("Poll is ended");
 
             }
-        }).catch(err=>{alert.error("Something went wrong"+err);setLoading(false);
+        }).catch(err=>{setLoading(false); alert.error("Something went wrong"+err);
         })
 
         return ()=>votedList=[];
@@ -90,7 +90,7 @@ export default function Vote({ history, match }) {
                 else{
                     alert.error("Something went wrong");
                 }
-            }).catch(err=>{alert.error("Something went wrong"+err); setLoading(false)})
+            }).catch(err=>{ setLoading(false); alert.error("Something went wrong"+err); })
         }
         else {
             alert.info("You neet to vote for at least one restaurant!"); 
