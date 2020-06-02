@@ -162,8 +162,8 @@ export default function Settings({history}) {
 
 
     const getFilteredUsers = (search, array) => {
-        return searchUser !==""? array.filter(el => 
-            (el.username.toLowerCase().includes(search.toLowerCase()) && el.username !== "Admin")):array;
+        return array.filter(el => 
+            (el.username.toLowerCase().includes(search.toLowerCase()) && el.username !== "Admin"));
     }
 
     const handleRestaurantSectionSelected = () => {
