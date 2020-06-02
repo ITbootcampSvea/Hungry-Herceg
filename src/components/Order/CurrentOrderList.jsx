@@ -3,9 +3,11 @@ import './Order.css'
 import { createOrderItem, updateOrderItem, deleteOrderItemById } from '../../services/api.service';
 import { appStorage } from '../../services/storage.service';
 import { useAlert } from 'react-alert';
+import { useHistory } from 'react-router-dom';
 
 const CurrentOrderList = ({ orderedMeals, setOrderedMeals, userOrders, total, setTotal, orderId, refresh, setRefresh }) => {
     const alert = useAlert();
+    const history = useHistory();
     //brisanje orderItem-a iz state-a
     const removeMeal = (orderedMeal) => {
         let index = orderedMeals.findIndex(el => el === orderedMeal);
@@ -17,14 +19,14 @@ const CurrentOrderList = ({ orderedMeals, setOrderedMeals, userOrders, total, se
     const finishOrder = () => {
         if (orderedMeals.length !== 0) {
             orderedMeals.forEach((meal) => {
-                let alreadyOrdered = userOrders.find(
-                    (orderedMeal) =>
-                        orderedMeal.meal._id === meal.meal && orderedMeal.user === appStorage.getUser());
-                if (alreadyOrdered) {
-                    let quantity = Number(meal.quantity) + Number(alreadyOrdered.quantity);
-                    let note = document.querySelector(`#n${meal.meal}`).value;
-                    updateOrderItem(alreadyOrdered._id, Number(quantity), note).then(res => setRefresh(refresh + 'a'));
-                } else {
+                // let alreadyOrdered = userOrders.find(
+                //     (orderedMeal) =>
+                //         orderedMeal.meal._id === meal.meal && orderedMeal.user === appStorage.getUser());
+                // if (alreadyOrdered) {
+                //     let quantity = Number(meal.quantity) + Number(alreadyOrdered.quantity);
+                //     let note = document.querySelector(`#n${meal.meal}`).value;
+                //     updateOrderItem(alreadyOrdered._id, Number(quantity), note).then(res => setRefresh(refresh + 'a'));
+                // } else {
                     let orderedMeal = {
                         orderId: orderId,
                         meal: meal.meal,
@@ -32,10 +34,11 @@ const CurrentOrderList = ({ orderedMeals, setOrderedMeals, userOrders, total, se
                         note: document.querySelector(`#n${meal.meal}`).value,
                     };
                     createOrderItem(orderedMeal).then(res => setRefresh(refresh + 'a'));
-                }
+            //     }
             });
             setOrderedMeals([]);
             alert.success('Your order was successful');
+            history.push('/home');
         } else {
             alert.error('Please choose your meals')
         }
@@ -44,6 +47,10 @@ const CurrentOrderList = ({ orderedMeals, setOrderedMeals, userOrders, total, se
     //brisanje orderItem-a sa servera
     const deleteOrderItem = (orderItemId) => {
         deleteOrderItemById(orderItemId).then(res => setRefresh(refresh + 'a'));
+    }
+
+    const handleCancel = () => {
+        history.push('/home');
     }
 
     return (
@@ -84,7 +91,8 @@ const CurrentOrderList = ({ orderedMeals, setOrderedMeals, userOrders, total, se
                 </div>
             </div>
             <div className='currentOrderFooter'> <div><label>Total price: <span className='orderBold'>{total}</span></label></div>
-                <div className='orderNowBtnWrap'><button onClick={() => finishOrder(orderedMeals)} className='orderNowBtn'>ORDER NOW!</button></div>
+                <div className='orderNowBtnWrap'><button onClick={() => finishOrder(orderedMeals)} className='orderNowBtn'>ORDER NOW!</button>
+                <button className='rightBtnCreatePoll' onClick={(e) => handleCancel(e)}>Cancel</button></div>           
             </div>
             <div className='gradientCurrentOrderWrapper'></div>
         </div>

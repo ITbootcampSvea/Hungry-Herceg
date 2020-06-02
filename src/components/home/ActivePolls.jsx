@@ -100,12 +100,15 @@ class ActivePolls extends React.Component {
                     src="./img/end1.png"
                     alt="icon"
                     title="End Poll"
-                    onClick={() =>
+                    onClick={() => {
+                      this.setState({ loading: true });
                       endPollById(poll._id).then((res) => {
                         if (res.data.message === "Success") {
+                          this.setState({ loading: false });
                           this.setAllPolls();
                         }
                       })
+                    }
                     }
                   />
                 </div>
