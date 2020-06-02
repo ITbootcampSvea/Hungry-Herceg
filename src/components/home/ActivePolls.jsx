@@ -91,9 +91,9 @@ class ActivePolls extends React.Component {
                       title="You have already voted!"
                     />
                   ) : (
-                      <Link to={`/vote/${poll._id}`} className="voteBtnLink">
-                        <img   className="activePollBtnIcons" src="./img/vote1.png" alt="icon" title="Vote" />
-                      </Link>
+                     
+                        <img onClick={()=>{this.props.history.push(`/vote/${poll._id}`)}}  className="activePollBtnIcons" src="./img/vote1.png" alt="icon" title="Vote" />
+                     
                     )}
                 </div>
 
@@ -141,16 +141,16 @@ class ActivePolls extends React.Component {
         } else {
           pollsRow.push(
             <div className="active-info" key={`s${index}`}>
-              <div>
+              <div className='alignedWrapper'>
                 <label className="activeLblinfo">{poll.name}</label>
               </div>
-              <div>
+              <div className='alignedWrapper'>
                 <label className="activeLblinfo">{poll.author}</label>
               </div>
-              <div>
+              <div className='alignedWrapper'>
                 <label className="activeLblinfo">{`${localDateTime}`}</label>
               </div>
-              <div className="className='pollGuest'">
+              <div className="pollGuest alignedWrapper">
                 <div>
                   {userVoted ? (
                     <img

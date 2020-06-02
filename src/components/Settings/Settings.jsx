@@ -290,9 +290,9 @@ export default function Settings({history}) {
                     </div>
             </div>
             {loading?<div className="loader"/>:null }
-            {showDialogRest?<DialogBox title="Delete retaurant" message="Are you shure you want to delete this restaurant?" onYes={()=>{ setShowDialogRest(false); handleDeleteRestaurant()}} onNo={()=>{setShowDialogRest(false)}} />:null}
-            {showDialogMeal?<DialogBox title="Delete meal" message="Are you shure you want to delete this meal?" onYes={()=>{ setShowDialogMeal(false); handleDeleteMeal()}} onNo={()=>{setShowDialogMeal(false)}} />:null}
-            {showDialogUser?<DialogBox title="Delete user" message="Are you shure you want to delete this user?" onYes={()=>{ setShowDialogUser(false); handleDeleteUser()}} onNo={()=>{setShowDialogUser(false)}} />:null}
+            {showDialogRest?<DialogBox title="Delete restaurant" message="Are you sure you want to delete this restaurant?" onYes={()=>{ setShowDialogRest(false); handleDeleteRestaurant()}} onNo={()=>{setShowDialogRest(false)}} />:null}
+            {showDialogMeal?<DialogBox title="Delete meal" message="Are you sure you want to delete this meal?" onYes={()=>{ setShowDialogMeal(false); handleDeleteMeal()}} onNo={()=>{setShowDialogMeal(false)}} />:null}
+            {showDialogUser?<DialogBox title="Delete user" message="Are you sure you want to delete this user?" onYes={()=>{ setShowDialogUser(false); handleDeleteUser()}} onNo={()=>{setShowDialogUser(false)}} />:null}
         </div>
     )
 }
