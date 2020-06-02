@@ -110,22 +110,6 @@ class ActivePolls extends React.Component {
                 </div>
 
                 <div className='pollIconWrapp'>
-<<<<<<< HEAD
-                  <img className="activePollBtnIcons"
-                    src="./img/end1.png"
-                    alt="icon"
-                    title="End Poll"
-                    onClick={() => {
-                      this.setState({ loading: true });
-                      endPollById(poll._id).then((res) => {
-                        if (res.data.message === "Success") {
-                          this.setState({ loading: false });
-                          this.setAllPolls();
-                        }
-                      })
-                    }
-                    }
-=======
                   
                                          
                   <img className="activePollBtnIcons"                  
@@ -141,7 +125,6 @@ class ActivePolls extends React.Component {
                     }) 
                   }                                   
                     }}
->>>>>>> e4a0e5bd61f2b26a32a5a4349f0a3a8f5ca4f873
                   />
                 </div>
                 <div className='pollIconWrapp'>
