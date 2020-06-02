@@ -289,7 +289,7 @@ export default function Settings({history}) {
                     </div>
                     </div>
             </div>
-            {loading?<div className="loader"/>:null }
+            {loading ? <div className="loader" ><div className='spiner'></div></div> : null}
             {showDialogRest?<DialogBox title="Delete restaurant" message="Are you sure you want to delete this restaurant?" onYes={()=>{ setShowDialogRest(false); handleDeleteRestaurant()}} onNo={()=>{setShowDialogRest(false)}} />:null}
             {showDialogMeal?<DialogBox title="Delete meal" message="Are you sure you want to delete this meal?" onYes={()=>{ setShowDialogMeal(false); handleDeleteMeal()}} onNo={()=>{setShowDialogMeal(false)}} />:null}
             {showDialogUser?<DialogBox title="Delete user" message="Are you sure you want to delete this user?" onYes={()=>{ setShowDialogUser(false); handleDeleteUser()}} onNo={()=>{setShowDialogUser(false)}} />:null}
