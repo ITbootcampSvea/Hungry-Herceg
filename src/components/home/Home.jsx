@@ -12,7 +12,7 @@ const Home = ({ history }) => {
       <div className='activepollOrderWrapper'>
         <div className="active">
           <div className='activeCardsWrapper'>
-            <ActivePolls />
+            <ActivePolls history={history} />
             <ActiveOrders />
           </div>
           <div className='fnshOrdWrapp'>

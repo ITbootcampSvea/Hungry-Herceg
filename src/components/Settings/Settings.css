@@ -287,14 +287,26 @@
     transition: all 1s ease-in-out;
 }
 
+/*iPad*/
 
 @media (max-width: 768px) {
     .settingsWrapp {
         height: auto;
+        grid-template-rows: 2fr 15fr;
     }
     .settingsMainPart {
         grid-template-rows: 1fr 1fr 1fr;
         grid-template-columns: none;
         align-items: center;
     }
+}
+
+/*laptop*/
+
+@media (min-width: 1030px) and (max-width: 1366px) {
+    .settingsWrapp {
+        height: auto;
+        grid-template-rows: 2fr 10fr; 
+    }
+
 }

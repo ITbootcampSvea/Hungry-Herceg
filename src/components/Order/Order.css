@@ -266,7 +266,11 @@
         grid-template-rows: 2fr 1fr;
         align-items: center;
     }
-    .smallerOrderDiv {
+    .currentOrderWrapp,
+    .rightCardWrapp {
+        width: 100%;
+    }
+    .rightCardContent {
         width: 80%;
     }
 }
@@ -277,6 +281,12 @@
     .smallerOrderDiv {
         width: 35rem;
         padding-left: 0.4rem;
+    }
+    .rightCardContent {
+        width: auto;
+    }
+    .currentOrderWrapp {
+        width: 35rem;
     }
 }
 

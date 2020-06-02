@@ -7,6 +7,10 @@ import {
   endPollById,
 } from "../../services/api.service";
 
+import DialogBox from '../DialogBox/DialogBox';
+
+let ID = "";
+
 class ActivePolls extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +21,8 @@ class ActivePolls extends React.Component {
       userId: appStorage.getUserId(),
       allPolls: [],
       loading: true,
+      isClicked: false,
+      showDialog: false
     };
   }
 
@@ -36,7 +42,7 @@ class ActivePolls extends React.Component {
     getAllPolls()
       .then((res) => {
         if (this.isSubscribed) {
-          this.setState({ allPolls: res.data.data, loading: false });
+          this.setState({ allPolls: res.data.data, loading: false, isClicked: false });
           this.countdown = window.setTimeout(() => this.setAllPolls(), 3000);
         }
       })
@@ -47,6 +53,14 @@ class ActivePolls extends React.Component {
         }
       });
   };
+
+  deletePoll(){
+    deletePollById(ID).then((res) => {
+      if (res.data.message === "Success") {
+        this.setAllPolls();
+      }
+    });
+  }
 
   render() {
     let allActivePolls = this.state.allPolls.filter((el) => el.status);
@@ -89,13 +103,14 @@ class ActivePolls extends React.Component {
                       title="You have already voted!"
                     />
                   ) : (
-                      <Link to={`/vote/${poll._id}`} className="voteBtnLink">
-                        <img   className="activePollBtnIcons" src="./img/vote1.png" alt="icon" title="Vote" />
-                      </Link>
+                     
+                        <img onClick={()=>{this.props.history.push(`/vote/${poll._id}`)}}  className="activePollBtnIcons" src="./img/vote1.png" alt="icon" title="Vote" />
+                     
                     )}
                 </div>
 
                 <div className='pollIconWrapp'>
+<<<<<<< HEAD
                   <img className="activePollBtnIcons"
                     src="./img/end1.png"
                     alt="icon"
@@ -110,6 +125,23 @@ class ActivePolls extends React.Component {
                       })
                     }
                     }
+=======
+                  
+                                         
+                  <img className="activePollBtnIcons"                  
+                  src="./img/end1.png"
+                  alt="icon"
+                  title="End Poll"
+                  onClick={() => {if(this.state.isClicked === false){
+                    this.setState({ isClicked: true })
+                    endPollById(poll._id).then((res) => {
+                      if (res.data.message === "Success") {
+                        this.setAllPolls();
+                      }
+                    }) 
+                  }                                   
+                    }}
+>>>>>>> e4a0e5bd61f2b26a32a5a4349f0a3a8f5ca4f873
                   />
                 </div>
                 <div className='pollIconWrapp'>
@@ -119,16 +151,8 @@ class ActivePolls extends React.Component {
                     alt="icon"
                     title="Delete"
                     onClick={() => {
-                      if (
-                        window.confirm(
-                          "Are you sure you wish to delete this poll?"
-                        )
-                      )
-                        deletePollById(poll._id).then((res) => {
-                          if (res.data.message === "Success") {
-                            this.setAllPolls();
-                          }
-                        });
+                        ID = poll._id;
+                        this.setState({showDialog:true})
                     }}
                   />
                 </div>
@@ -138,16 +162,16 @@ class ActivePolls extends React.Component {
         } else {
           pollsRow.push(
             <div className="active-info" key={`s${index}`}>
-              <div>
+              <div className='alignedWrapper'>
                 <label className="activeLblinfo">{poll.name}</label>
               </div>
-              <div>
+              <div className='alignedWrapper'>
                 <label className="activeLblinfo">{poll.author}</label>
               </div>
-              <div>
+              <div className='alignedWrapper'>
                 <label className="activeLblinfo">{`${localDateTime}`}</label>
               </div>
-              <div className="className='pollGuest'">
+              <div className="pollGuest alignedWrapper">
                 <div>
                   {userVoted ? (
                     <img
@@ -228,6 +252,11 @@ class ActivePolls extends React.Component {
           </div>
 
         </div>
+        {this.state.showDialog?<DialogBox title="Delete poll"
+                               message="Are you sure you want to delete this poll?"
+                               onYes={()=>{this.setState({showDialog:false}); this.deletePoll()}}
+                               onNo={()=>{this.setState({showDialog:false})}}
+                               />:null}
       </div>
     );
   }

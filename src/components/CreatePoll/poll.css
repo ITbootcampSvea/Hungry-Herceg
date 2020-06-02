@@ -50,7 +50,6 @@
     justify-items: center;
     overflow-y: scroll;
     max-height: 25rem;
-    /*ok za laptop*/
     width: 98%;
 }
 
@@ -185,6 +184,7 @@
     letter-spacing: 0.1rem;
     cursor: pointer;
     border-radius: 0.3rem;
+    box-shadow: 0.1rem 0.2rem 0.2rem 0.1rem rgba(0, 0, 0, 0.534);
 }
 
 .leftBtnCreatePoll:hover {
@@ -201,6 +201,7 @@
     letter-spacing: 0.1rem;
     cursor: pointer;
     border-radius: 0.3rem;
+    box-shadow: 0.1rem 0.2rem 0.2rem 0.1rem rgba(0, 0, 0, 0.534);
 }
 
 .rightBtnCreatePoll:hover {
@@ -329,7 +330,7 @@
     font-size: 1.5rem;
     text-transform: uppercase;
     font-weight: 600;
-    text-align: center;
+    text-align: left
 }
 
 .restListWrapp {
@@ -410,10 +411,28 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: black;
-    opacity: 0.5;
+    background-color: rgba(0, 0, 0, 0.411);
     z-index: 100;
+    display: grid;
+    align-items: center;
+    justify-items: center;
 }
+
+.spiner{
+    border: 1.6rem solid var(--dark-green); /* Light grey */
+    border-top: 1.6rem solid var(--light-green); /* Blue */
+    border-radius: 50%;
+    width: 12rem;
+    height: 12rem;
+    animation: spin 2s linear infinite;
+}
+
+/*------------------------------spinerAnimation-----------------------------------*/
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
 /*iPad*/
 
@@ -421,39 +440,67 @@
     .activePoll {
         margin: 0;
     }
-    .pollWrapper {
-        display: grid;
-        height: auto;
-        grid-template-columns: none;
+    .mainPartWrapper {
         height: auto;
     }
-    .newPollCard {
-        grid-template-rows: 1fr 1fr;
+    .filteredListWrap {
+        display: grid;
+        justify-items: center;
+    }
+    .createPollContent {
+        grid-template-columns: none;
+        grid-template-rows: 1.5fr 1fr;
+    }
+    .createPollDurationWrapp {
+        padding-top: 3rem;
+    }
+    .pollWrapper {
+        grid-template-rows: 1fr 4fr 0.6fr;
+    }
+    .pollListRestWrapp {
+        max-height: 25rem;
+    }
+    .restaurantList {
+        display: grid;
+        justify-items: center;
+    }
+    .transitionClmn {
+        width: 60%;
+        grid-template-columns: auto 1fr;
+    }
+    .removeImgWrapp {
+        justify-items: right;
     }
 }
 
 /*Mobile telephone*/
 
 @media (max-width:500px) {
-    .searchRest {
-        width: 35rem;
+    .newPollInp {
+        width: 84%;
     }
-    .createPollInfo {
-        width: 35rem;
+    .filteredResColumn,
+    .transitionClmn {
+        width: 90%;
     }
-    .createPollDurationWrapp {
-        display: grid;
-        grid-template-rows: 1fr 1fr 1fr 1fr;
-        justify-items: center;
-        padding-top: 0.1rem;
+    .creNewPollBtns {
+        width: 80%;
+        grid-template-columns: 1fr 1fr;
     }
-    .NoInpPoll {
-        width: 40%;
+}
+
+/*laptop*/
+@media (min-width: 1030px) and (max-width: 1366px) {
+    .mainPartWrapper {
+        height: 88vh;
     }
-    .newPollCard {
-        grid-template-rows: 0.6fr 1fr 0.5fr;
+    .pollWrapper {
+        grid-template-rows: 1fr 3fr 0.4fr;
     }
-    .restaurantList {
-        width: 35rem;
+    .pollContentLeft {
+        grid-template-rows: 1fr 1fr 13rem;
+    }
+    .alignedWrapperFix {
+        max-height: 13rem;
     }
 }

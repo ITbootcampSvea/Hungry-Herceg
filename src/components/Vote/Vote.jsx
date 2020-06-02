@@ -18,11 +18,7 @@ export default function Vote({ history, match }) {
     const [pollName, setPollName] = useState("");
     const [endTime, setEndTime] = useState("");
     const [pollAuthor, setPollAuthor] = useState("");
-    let isoDateTime = new Date(endTime);
-    let localDateTime =
-      isoDateTime.toLocaleDateString() +
-      " " +
-      isoDateTime.toLocaleTimeString();
+
 
     useEffect(() => {
 
@@ -35,7 +31,11 @@ export default function Vote({ history, match }) {
              
             if(data.status){
                 setPollName(data.name);
-                setEndTime(data.ends);
+
+                let isoDateTime = new Date(data.ends);
+                let localDateTime = isoDateTime.toLocaleDateString() + " " + isoDateTime.toLocaleTimeString();
+
+                setEndTime(localDateTime);
                 setRestaurants(data.restaurants);
                 setPollAuthor(data.author);
             }
@@ -43,8 +43,10 @@ export default function Vote({ history, match }) {
                 alert.error("Poll is ended");
 
             }
-        }).catch(err=>{alert.error("Something went wrong"+err);setLoading(false);
+        }).catch(err=>{setLoading(false); alert.error("Something went wrong"+err);
         })
+
+        return ()=>votedList=[];
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -88,7 +90,7 @@ export default function Vote({ history, match }) {
                 else{
                     alert.error("Something went wrong");
                 }
-            }).catch(err=>{alert.error("Something went wrong"+err); setLoading(false)})
+            }).catch(err=>{ setLoading(false); alert.error("Something went wrong"+err); })
         }
         else {
             alert.info("You neet to vote for at least one restaurant!"); 
@@ -119,7 +121,7 @@ export default function Vote({ history, match }) {
 
                                     <div className='voteHeaderFiled'>
                                     <div className='voteCardFildes'><small className='voteFiledSmall'>End time</small></div>
-                                    <div className='voteCardFildes'><label className='voteFiledLbl'>{`${localDateTime}`}</label> </div>
+                                    <div className='voteCardFildes'><label className='voteFiledLbl'>{`${endTime}`}</label> </div>
                                     </div>
                             </div>
                             <div className='voteListWrapp' id="style-4">
@@ -142,7 +144,7 @@ export default function Vote({ history, match }) {
                     </div>
                 </div>
             </div>
-            {loading?<div className="loader"/>:null }
+            {loading ? <div className="loader" ><div className='spiner'></div></div> : null}
         </div>
     )
 }

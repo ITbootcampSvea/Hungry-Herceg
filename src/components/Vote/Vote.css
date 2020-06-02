@@ -11,7 +11,6 @@
     background: var(--primary-black);
     display: grid;
     justify-items: center;
-    align-items: center;
     box-shadow: 
     0 -6px var(--primary-black),
     0 6px var(--primary-black), 
@@ -164,16 +163,6 @@
     background: #CC4D43;
 }
 
-.loader{
-    position: fixed;
-    top:0;
-    left:0;
-    width: 100vw;
-    height: 100vh;
-    background-color: black;
-    opacity: 0.5;
-    z-index: 100;
-}
 
 /*iPad*/
 @media (max-width:768px) {

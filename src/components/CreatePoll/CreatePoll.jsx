@@ -19,7 +19,8 @@ let max = 15;
 export default function CreatePoll({ history }) {
 
     const alert = useAlert();
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [initialLoad, setInitialLoad] = useState(true);
 
     const [restaurants, setRestaurants] = useState([]);
 
@@ -34,12 +35,12 @@ export default function CreatePoll({ history }) {
         getRestaurantsAll().then(res => {
             if (isSubscribed) {
                 setRestaurants(res.data.data);
-                setLoading(false);
+                setInitialLoad(false);
             }
 
         }).catch(res => alert.error('Something wrong happened. Try reload or contact support. Details:' + res));
 
-        return () => isSubscribed = false;
+        return () => {isSubscribed = false; hours = 0; minutes = 15; duration = 15; pollName = '';};
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -218,13 +219,16 @@ export default function CreatePoll({ history }) {
                                 </div>
                                 <div className='secondDiv alignedWrapper'>
                                     <div className='newPollInpDiv'>
-                                        <input type="text" placeholder="Search Restaurants or Tags" className='newPollInp' onInput={handleRestaurantName} />
+                                        <input type="text" placeholder="Search Restaurants(name) or Tags(#tag)" className='newPollInp' onInput={handleRestaurantName} disabled = {initialLoad}/>
                                     </div>
                                 </div>
                                 <div className='thirdDiv' >
                                     <div  className='filteredListWrap'>
                                         <div id="style-6" className='alignedWrapperFix'>
-                                        {filterList(restaurants, search, "state show all goes here").map((restaurant, index) => {
+
+                                        {
+                                        initialLoad?<label>Loading...</label>:
+                                        filterList(restaurants, search, "state show all goes here").map((restaurant, index) => {
                                             return (<div className='filteredResColumn' key={"result" + index}>
                                                  <div className='restImgWrapp'>
                                                     <img src='/img/add-restaurant.png' alt='add' title='Add Restaurant' className='addRestImg' id={restaurant._id} onClick={handleAdd} />
@@ -277,7 +281,7 @@ export default function CreatePoll({ history }) {
                         </div>
                     </div>
                 </div>
-                {loading ? <div className="loader" /> : null}
+                {loading ? <div className="loader" ><div className='spiner'></div></div> : null}
             </div >
         </div >
     )

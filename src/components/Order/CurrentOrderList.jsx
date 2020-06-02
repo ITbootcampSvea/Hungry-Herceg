@@ -70,10 +70,10 @@ const CurrentOrderList = ({ orderedMeals, setOrderedMeals, userOrders, total, se
                     return (
                       
                             <div key={orderedItem._id} className='currentOrderTxt'>
-                                <div className='currOrdLblWrapp'> <label>{orderedItem.meal.name}</label></div>
-                                <div className='currOrdLblWrapp'><label>{orderedItem.meal.price}</label></div>
-                                <div className='currOrdLblWrapp'><label>{orderedItem.quantity}</label></div>
-                                <div className='bacisNumberDiv'><label>{orderedItem.note}</label></div>
+                                <div className='currOrdLblWrapp'> <label className='lblCenterAlign'>{orderedItem.meal.name}</label></div>
+                                <div className='currOrdLblWrapp'><label className='lblCenterAlign'>{orderedItem.meal.price}</label></div>
+                                <div className='currOrdLblWrapp'><label className='lblCenterAlign'>{orderedItem.quantity}</label></div>
+                                <div className='bacisNumberDiv'><label className='lblCenterAlign'>{orderedItem.note}</label></div>
                                 <div className='currOrdLblWrapp'><img src='/img/del.png' alt='remove' title='Remove Meal' className='removeOrder' onClick={() => deleteOrderItem(orderedItem._id)} /></div>
                             </div> )
                 })}<hr></hr>  </> : null}
@@ -81,8 +81,8 @@ const CurrentOrderList = ({ orderedMeals, setOrderedMeals, userOrders, total, se
                     return (
                         <div key={orderedMeal.meal} className='currentOrderTxt currOrdLblWrapp '>
                             <div className='currOrdLblWrapp'><label className='lblCenterAlign'>{orderedMeal.name}</label></div>
-                            <div className='currOrdLblWrapp'><label>{orderedMeal.price}</label></div>
-                            <div className='currOrdLblWrapp'><label>{orderedMeal.quantity}</label></div>
+                            <div className='currOrdLblWrapp'><label className='lblCenterAlign'>{orderedMeal.price}</label></div>
+                            <div className='currOrdLblWrapp'><label className='lblCenterAlign'>{orderedMeal.quantity}</label></div>
                             <div className='bacisNumberDiv'><input className='orderQuantity' placeholder="Note" type="text" id={'n' + orderedMeal.meal} /></div>
                             <div><img src='/img/del.png' alt='remove' title='Remove Meal' className='removeOrder' onClick={() => removeMeal(orderedMeal)} /></div>
                         </div>
