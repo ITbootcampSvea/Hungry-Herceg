@@ -219,7 +219,7 @@ export default function CreatePoll({ history }) {
                                 </div>
                                 <div className='secondDiv alignedWrapper'>
                                     <div className='newPollInpDiv'>
-                                        <input type="text" placeholder="Search Restaurants or Tags" className='newPollInp' onInput={handleRestaurantName} disabled = {initialLoad}/>
+                                        <input type="text" placeholder="Search Restaurants(name) or Tags(#tag)" className='newPollInp' onInput={handleRestaurantName} disabled = {initialLoad}/>
                                     </div>
                                 </div>
                                 <div className='thirdDiv' >
