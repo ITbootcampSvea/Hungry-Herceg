@@ -3,6 +3,7 @@ import './Settings.css'
 import { authService } from '../../services/auth.service';
 import { getRestaurantsAll, getUsersAll, createUser, deleteUserById, createRestaurant, deleteRestaurantById, createMeal, deleteMealById } from '../../services/api.service';
 import { useAlert } from 'react-alert';
+import DialogBox from '../DialogBox/DialogBox';
 
 let mealName = '';
 let mealPrice = '';
@@ -13,6 +14,8 @@ let restaurantTags = [];
 let username = '';
 let password = '';
 
+let ID = "";
+
 
 export default function Settings({history}) {
 
@@ -20,6 +23,11 @@ export default function Settings({history}) {
 
     const [loading,setLoading] = useState(true);
     const [reload, setReload] = useState(true);
+
+    const [showDialogRest, setShowDialogRest] = useState(false);
+    const [showDialogMeal, setShowDialogMeal] = useState(false);
+    const [showDialogUser, setShowDialogUser] = useState(false);
+
 
     const [restaurants, setRestaurants] = useState([]);
     const [users, setUsers] = useState([]);
@@ -30,6 +38,7 @@ export default function Settings({history}) {
     const [searchUser, setSearchUser] = useState('');
     const [searchRestaurant, setSearchRestaurant] = useState('');
     const [searchMeals, setSearchMeals] = useState('');
+
 
 
     useEffect(() => {
@@ -95,10 +104,10 @@ export default function Settings({history}) {
 
 
 
-    const handleDeleteRestaurant = (id) => {
+    const handleDeleteRestaurant = () => {
         setSelected_id(null)
         setLoading(true);
-        deleteRestaurantById(id).then(res => {
+        deleteRestaurantById(ID).then(res => {
             if(res.data.message === "Success"){
                 setReload(!reload);
             }
@@ -120,9 +129,9 @@ export default function Settings({history}) {
         setMealsSectionSelected(true)
     }
 
-    const handleDeleteUser = (id) => {
+    const handleDeleteUser = () => {
         setLoading(true);
-        deleteUserById(id).then(res => {
+        deleteUserById(ID).then(res => {
             if(res.data.message === "Success"){
 
                 setReload(!reload);
@@ -131,9 +140,9 @@ export default function Settings({history}) {
             }).catch(err => {alert.error('Something went wrong!'+err);setLoading(false);})
     }
 
-    const handleDeleteMeal = (id) => {
+    const handleDeleteMeal = () => {
         setLoading(true);
-        deleteMealById(id).then(res => {
+        deleteMealById(ID).then(res => {
             if(res.data.message === "Success"){
                 setReload(!reload);
             }
@@ -229,7 +238,7 @@ export default function Settings({history}) {
                             <input className='settingsInput' type="text" placeholder="Search by name..." name="restaurantsearch" onChange={(e) => handleInput(e)} />
                            <div id="style-4" className=' cetColmWrapper'> {getFilteredRestaurants(searchRestaurant, restaurants).map(el => { return <div className='settColm' key={el._id}><div> 
                             <label onClick={() => handleSelectRestaurant(el._id)} className={el._id === selected_id? 'allRestLbl selected': 'allRestLbl'}>{el.name}</label></div><div>
-                            <button className='settDelBtn' onClick={(e) => handleDeleteRestaurant(el._id)}>Delete</button></div></div> })}</div>
+                            <button className='settDelBtn' onClick={(e) => {ID=el._id; setShowDialogRest(true)}}>Delete</button></div></div> })}</div>
                         </div>
                     </div>
                 </div>
@@ -254,7 +263,7 @@ export default function Settings({history}) {
                         <div className='settSubheadingWrapp'> <h3 className='settSubheading'>Meals</h3></div>
                             <input className='settingsInput' type="text" placeholder="Search by name..." name="mealssearch" onChange={(e) => handleInput(e)} />
                         <div id="style-4" className='allSelectMealsWrapp'>  {selected_id !== null ? getFilteredMeals(searchMeals, getMeals(selected_id, restaurants)).map(el => {return <div className='selectedMealsWrapp' key={el._id} >
-                            <div><label className='settUsernameLbl'>{el.name}{' '}{el.price}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteMeal(el._id)}>Delete</button></div></div>}): null}</div>  
+                            <div><label className='settUsernameLbl'>{el.name}{' '}{el.price}</label></div><div><button className='settDelBtn' onClick={(e) => {ID=el._id; setShowDialogMeal(true)}}>Delete</button></div></div>}): null}</div>  
                         </div>
                     </div>
                     </div>
@@ -275,12 +284,15 @@ export default function Settings({history}) {
                             <div  className='settSubheadingWrapp'> <h3 className='settSubheading'>Users</h3></div>
                             <input className='settingsInput' type="text" placeholder="Search by name..." name="usersearch" onChange={(e) => handleInput(e)} />
                            <div id="style-4" className='allFilterUsersWrapp'>{getFilteredUsers(searchUser, users).map(el => { return <div className='settColm' key={el._id}><div> 
-                            <label className='settUsernameLbl '>{el.username}</label></div><div><button className='settDelBtn' onClick={(e) => handleDeleteUser(el._id)}>Delete</button></div></div> })}</div>
+                            <label className='settUsernameLbl '>{el.username}</label></div><div><button className='settDelBtn' onClick={(e) => {ID=el._id; setShowDialogUser(true)}}>Delete</button></div></div> })}</div>
                         </div>
                     </div>
                     </div>
             </div>
             {loading?<div className="loader"/>:null }
+            {showDialogRest?<DialogBox title="Delete retaurant" message="Are you shure you want to delete this restaurant?" onYes={()=>{ setShowDialogRest(false); handleDeleteRestaurant()}} onNo={()=>{setShowDialogRest(false)}} />:null}
+            {showDialogMeal?<DialogBox title="Delete meal" message="Are you shure you want to delete this meal?" onYes={()=>{ setShowDialogMeal(false); handleDeleteMeal()}} onNo={()=>{setShowDialogMeal(false)}} />:null}
+            {showDialogUser?<DialogBox title="Delete user" message="Are you shure you want to delete this user?" onYes={()=>{ setShowDialogUser(false); handleDeleteUser()}} onNo={()=>{setShowDialogUser(false)}} />:null}
         </div>
     )
 }
