@@ -17,6 +17,7 @@ class ActivePolls extends React.Component {
       userId: appStorage.getUserId(),
       allPolls: [],
       loading: true,
+      isClicked: false
     };
   }
 
@@ -36,7 +37,7 @@ class ActivePolls extends React.Component {
     getAllPolls()
       .then((res) => {
         if (this.isSubscribed) {
-          this.setState({ allPolls: res.data.data, loading: false });
+          this.setState({ allPolls: res.data.data, loading: false, isClicked: false });
           this.countdown = window.setTimeout(() => this.setAllPolls(), 3000);
         }
       })
@@ -47,6 +48,7 @@ class ActivePolls extends React.Component {
         }
       });
   };
+
 
   render() {
     let allActivePolls = this.state.allPolls.filter((el) => el.status);
@@ -96,17 +98,21 @@ class ActivePolls extends React.Component {
                 </div>
 
                 <div className='pollIconWrapp'>
-                  <img className="activePollBtnIcons"
-                    src="./img/end1.png"
-                    alt="icon"
-                    title="End Poll"
-                    onClick={() =>
-                      endPollById(poll._id).then((res) => {
-                        if (res.data.message === "Success") {
-                          this.setAllPolls();
-                        }
-                      })
-                    }
+                  
+                                         
+                  <img className="activePollBtnIcons"                  
+                  src="./img/end1.png"
+                  alt="icon"
+                  title="End Poll"
+                  onClick={() => {if(this.state.isClicked === false){
+                    this.setState({ isClicked: true })
+                    endPollById(poll._id).then((res) => {
+                      if (res.data.message === "Success") {
+                        this.setAllPolls();
+                      }
+                    }) 
+                  }                                   
+                    }}
                   />
                 </div>
                 <div className='pollIconWrapp'>
