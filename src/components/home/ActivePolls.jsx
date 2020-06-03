@@ -224,11 +224,7 @@ class ActivePolls extends React.Component {
               {pollsRow}
             </div>
             <div className="card-btn-wrapper">
-              <button className="btn-green">
-                <Link to={"/createpoll"} className="creBtnLink">
-                  Create New Poll
-              </Link>
-              </button>
+              <button className="btn-green" onClick={()=>this.props.history.push("/createpoll")}>Create New Poll</button>
             </div>
 
           <div className='homePageGradient'></div>
