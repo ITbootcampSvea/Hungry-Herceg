@@ -19,7 +19,11 @@ const BasicOrderList = ({filteredMeals,addOrderItems,filterMeals}) => {
         <div id="style-4" className='basicOrderTxtWrapp'>   {filteredMeals.map(meal => {
                 return (
                     <div key={meal._id} className='basicOrderTxt'>
-                        <div >{meal.name}</div>
+                        <div style={{cursor: "pointer"}}
+                            onClick={() => {
+                                let array = [meal];
+                                addOrderItems(array);
+                        }}>{meal.name}</div>
                         <div>{meal.price}</div>
                         <div className='bacisNumberDiv'><input defaultValue="1" min="1" id={'q' + meal._id} type="number" className='orderQuantity' /></div>
                         <div><img src='/img/add-order.png' alt='add' title='Add Order' className='addOrderBtn' onClick={() => {

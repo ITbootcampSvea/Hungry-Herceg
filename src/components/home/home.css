@@ -69,9 +69,14 @@
     display: grid;
     align-items: center;
     justify-items: center;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 3fr 1fr;
 }
 
+.pollInfoWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    cursor: pointer;
+}
 
 .orderLblWrapper{
     display: grid;
@@ -274,8 +279,13 @@
 
 .activeOrdersContent {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 4fr 1fr;
     margin: 1rem 0;
+}
+
+.orderInfoWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
 

@@ -5,8 +5,8 @@ import { endOrderById, getActiveOrders } from "../../services/api.service";
 
 let isSubscribed = false;
 
-const ActiveOrders = () => {
-
+const ActiveOrders = ({history}) => {
+    
     const [loading, setLoading] = useState(true);
     const [activeOrders, setActiveOrders] = useState([]);
     //povlacenje podataka sa back-a
@@ -91,24 +91,26 @@ const ActiveOrders = () => {
                                 return (
 
                                     <div key={order._id} className="activeOrdersContent">
+                                        <div className='orderInfoWrapper' onClick={() => history.push(`/order/${order._id}`)} style={{cursor: "pointer"}}>
                                         <div className='orderLblWrapper'>
-                                            <label className='activeLblinfo'>{order.poll.name}</label>
+                                            <label className='activeLblinfo' style={{cursor: "pointer"}}>{order.poll.name}</label>
                                         </div>
                                         <div className='orderLblWrapper'>
-                                            <label className='activeLblinfo'>{order.restaurant ? order.restaurant.name : ''}</label>
+                                            <label className='activeLblinfo' style={{cursor: "pointer"}}>{order.restaurant ? order.restaurant.name : ''}</label>
                                         </div>
                                         <div className='orderLblWrapper'>
-                                            <label className='activeLblinfo'>{order.poll.author}</label>
+                                            <label className='activeLblinfo' style={{cursor: "pointer"}}>{order.poll.author}</label>
                                         </div>
                                         <div className='orderLblWrapper'>
-                                            <label className='activeLblinfo'>{getEndTime(order.createdAt)}</label>
+                                            <label className='activeLblinfo' style={{cursor: "pointer"}}>{getEndTime(order.createdAt)}</label>
                                         </div>
                                         <div className='orderLblWrapper' >
-                                            {userOrders.length === 0 ? <label className='activeLblinfo'>No Order Yet</label> : <label className='activeLblinfo'>You ordered:{userOrders.map(orderItem => {
+                                            {userOrders.length === 0 ? <label className='activeLblinfo' style={{cursor: "pointer"}}>No Order Yet</label> : <label className='activeLblinfo' style={{cursor: "pointer"}}>You ordered:{userOrders.map(orderItem => {
                                                 return (
-                                                    <li key={orderItem._id}>{orderItem.quantity} x {orderItem.meal.name}</li>
+                                                    <li style={{cursor: "pointer"}} key={orderItem._id}>{orderItem.quantity} x {orderItem.meal.name}</li>
                                                 )
                                             })} </label>}
+                                        </div>
                                         </div>
                                         <div className="btn-icons">
 

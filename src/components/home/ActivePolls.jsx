@@ -22,7 +22,8 @@ class ActivePolls extends React.Component {
       allPolls: [],
       loading: true,
       isClicked: false,
-      showDialog: false
+      showDialog: false,
+      alert: alert
     };
   }
 
@@ -82,17 +83,25 @@ class ActivePolls extends React.Component {
         if (poll.author === this.state.userName) {
           pollsRow.push(
             <div className="activePollRow" key={`my${index}`}>
+              <div className='pollInfoWrapper' onClick={() => {
+                {userVoted ? 
+                      this.props.alert.error('You already voted!')
+                 : 
+                      this.props.history.push(`/vote/${poll._id}`)
+                }
+              }}>
               <div className='activeRow'>
-                <label className="activeLblinfo">{poll.name}</label>
+                <label className="activeLblinfo" style={{cursor: "pointer"}}>{poll.name}</label>
               </div>
               <div className='activeRow'>
-                <label className="activeLblinfo">{poll.author}</label>
+                <label className="activeLblinfo" style={{cursor: "pointer"}}>{poll.author}</label>
               </div>
               <div className='activeRow'>
                 <div>
-                  <label className="activeLblinfo">{`${localDateTime}`}</label>
+                  <label className="activeLblinfo" style={{cursor: "pointer"}}>{`${localDateTime}`}</label>
                 </div>
-              </div >
+              </div>
+              </div>
               <div className="poll-icons">
                 <div className='pollIconWrapp' >
                   {userVoted ? (

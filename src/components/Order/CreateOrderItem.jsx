@@ -136,6 +136,7 @@ const CreateOrderItem = ({ history }) => {
                             orderId={id}
                             refresh={refresh}
                             setRefresh={setRefresh}
+                            history={history}
                         />
                 </div>
             </div>

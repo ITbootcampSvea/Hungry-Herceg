@@ -3,11 +3,10 @@ import './Order.css'
 import { createOrderItem, updateOrderItem, deleteOrderItemById } from '../../services/api.service';
 import { appStorage } from '../../services/storage.service';
 import { useAlert } from 'react-alert';
-import { useHistory } from 'react-router-dom';
 
-const CurrentOrderList = ({ orderedMeals, setOrderedMeals, userOrders, total, setTotal, orderId, refresh, setRefresh }) => {
+const CurrentOrderList = ({ orderedMeals, setOrderedMeals, userOrders, total, setTotal, orderId, refresh, setRefresh, history }) => {
     const alert = useAlert();
-    const history = useHistory();
+
     //brisanje orderItem-a iz state-a
     const removeMeal = (orderedMeal) => {
         let index = orderedMeals.findIndex(el => el === orderedMeal);
