@@ -2,6 +2,7 @@ import React from "react";
 import { appStorage } from "../../services/storage.service";
 import { getFinishedOrders } from "../../services/api.service";
 import { CSVLink } from "react-csv";
+import InfoDialog from "../DialogBox/InfoDialog";
 
 class FinishedOrders extends React.Component {
   constructor(props) {
@@ -10,6 +11,9 @@ class FinishedOrders extends React.Component {
       userName: appStorage.getUser(),
       allOrders: [],
       loading: true,
+      showInfoDialog: false,
+      dialogData: [],
+      restaurant: ''
     };
   }
 
@@ -73,24 +77,26 @@ class FinishedOrders extends React.Component {
               isoDateTime.toLocaleDateString() +
               " " +
               isoDateTime.toLocaleTimeString();
-
+            
             if (order.poll.author === this.state.userName) {
               ordersRow.push(
                 <div className='finishOrderRow' key={`my${index}`}>
+                  <div className='finishOrderInfo' onClick={() => { this.setState({dialogData: order.orderItemList, restaurant: order.restaurant.name}); this.setState({showInfoDialog: true});}}>
                   <div className='finishRow'>
-                    <label className="finLbl">
+                    <label className="finLbl" style={{cursor: "pointer"}}>
                       {order.poll.name}
                     </label>
                   </div>
                   <div className='finishRow'>
-                    <label className="finLbl">
+                    <label className="finLbl" style={{cursor: "pointer"}}>
                       {order.poll.author}
                     </label>
                   </div>
                   <div className='finishRow'>
-                      <label className="finLbl">
+                      <label className="finLbl" style={{cursor: "pointer"}}>
                         {order.restaurant.name}
                       </label>
+                  </div>
                   </div>
                   <div className='finishRow'>
                         <CSVLink
@@ -113,25 +119,28 @@ class FinishedOrders extends React.Component {
                           />
                         </CSVLink>
                   </div>
+                  {this.state.showInfoDialog ? <InfoDialog restaurant={this.state.restaurant} data={this.state.dialogData} onClose={() => this.setState({showInfoDialog: false})} /> : null}
                 </div>
               );
             } else {
               ordersRow.push(
                 <div className='finishOrderRow' key={`s${index}`}>
+                  <div className='finishOrderInfo' onClick={() => { this.setState({dialogData: order.orderItemList, restaurant: order.restaurant.name}); this.setState({showInfoDialog: true});}}>
                   <div className='finishRow'>
-                    <label className="finLbl">
+                    <label className="finLbl" style={{cursor: "pointer"}}>
                       {order.poll.name}
                     </label>
                   </div>
                   <div className='finishRow'>
-                    <label className="finLbl">
+                    <label className="finLbl" style={{cursor: "pointer"}}>
                       {order.poll.author}
                     </label>
                   </div>
                   <div className='finishRow'>
-                    <label className="finLbl">
+                    <label className="finLbl" style={{cursor: "pointer"}}>
                       {order.restaurant.name}
                     </label>
+                  </div>
                   </div>
                   <div className='finishRow'>
                     <label className="finLbl"></label>
